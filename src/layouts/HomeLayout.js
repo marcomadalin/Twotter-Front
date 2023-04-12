@@ -1,19 +1,16 @@
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import { NavLink, Outlet, ScrollRestoration } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import ListItemButton from "@mui/material/ListItemButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import { Button } from "@mui/material";
+import { Button, Icon } from "@mui/material";
 
 export default function HomeLayout() {
   return (
     <div>
       <ScrollRestoration />
-      <Grid container spacing={2}>
+      <Grid container spacing={2} className="defaultGrid">
         <Grid
           item
           container
@@ -23,40 +20,54 @@ export default function HomeLayout() {
           lg={3}
           xl={3}
           alignItems="flex-end"
-          justifyContent="space-around"
+          justifyContent="space-between"
           direction="column"
           sx={{ flexGrow: 1 }}
         >
           <div className={"navDiv"}>
+            <div>
+              <Icon
+                className="whiteIcon"
+                fontSize="large"
+                sx={{ ml: 3, mt: 1 }}
+              >
+                cruelty_free
+              </Icon>
+            </div>
             <List>
               {[
-                "Home",
-                "Explore",
-                "Notification",
-                "Messages",
-                "Saved",
-                "Twitter Blue",
-                "Profile",
-                "More Options",
-              ].map((text, index) => (
+                { name: "Home", icon: "home" },
+                { name: "Explore", icon: "search" },
+                { name: "Notification", icon: "notifications" },
+                { name: "Messages", icon: "mail" },
+                { name: "Saved", icon: "bookmark" },
+                { name: "Twitter Blue", icon: "verified" },
+                { name: "Profile", icon: "person" },
+                { name: "More Options", icon: "settings" },
+              ].map((link, index) => (
                 <ListItem
-                  key={text}
+                  key={index}
                   sx={{
-                    width: 200,
+                    width: 230,
                   }}
                 >
-                  <ListItemButton>
-                    <ListItemIcon>
-                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <NavLink to="/" className="drawerButton">
+                    <ListItemIcon color="white" sx={{ mr: 0 }}>
+                      <Icon className="whiteIcon">{link.icon}</Icon>
                     </ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItemButton>
+                    <ListItemText primary={link.name} sx={{ ml: 0 }} />
+                  </NavLink>
                 </ListItem>
               ))}
             </List>
             <Button
+              variant="contained"
+              size="large"
               sx={{
-                width: 200,
+                width: 230,
+                height: 50,
+                borderRadius: 20,
+                fontWeight: "bold",
               }}
             >
               Twitt

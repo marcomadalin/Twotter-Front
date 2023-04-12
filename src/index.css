@@ -1,5 +1,31 @@
+:root {
+    --gray: #16181c;
+    --blue: #1d9bf0;
+}
+
 .navDiv {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
 }
+
+.defaultGrid {
+    height: 100vh;
+}
+
+.whiteIcon {
+    color: white;
+}
+
+.drawerButton {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px 8px 15px;
+}
+
+.drawerButton:hover {
+    border-radius: 20px;
+    background: var(--gray);
+    cursor: pointer;
+}
+
