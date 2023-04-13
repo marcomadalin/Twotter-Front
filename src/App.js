@@ -6,8 +6,14 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/Home";
-import HomeLayout from "./layouts/HomeLayout";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import Explore from "./pages/Explore";
+import MainLayout from "./layouts/MainLayout";
+import TwitterBlue from "./pages/TwitterBlue";
+import Profile from "./pages/Profile";
+import Bookmarks from "./pages/Bookmarks";
+import Messages from "./pages/Messages";
+import {Notifications} from "@mui/icons-material";
 
 const themeLight = createTheme({
   palette: {
@@ -36,8 +42,14 @@ const themeDark = createTheme({
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<HomeLayout />}>
-      <Route index element={<Home />} />
+    <Route path="/" element={<MainLayout />}>
+      <Route path="home" element={<Home />} />
+      <Route path="explore" element={<Explore />} />
+      <Route path="notifications" element={<Notifications />} />
+      <Route path="messages" element={<Messages />} />
+      <Route path="bookmarks" element={<Bookmarks />} />
+      <Route path="twitter_blue" element={<TwitterBlue />} />
+      <Route path="profile" element={<Profile />} />
     </Route>
   )
 );

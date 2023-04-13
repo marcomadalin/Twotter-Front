@@ -29,3 +29,25 @@
     cursor: pointer;
 }
 
+a.drawerButton {
+    color: white;
+    text-decoration: none;
+}
+
+a.drawerButton.active span {
+    font-weight: 700;
+}
+
+.userWrapper {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px 8px 15px;
+    width: 250px;
+    height: 80px;
+}
+
+.userWrapper:hover {
+    border-radius: 60px;
+    background: var(--gray);
+    cursor: pointer;
+}
