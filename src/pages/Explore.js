@@ -1,8 +1,3 @@
-
 export default function Explore() {
-    return(
-        <div>
-            Hello you area at Explore
-        </div>
-    )
+  return <div>Hello you are at Explore</div>;
 }

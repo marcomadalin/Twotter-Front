@@ -1,8 +1,3 @@
-
 export default function Messages() {
-    return(
-        <div>
-            Hello you area at Messages
-        </div>
-    )
+  return <div>Hello you are at Messages</div>;
 }

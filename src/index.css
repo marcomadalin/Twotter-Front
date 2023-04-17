@@ -1,8 +1,3 @@
-:root {
-    --gray: #16181c;
-    --blue: #1d9bf0;
-}
-
 .navDiv {
     display: flex;
     flex-direction: column;
@@ -13,41 +8,31 @@
     height: 100vh;
 }
 
-.whiteIcon {
-    color: white;
-}
-
 .drawerButton {
     display: flex;
     align-items: center;
     padding: 8px 15px 8px 15px;
-}
-
-.drawerButton:hover {
     border-radius: 20px;
-    background: var(--gray);
     cursor: pointer;
 }
-
-a.drawerButton {
-    color: white;
-    text-decoration: none;
-}
-
-a.drawerButton.active span {
+.drawerButton.active span {
     font-weight: 700;
 }
 
-.userWrapper {
+#userWrapper {
     display: flex;
     align-items: center;
+    border-radius: 60px;
     padding: 8px 15px 8px 15px;
     width: 250px;
     height: 80px;
+    text-transform: none;
 }
 
-.userWrapper:hover {
-    border-radius: 60px;
-    background: var(--gray);
-    cursor: pointer;
+.userNames {
+    display: flex;
+    margin: 0 0 0 0;
+    justify-content: flex-start;
 }
+
+

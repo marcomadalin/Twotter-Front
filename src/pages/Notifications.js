@@ -1,8 +1,3 @@
-
 export default function Notifications() {
-    return(
-        <div>
-            Hello you area at Notifications
-        </div>
-    )
+  return <div>Hello you are at Notifications</div>;
 }
