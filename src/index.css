@@ -11,10 +11,11 @@
 .drawerButton {
     display: flex;
     align-items: center;
-    padding: 8px 15px 8px 15px;
-    border-radius: 20px;
+    padding: 8px 15px 8px 15px !important;
+    border-radius: 20px !important;
     cursor: pointer;
 }
+
 .drawerButton.active span {
     font-weight: 700;
 }

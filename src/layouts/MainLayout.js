@@ -49,13 +49,18 @@ export default function MainLayout() {
           sx={{ flexGrow: 1 }}
         >
           <div className={"navDiv"}>
-            <div>
-              <Icon
-                fontSize="large"
-                sx={{ ml: 1, mt: 1, color: theme.palette.icon.main }}
-              >
-                cruelty_free
-              </Icon>
+            <div style={{ width: 250, paddingLeft: 10, paddingRight: 0 }}>
+              <NavLink to="home">
+                <ListItemIcon sx={{ mr: 0 }}>
+                  <Icon
+                    fontSize="large"
+                    className={classes.appIcon}
+                    sx={{ color: theme.palette.icon.main, mt: 1, mb: 0 }}
+                  >
+                    cruelty_free
+                  </Icon>
+                </ListItemIcon>
+              </NavLink>
             </div>
             <List>
               {[
@@ -104,12 +109,22 @@ export default function MainLayout() {
                 </ListItem>
               ))}
               <ListItem sx={{ width: 250, px: 0 }}>
-                <div className={`${classes.link} drawerButton`}>
+                <Button
+                  className={`${classes.link} drawerButton`}
+                  sx={{
+                    color: theme.palette.text.primary,
+                    "&:hover": {
+                      backgroundColor: theme.palette.secondary.main,
+                    },
+                  }}
+                  disableRipple
+                  disableFocusRipple
+                >
                   <ListItemIcon sx={{ mr: 0 }}>
                     <Icon sx={{ color: theme.palette.icon.main }}>pending</Icon>
                   </ListItemIcon>
                   <ListItemText primary="More settings" sx={{ ml: 0 }} />
-                </div>
+                </Button>
               </ListItem>
             </List>
             <Button
@@ -161,7 +176,7 @@ export default function MainLayout() {
               <MenuItem onClick={handleClose}>Add existing account</MenuItem>
               <MenuItem onClick={handleClose}>
                 <div>
-                  <p style={{ margin: 1 }}>Logout form</p>
+                  <p style={{ margin: 1 }}>Logout from</p>
                   <p style={{ margin: 0 }}>@username</p>
                 </div>
               </MenuItem>
