@@ -16,6 +16,13 @@
     cursor: pointer;
 }
 
+.settingsButton {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
 .drawerButton.active span {
     font-weight: 700;
 }

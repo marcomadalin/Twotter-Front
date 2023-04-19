@@ -18,17 +18,29 @@ import { useState } from "react";
 import { useStyles } from "../styles.js";
 
 export default function MainLayout() {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [anchorProfile, setAnchorProfile] = useState(null);
+  const openProfile = Boolean(anchorProfile);
+
+  const [anchorSettings, setAnchorSettings] = useState(null);
+  const openSettings = Boolean(anchorSettings);
+
   const theme = useTheme();
   const classes = useStyles();
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClickProfile = (event) => {
+    setAnchorProfile(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const closeProfile = () => {
+    setAnchorProfile(null);
+  };
+
+  const handleClickSettings = (event) => {
+    setAnchorSettings(event.currentTarget);
+  };
+
+  const closeSettings = () => {
+    setAnchorSettings(null);
   };
 
   return (
@@ -63,8 +75,22 @@ export default function MainLayout() {
               </NavLink>
             </div>
             <List>
+              <ListItem
+                sx={{
+                  width: 250,
+                  px: 0,
+                }}
+              >
+                <NavLink to="home" className={`${classes.link} drawerButton`}>
+                  <ListItemIcon sx={{ mr: 0 }}>
+                    <Badge color="primary" variant="dot">
+                      <Icon sx={{ color: theme.palette.icon.main }}>home</Icon>
+                    </Badge>
+                  </ListItemIcon>
+                  <ListItemText primary="Home" sx={{ ml: 0 }} />
+                </NavLink>
+              </ListItem>
               {[
-                { name: "Home", icon: "home", path: "home" },
                 { name: "Explore", icon: "search", path: "explore" },
                 {
                   name: "Notifications",
@@ -110,6 +136,7 @@ export default function MainLayout() {
               ))}
               <ListItem sx={{ width: 250, px: 0 }}>
                 <Button
+                  onClick={handleClickSettings}
                   className={`${classes.link} drawerButton`}
                   sx={{
                     color: theme.palette.text.primary,
@@ -125,6 +152,61 @@ export default function MainLayout() {
                   </ListItemIcon>
                   <ListItemText primary="More settings" sx={{ ml: 0 }} />
                 </Button>
+                <Menu
+                  className={classes.settingsMenu}
+                  anchorEl={anchorSettings}
+                  open={openSettings}
+                  onClose={closeSettings}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  transformOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                >
+                  <MenuItem onClick={closeSettings}>
+                    <NavLink
+                      to="home"
+                      className={`${classes.link} settingsButton`}
+                    >
+                      <ListItemIcon>
+                        <Icon sx={{ color: theme.palette.icon.main }}>
+                          speaker_notes
+                        </Icon>
+                      </ListItemIcon>
+                      <ListItemText primary="Themes" />
+                    </NavLink>
+                  </MenuItem>
+                  <MenuItem onClick={closeSettings}>
+                    <NavLink
+                      to="home"
+                      className={`${classes.link} settingsButton`}
+                    >
+                      <ListItemIcon>
+                        <Icon sx={{ color: theme.palette.icon.main }}>
+                          list_alt
+                        </Icon>
+                      </ListItemIcon>
+                      <ListItemText primary="Lists" />
+                    </NavLink>
+                  </MenuItem>
+                  <MenuItem onClick={closeSettings}>
+                    <NavLink
+                      to="home"
+                      className={`${classes.link} settingsButton`}
+                    >
+                      <ListItemIcon>
+                        <Icon sx={{ color: theme.palette.icon.main }}>
+                          group
+                        </Icon>
+                      </ListItemIcon>
+                      <ListItemText primary="Twitter circle" />
+                    </NavLink>
+                  </MenuItem>
+                  <Divider light className={classes.settingsDivider} />
+                </Menu>
               </ListItem>
             </List>
             <Button
@@ -144,7 +226,7 @@ export default function MainLayout() {
           <div>
             <Button
               id="userWrapper"
-              onClick={handleClick}
+              onClick={handleClickProfile}
               disableRipple
               disableFocusRipple
               sx={{
@@ -166,15 +248,21 @@ export default function MainLayout() {
             <Menu
               id="usernameMenu"
               className={classes.userMenu}
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              anchorOrigin={{ vertical: "top", horizontal: "center" }}
-              transformOrigin={{ vertical: "top", horizontal: "center" }}
+              anchorEl={anchorProfile}
+              open={openProfile}
+              onClose={closeProfile}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
             >
               <Divider light className={classes.blurDivider} />
-              <MenuItem onClick={handleClose}>Add existing account</MenuItem>
-              <MenuItem onClick={handleClose}>
+              <MenuItem onClick={closeProfile}>Add existing account</MenuItem>
+              <MenuItem onClick={closeProfile}>
                 <div>
                   <p style={{ margin: 1 }}>Logout from</p>
                   <p style={{ margin: 0 }}>@username</p>

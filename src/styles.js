@@ -24,8 +24,17 @@ export const useStyles = makeStyles((theme) => ({
   },
   blurDivider: {
     height: "1px",
-    backgroundColor: "rgba(255, 255, 255, 0.35)",
+    backgroundColor: theme.palette.blur.main,
     boxShadow: theme.palette.boxShadow.main,
+    marginTop: "5px !important",
+    marginBottom: "5px !important",
+  },
+  settingsDivider: {
+    height: "1px",
+    width: "90%",
+    marginLeft: "auto !important",
+    marginRight: "auto !important",
+    backgroundColor: theme.palette.blur.main,
     marginTop: "5px !important",
     marginBottom: "5px !important",
   },
@@ -34,7 +43,15 @@ export const useStyles = makeStyles((theme) => ({
       backgroundColor: "black",
       width: "250px",
       borderRadius: "20px",
-      marginTop: "-85px",
+      boxShadow: theme.palette.boxShadow.main,
+    },
+  },
+
+  settingsMenu: {
+    "& .MuiPaper-root": {
+      backgroundColor: "black",
+      width: "250px",
+      borderRadius: "20px",
       boxShadow: theme.palette.boxShadow.main,
     },
   },

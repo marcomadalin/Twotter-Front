@@ -20,6 +20,9 @@ const themeDark = createTheme({
     boxShadow: {
       main: "0 0 6px 1px rgba(255, 255, 255, 0.35)",
     },
+    blur: {
+      main: "rgba(255, 255, 255, 0.35)",
+    },
   },
 });
 
