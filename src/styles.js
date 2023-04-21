@@ -16,7 +16,7 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: "50%",
     width: "60px !important",
     height: "60px !important",
-    marginLeft: "-10px !important",
+    marginLeft: "-15px !important",
     marginBottom: "-10px !important",
     "&:hover": {
       backgroundColor: theme.palette.secondary.main,
@@ -46,13 +46,39 @@ export const useStyles = makeStyles((theme) => ({
       boxShadow: theme.palette.boxShadow.main,
     },
   },
-
+  twittButtonBig: {
+    boxSizing: "borderBox",
+    width: 250,
+    height: 50,
+    borderRadius: "30px !important",
+    fontWeight: "bold",
+  },
+  twittButtonSmall: {
+    height: "50px !important",
+    width: "50px !important",
+    backgroundColor: theme.palette.primary.main,
+    background: "solid",
+  },
   settingsMenu: {
     "& .MuiPaper-root": {
       backgroundColor: "black",
       width: "250px",
       borderRadius: "20px",
       boxShadow: theme.palette.boxShadow.main,
+    },
+    "& .MuiAccordion-root": {
+      borderRadius: "0px",
+      boxShadow: "none",
+    },
+    "& .Mui-expanded": {
+      marginBottom: "0 !important",
+      marginTop: "0 !important",
+    },
+  },
+  settingsHover: {
+    height: "50px !important",
+    "&:hover": {
+      backgroundColor: `${theme.palette.secondary.main} !important`,
     },
   },
 }));

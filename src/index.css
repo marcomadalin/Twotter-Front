@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    min-width: 60px;
 }
 
 .defaultGrid {
@@ -16,6 +17,17 @@
     cursor: pointer;
 }
 
+.drawerButtonSmall {
+    display: flex !important;
+    align-items: center !important;
+    padding: 12px 12px 12px 12px !important;
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 0 !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+}
+
 .settingsButton {
     height: 30px;
     display: flex;
@@ -27,15 +39,28 @@
     font-weight: 700;
 }
 
-#userWrapper {
-    display: flex;
-    align-items: center;
-    border-radius: 60px;
-    padding: 8px 15px 8px 15px;
-    width: 250px;
-    height: 80px;
-    text-transform: none;
+.userWrapper {
+    display: flex !important;
+    align-items: center !important;
+    border-radius: 60px !important;
+    padding: 8px 15px 8px 15px !important;
+    width: 250px !important;
+    height: 80px !important;
+    text-transform: none !important;
 }
+
+.userWrapperSmall {
+    display: flex !important;
+    align-items: center !important;
+    border-radius: 50% !important;
+    padding: 0 0 0 0 !important;
+    min-width: 0 !important;
+    width: 70px;
+    height: 70px;
+    text-transform: none !important;
+    margin-right: 5px !important;
+}
+
 
 .userNames {
     display: flex;

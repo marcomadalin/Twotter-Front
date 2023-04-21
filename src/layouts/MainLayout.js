@@ -4,7 +4,11 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Avatar,
   Badge,
   Button,
@@ -12,6 +16,7 @@ import {
   Icon,
   Menu,
   MenuItem,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { useState } from "react";
@@ -25,6 +30,7 @@ export default function MainLayout() {
   const openSettings = Boolean(anchorSettings);
 
   const theme = useTheme();
+  const matches = useMediaQuery("(min-width:1200px)");
   const classes = useStyles();
 
   const handleClickProfile = (event) => {
@@ -51,8 +57,8 @@ export default function MainLayout() {
           item
           container
           xs={1}
-          sm={2}
-          md={3}
+          sm={1}
+          md={2}
           lg={3}
           xl={3}
           alignItems="flex-end"
@@ -60,8 +66,8 @@ export default function MainLayout() {
           direction="column"
           sx={{ flexGrow: 1 }}
         >
-          <div className={"navDiv"}>
-            <div style={{ width: 250, paddingLeft: 10, paddingRight: 0 }}>
+          <div className="navDiv">
+            <div style={{ paddingLeft: 10, paddingRight: 0 }}>
               <NavLink to="home">
                 <ListItemIcon sx={{ mr: 0 }}>
                   <Icon
@@ -77,17 +83,21 @@ export default function MainLayout() {
             <List>
               <ListItem
                 sx={{
-                  width: 250,
                   px: 0,
                 }}
               >
-                <NavLink to="home" className={`${classes.link} drawerButton`}>
+                <NavLink
+                  to="home"
+                  className={`${classes.link} ${
+                    matches ? "drawerButton" : "drawerButtonSmall"
+                  }`}
+                >
                   <ListItemIcon sx={{ mr: 0 }}>
                     <Badge color="primary" variant="dot">
                       <Icon sx={{ color: theme.palette.icon.main }}>home</Icon>
                     </Badge>
                   </ListItemIcon>
-                  <ListItemText primary="Home" sx={{ ml: 0 }} />
+                  {matches && <ListItemText primary="Home" sx={{ ml: 0 }} />}
                 </NavLink>
               </ListItem>
               {[
@@ -109,13 +119,14 @@ export default function MainLayout() {
                 <ListItem
                   key={index}
                   sx={{
-                    width: 250,
                     px: 0,
                   }}
                 >
                   <NavLink
                     to={link.path}
-                    className={`${classes.link} drawerButton`}
+                    className={`${classes.link} ${
+                      matches ? "drawerButton" : "drawerButtonSmall"
+                    }`}
                   >
                     <ListItemIcon sx={{ mr: 0 }}>
                       {link.name === "Notifications" ? (
@@ -130,14 +141,18 @@ export default function MainLayout() {
                         </Icon>
                       )}
                     </ListItemIcon>
-                    <ListItemText primary={link.name} sx={{ ml: 0 }} />
+                    {matches && (
+                      <ListItemText primary={link.name} sx={{ ml: 0 }} />
+                    )}
                   </NavLink>
                 </ListItem>
               ))}
-              <ListItem sx={{ width: 250, px: 0 }}>
+              <ListItem sx={{ px: 0 }}>
                 <Button
                   onClick={handleClickSettings}
-                  className={`${classes.link} drawerButton`}
+                  className={`${classes.link} ${
+                    matches ? "drawerButton" : "drawerButtonSmall"
+                  }`}
                   sx={{
                     color: theme.palette.text.primary,
                     "&:hover": {
@@ -148,9 +163,23 @@ export default function MainLayout() {
                   disableFocusRipple
                 >
                   <ListItemIcon sx={{ mr: 0 }}>
-                    <Icon sx={{ color: theme.palette.icon.main }}>pending</Icon>
+                    <Icon
+                      sx={
+                        matches
+                          ? { color: theme.palette.icon.main }
+                          : {
+                              color: theme.palette.icon.main,
+                              mr: "auto",
+                              ml: "auto",
+                            }
+                      }
+                    >
+                      pending
+                    </Icon>
                   </ListItemIcon>
-                  <ListItemText primary="More settings" sx={{ ml: 0 }} />
+                  {matches && (
+                    <ListItemText primary="More settings" sx={{ ml: 0 }} />
+                  )}
                 </Button>
                 <Menu
                   className={classes.settingsMenu}
@@ -166,7 +195,10 @@ export default function MainLayout() {
                     horizontal: "left",
                   }}
                 >
-                  <MenuItem onClick={closeSettings}>
+                  <MenuItem
+                    onClick={closeSettings}
+                    className={classes.settingsHover}
+                  >
                     <NavLink
                       to="home"
                       className={`${classes.link} settingsButton`}
@@ -179,7 +211,10 @@ export default function MainLayout() {
                       <ListItemText primary="Themes" />
                     </NavLink>
                   </MenuItem>
-                  <MenuItem onClick={closeSettings}>
+                  <MenuItem
+                    onClick={closeSettings}
+                    className={classes.settingsHover}
+                  >
                     <NavLink
                       to="home"
                       className={`${classes.link} settingsButton`}
@@ -192,7 +227,10 @@ export default function MainLayout() {
                       <ListItemText primary="Lists" />
                     </NavLink>
                   </MenuItem>
-                  <MenuItem onClick={closeSettings}>
+                  <MenuItem
+                    onClick={closeSettings}
+                    className={classes.settingsHover}
+                  >
                     <NavLink
                       to="home"
                       className={`${classes.link} settingsButton`}
@@ -206,44 +244,116 @@ export default function MainLayout() {
                     </NavLink>
                   </MenuItem>
                   <Divider light className={classes.settingsDivider} />
+                  <Accordion>
+                    <AccordionSummary
+                      className={classes.settingsHover}
+                      expandIcon={
+                        <ExpandMoreIcon
+                          sx={{ color: theme.palette.icon.main }}
+                        />
+                      }
+                      aria-controls="analytics"
+                      id="creators"
+                    >
+                      Creator study
+                    </AccordionSummary>
+                    <AccordionDetails
+                      className={classes.settingsHover}
+                      sx={{ display: "flex" }}
+                    >
+                      <ListItemIcon>
+                        <Icon sx={{ color: theme.palette.icon.main }}>
+                          monitoring
+                        </Icon>
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Analytics"
+                        sx={{ ml: "-15px !important" }}
+                      />
+                    </AccordionDetails>
+                  </Accordion>
+                  <Accordion>
+                    <AccordionSummary
+                      className={classes.settingsHover}
+                      expandIcon={
+                        <ExpandMoreIcon
+                          sx={{ color: theme.palette.icon.main }}
+                        />
+                      }
+                      aria-controls="ads"
+                      id="professionals"
+                    >
+                      Professional tools
+                    </AccordionSummary>
+                    <AccordionDetails
+                      className={classes.settingsHover}
+                      sx={{ display: "flex" }}
+                    >
+                      <ListItemIcon>
+                        <Icon sx={{ color: theme.palette.icon.main }}>
+                          ads_click
+                        </Icon>
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Twitter ads"
+                        sx={{ ml: "-15px !important" }}
+                      />
+                    </AccordionDetails>
+                  </Accordion>
                 </Menu>
               </ListItem>
             </List>
-            <Button
-              variant="contained"
-              size="large"
-              sx={{
-                boxSizing: "borderBox",
-                width: 250,
-                height: 50,
-                borderRadius: 20,
-                fontWeight: "bold",
-              }}
-            >
-              Twit
-            </Button>
+            {matches ? (
+              <Button
+                variant="contained"
+                size="large"
+                className={classes.twittButtonBig}
+              >
+                Twitt
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{
+                  borderRadius: "50%",
+                  width: "50px",
+                  height: "50px",
+                  padding: "0 0 0 0",
+                  minWidth: 0,
+                }}
+              >
+                <Icon sx={{ color: theme.palette.icon.main }}>rate_review</Icon>
+              </Button>
+            )}
           </div>
           <div>
             <Button
-              id="userWrapper"
+              className={matches ? "userWrapper" : "userWrapperSmall"}
               onClick={handleClickProfile}
               disableRipple
               disableFocusRipple
               sx={{
-                color: theme.palette.text.primary,
+                color: `${theme.palette.text.primary} !important`,
                 "&:hover": {
                   backgroundColor: theme.palette.secondary.main,
                 },
               }}
             >
               <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-              <div style={{ marginLeft: 15 }}>
-                <p className="userNames">Name Surname</p>
-                <p className="userNames">@username</p>
-              </div>
-              <Icon sx={{ marginLeft: "auto", color: theme.palette.icon.main }}>
-                more_horiz
-              </Icon>
+              {matches && (
+                <div style={{ marginLeft: 15 }}>
+                  <p className="userNames">Name Surname</p>
+                  <p className="userNames">@username</p>
+                </div>
+              )}
+              {matches && (
+                <Icon
+                  sx={{ marginLeft: "auto", color: theme.palette.icon.main }}
+                >
+                  more_horiz
+                </Icon>
+              )}
             </Button>
             <Menu
               id="usernameMenu"
