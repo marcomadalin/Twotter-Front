@@ -1,12 +1,12 @@
+.defaultGrid {
+    min-height: 100% !important;
+    margin: 0;
+}
+
 .navDiv {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    min-width: 60px;
-}
-
-.defaultGrid {
-    height: 100vh;
 }
 
 .drawerButton {
@@ -66,6 +66,11 @@
     display: flex;
     margin: 0 0 0 0;
     justify-content: flex-start;
+}
+
+#homeContainer {
+    box-sizing: border-box !important;
+    height: 100vh;
 }
 
 

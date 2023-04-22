@@ -56,15 +56,15 @@ export default function MainLayout() {
         <Grid
           item
           container
-          xs={1}
-          sm={1}
+          xs={2}
+          sm={2}
           md={2}
           lg={3}
           xl={3}
           alignItems="flex-end"
           justifyContent="space-between"
           direction="column"
-          sx={{ flexGrow: 1 }}
+          sx={{ flexGrow: 1, pr: 2, pb: 1, pt: "0px !important" }}
         >
           <div className="navDiv">
             <div style={{ paddingLeft: 10, paddingRight: 0 }}>
@@ -381,7 +381,7 @@ export default function MainLayout() {
             </Menu>
           </div>
         </Grid>
-        <Grid item xs={11} sm={10} md={9} lg={9} xl={9} sx={{ flexGrow: 1 }}>
+        <Grid item xs={10} sm={10} md={10} lg={9} xl={9} sx={{ flexGrow: 1 }}>
           <Outlet />
         </Grid>
       </Grid>

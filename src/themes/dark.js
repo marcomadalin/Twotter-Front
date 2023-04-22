@@ -8,6 +8,9 @@ const themeDark = createTheme({
     secondary: {
       main: "#16181c",
     },
+    border: {
+      main: "#FFFFFF",
+    },
     text: {
       primary: "#ffffff",
     },
