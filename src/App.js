@@ -1,6 +1,7 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Navigate,
   Route,
   RouterProvider,
 } from "react-router-dom";
@@ -18,14 +19,17 @@ import Notifications from "./pages/Notifications";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<MainLayout />}>
-      <Route path="home" element={<Home />} />
-      <Route path="explore" element={<Explore />} />
-      <Route path="notifications" element={<Notifications />} />
-      <Route path="messages" element={<Messages />} />
-      <Route path="bookmarks" element={<Bookmarks />} />
-      <Route path="twitter_blue" element={<TwitterBlue />} />
-      <Route path="profile" element={<Profile />} />
+    <Route>
+      <Route element={<MainLayout />}>
+        <Route path="home" element={<Home />} />
+        <Route path="explore" element={<Explore />} />
+        <Route path="notifications" element={<Notifications />} />
+        <Route path="messages" element={<Messages />} />
+        <Route path="bookmarks" element={<Bookmarks />} />
+        <Route path="twitter_blue" element={<TwitterBlue />} />
+        <Route path="profile" element={<Profile />} />
+      </Route>
+      <Route path="*" element={<Navigate to="home" />} />
     </Route>
   )
 );

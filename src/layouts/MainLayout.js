@@ -64,7 +64,13 @@ export default function MainLayout() {
           alignItems="flex-end"
           justifyContent="space-between"
           direction="column"
-          sx={{ flexGrow: 1, pr: 2, pb: 1, pt: "0px !important" }}
+          sx={{
+            flexGrow: 1,
+            pr: 2,
+            pb: 1,
+            pt: "0px !important",
+            height: "100vh !important",
+          }}
         >
           <div className="navDiv">
             <div style={{ paddingLeft: 10, paddingRight: 0 }}>
