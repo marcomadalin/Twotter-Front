@@ -17,6 +17,9 @@ const themeDark = createTheme({
     background: {
       default: "#000000",
     },
+    opacityBackground: {
+      main: "rgba(0, 0, 0, 0.8)",
+    },
     icon: {
       main: "#FFFFFF",
     },

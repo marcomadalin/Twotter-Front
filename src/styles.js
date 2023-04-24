@@ -1,5 +1,7 @@
 import { makeStyles } from "@mui/styles";
 
+const marginsFeed = "10px !important";
+
 export const useStyles = makeStyles((theme) => ({
   link: {
     color: theme.palette.text.primary,
@@ -80,5 +82,43 @@ export const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: `${theme.palette.secondary.main} !important`,
     },
+  },
+  home: {
+    color: `${theme.palette.text.primary} !important`,
+    background: "transparent !important",
+    textTransform: "none !important",
+    fontWeight: "bold !important",
+    fontSize: "20px !important",
+    width: "100% !important",
+    display: "flex !important",
+    justifyContent: "flex-start !important",
+    marginBottom: "20px !important",
+    marginLeft: marginsFeed,
+    "&:hover": {
+      backgroundColor: "transparent !important",
+    },
+  },
+  feedGrid: {
+    borderLeft: `1px solid ${theme.palette.blur.main}`,
+    borderRight: `1px solid ${theme.palette.blur.main}`,
+    padding: "0px !important",
+  },
+  feedBox: {
+    display: "flex",
+    flexDirection: "column",
+    zIndex: "900 !important",
+    position: "relative",
+  },
+  tabBox: {
+    backdropFilter: "blur(6px)",
+    position: "sticky",
+    top: 0,
+    zIndex: "1000 !important",
+    height: "130px !important",
+    display: "flex !important",
+    flexDirection: "column !important",
+    justifyContent: "space-between !important",
+    borderBottom: `1px solid ${theme.palette.blur.main}`,
+    width: "inherit",
   },
 }));
