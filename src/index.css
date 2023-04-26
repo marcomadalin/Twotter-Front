@@ -92,6 +92,7 @@
 #homeContainer {
     box-sizing: border-box !important;
     height: 100vh;
+    padding: 0 0 0 0;
 }
 
 #tabs {

@@ -1,20 +1,12 @@
-import { Box, Button, Tab, Tabs, useTheme } from "@mui/material";
-import { useStyles } from "../styles";
+import { Box, Button, Tab, Tabs, useMediaQuery } from "@mui/material";
+import { homeStyles } from "../styles/homeStyles";
 import Grid from "@mui/material/Grid";
-import * as PropTypes from "prop-types";
 import { useState } from "react";
 
-function TabPanel(props) {
-  return null;
-}
-
-TabPanel.propTypes = {
-  index: PropTypes.number,
-  children: PropTypes.node,
-};
 export default function Home() {
-  const theme = useTheme();
-  const classes = useStyles();
+  const classes = homeStyles();
+  const renderGrid = useMediaQuery("(min-width:850px)");
+  const renderContacts = useMediaQuery("(min-width:1300px)");
 
   const [activeTab, setActiveTab] = useState(0);
 
@@ -30,10 +22,21 @@ export default function Home() {
   }
 
   return (
-    <Grid container id="homeContainer" spacing={2} sx={{ overflowY: "auto" }}>
-      <Grid item xs={6} className={classes.feedGrid}>
+    <Grid
+      container
+      id="homeContainer"
+      alignItems="flex-start"
+      justifyContent="flex-start"
+      direction="row"
+      sx={{ overflowY: "auto" }}
+    >
+      <Grid item className={classes.feedGrid}>
         <Box className={classes.tabBox}>
-          <Button disableRipple disableFocusRipple className={classes.home}>
+          <Button
+            disableRipple
+            disableFocusRipple
+            className={classes.homeButtonFeed}
+          >
             Home
           </Button>
           <Tabs
@@ -59,18 +62,62 @@ export default function Home() {
         {activeTab === 0 && <Box className={classes.feedBox}>For you feed</Box>}
         {activeTab === 1 && (
           <Box className={classes.feedBox}>
-            Following feed Following feed Following feed Following feedFollowing
-            feed Following feedFollowing feedFollowing feed Following feed
-            Following feed Following feedFollowing feedv Following
-            feedvFollowing feedv Following feed Following feed Following feed
-            Following feed Following feed Following feed Following feed
-            Following feed Following feedFollowing feed Following feed
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
+            <p>lorem ipsum</p>
           </Box>
         )}
       </Grid>
-      <Grid item xs={6} sx={{ p: "0px !important" }}>
-        Hello this is the contacts
-      </Grid>
+      {renderGrid && (
+        <Grid item className={classes.contactsGrid}>
+          {renderContacts && <p>Hello this is contacts</p>}
+        </Grid>
+      )}
     </Grid>
   );
 }
