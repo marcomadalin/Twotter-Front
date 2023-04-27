@@ -2,6 +2,7 @@ import { Box, Button, Tab, Tabs, useMediaQuery } from "@mui/material";
 import { homeStyles } from "../styles/homeStyles";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
+import SideBar from "../components/SideBar";
 
 export default function Home() {
   const classes = homeStyles();
@@ -49,12 +50,12 @@ export default function Home() {
           >
             <Tab
               label="For you"
-              sx={{ textTransform: "none" }}
+              className={classes.feedTab}
               {...a11yProps(0)}
             />
             <Tab
               label="Following"
-              sx={{ textTransform: "none" }}
+              className={classes.feedTab}
               {...a11yProps(1)}
             />
           </Tabs>
@@ -115,7 +116,7 @@ export default function Home() {
       </Grid>
       {renderGrid && (
         <Grid item className={classes.contactsGrid}>
-          {renderContacts && <p>Hello this is contacts</p>}
+          {renderContacts && <SideBar />}
         </Grid>
       )}
     </Grid>

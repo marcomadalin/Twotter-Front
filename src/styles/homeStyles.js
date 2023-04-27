@@ -51,5 +51,17 @@ export const homeStyles = makeStyles((theme) => ({
     flexShrink: 1,
     position: "sticky !important",
     top: 0,
+    overflowY: "auto !important",
+    scrollbarWidth: "none !important",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+    "-msOverflowStyle": "none",
+  },
+  feedTab: {
+    textTransform: "none !important",
+    "&:hover": {
+      backgroundColor: theme.palette.blurTabs.main,
+    },
   },
 }));
