@@ -6,6 +6,8 @@ export const sideBarStyles = makeStyles((theme) => ({
     margin: "20px 0 0 20px",
   },
   search: {
+    marginLeft: 0,
+    width: "100%",
     boxSizing: "border-box",
     borderRadius: "60px",
     height: "40px",
@@ -16,8 +18,14 @@ export const sideBarStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     marginRight: "20px",
+    position: "relative",
+    "&:focus-within": {
+      backgroundColor: theme.palette.background.default,
+      border: `1px solid ${theme.palette.primary.main}`,
+    },
   },
   searchIconWrapper: {
+    padding: theme.spacing(0, 2),
     paddingLeft: "15px",
     height: "100%",
     position: "absolute",
@@ -29,9 +37,15 @@ export const sideBarStyles = makeStyles((theme) => ({
   searchIcon: {
     color: theme.palette.text.secondary,
   },
-  input: {
+  sadIcon: {
+    color: theme.palette.icon.main,
+  },
+  searchInput: {
+    color: "inherit",
     "& .MuiInputBase-input": {
-      paddingLeft: `50px`,
+      padding: theme.spacing(1, 1, 1, 0),
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create("width"),
       width: "100%",
     },
   },
@@ -122,5 +136,24 @@ export const sideBarStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     fontWeight: "500",
     fontSize: "14px",
+  },
+  followButton: {
+    backgroundColor: `${theme.palette.icon.main} !important`,
+    color: `${theme.palette.background.default} !important`,
+    borderRadius: "60px !important",
+    textTransform: "none !important",
+    fontWeight: "500 !important",
+    width: "80px !important",
+    "&:hover": {
+      backgroundColor: `${theme.palette.hoverFollowButton} !important`,
+    },
+  },
+  feedbackMenu: {
+    "& .MuiPaper-root": {
+      backgroundColor: "black",
+      width: "250px",
+      borderRadius: "20px",
+      boxShadow: theme.palette.boxShadow.main,
+    },
   },
 }));

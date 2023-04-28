@@ -7,14 +7,32 @@ import {
   IconButton,
   InputBase,
   ListItemAvatar,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import ListItem from "@mui/material/ListItem";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import { sideBarStyles } from "../styles/sideBarStyles";
+import { useState } from "react";
+import ListItemIcon from "@mui/material/ListItemIcon";
 
 export default function SideBar() {
   const classes = sideBarStyles();
+  const [anchorElList, setAnchorElList] = useState([]);
+
+  const handleMenuOpen = (event, index) => {
+    const newAnchorElList = [...anchorElList];
+    newAnchorElList[index] = event.currentTarget;
+    setAnchorElList(newAnchorElList);
+  };
+
+  const handleMenuClose = (index) => {
+    const newAnchorElList = [...anchorElList];
+    newAnchorElList[index] = null;
+    setAnchorElList(newAnchorElList);
+  };
+
   const topics = [
     { area: "Hot in Spain", topic: "Cataluña", interest: "300,5k Tweets" },
     { area: "NBA", topic: "Clippers", interest: "20,5k Tweets" },
@@ -34,7 +52,10 @@ export default function SideBar() {
         <div className={classes.searchIconWrapper}>
           <Icon className={classes.searchIcon}>search</Icon>
         </div>
-        <InputBase className={classes.input} placeholder="Search on Twitter" />
+        <InputBase
+          className={classes.searchInput}
+          placeholder="Search on Twitter"
+        />
       </div>
       <Box className={classes.listContainer}>
         <h3 className={classes.h3}>What's hot</h3>
@@ -46,9 +67,44 @@ export default function SideBar() {
                 <p className={classes.primaryText}>{topic.topic}</p>
                 <p className={classes.secondaryText}>{topic.interest}</p>
               </ListItemText>
-              <IconButton className={classes.iconButton} color="primary">
+              <IconButton
+                className={classes.iconButton}
+                color="primary"
+                onClick={(event) => handleMenuOpen(event, index)}
+              >
                 <Icon className={classes.moreIcon}>more_horizontal</Icon>
               </IconButton>
+              <Menu
+                className={classes.feedbackMenu}
+                anchorEl={anchorElList[index]}
+                open={Boolean(anchorElList[index])}
+                onClose={() => handleMenuClose(index)}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+              >
+                <MenuItem onClick={() => handleMenuClose(index)}>
+                  <ListItemIcon>
+                    <Icon className={classes.sadIcon}>
+                      sentiment_dissatisfied
+                    </Icon>
+                  </ListItemIcon>
+                  <ListItemText>Not interested</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={() => handleMenuClose(index)}>
+                  <ListItemIcon>
+                    <Icon className={classes.sadIcon}>
+                      sentiment_dissatisfied
+                    </Icon>
+                  </ListItemIcon>
+                  <ListItemText>Spam or harmful</ListItemText>
+                </MenuItem>
+              </Menu>
             </ListItem>
           ))}
         </List>
@@ -81,9 +137,13 @@ export default function SideBar() {
                   )}
                 </span>
               </ListItemText>
-              <IconButton className={classes.iconButton} color="primary">
-                <Icon className={classes.moreIcon}>more_horizontal</Icon>
-              </IconButton>
+              <Button
+                disableRipple
+                size="medium"
+                className={classes.followButton}
+              >
+                Follow
+              </Button>
             </ListItem>
           ))}
         </List>

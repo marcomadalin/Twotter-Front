@@ -38,6 +38,7 @@ const themeDark = createTheme({
     blurTabs: {
       main: "rgba(255, 255, 255, 0.15)",
     },
+    hoverFollowButton: "#d7dbdc",
   },
 });
 
