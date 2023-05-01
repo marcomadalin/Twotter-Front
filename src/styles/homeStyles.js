@@ -11,7 +11,7 @@ export const homeStyles = makeStyles((theme) => ({
     display: "flex !important",
     justifyContent: "flex-start !important",
     marginBottom: "20px !important",
-    paddingLeft: "10px !important",
+    paddingLeft: "20px !important",
     "&:hover": {
       backgroundColor: "transparent !important",
     },
@@ -63,5 +63,64 @@ export const homeStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: theme.palette.blurTabs.main,
     },
+  },
+  twittPost: {
+    boxSizing: "border-box",
+    width: "inherit",
+    minHeight: "125px",
+    borderBottom: `1px solid ${theme.palette.blur.main}`,
+    padding: "15px 15px 15px 15px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
+  twittWrapper: {
+    boxSizing: "border-box",
+    display: "flex",
+    alignItems: "flex-start",
+  },
+  twittButtonsWrapper: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+  },
+  twittButtons: {
+    boxSizing: "border-box",
+    display: "flex",
+    marginTop: "20px",
+    marginLeft: "60px",
+  },
+  h2: {
+    margin: "0 0 0 20px",
+    fontWeight: "200",
+    color: theme.palette.text.secondary,
+  },
+  iconButtonWrapper: {
+    "&:hover": {
+      backgroundColor: theme.palette.icon.hover,
+    },
+  },
+  twittButton: {
+    boxSizing: "borderBox",
+    width: 150,
+    height: 40,
+    borderRadius: "30px !important",
+    fontWeight: "bold !important",
+    textTransform: "none !important",
+    fontSize: "16px !important",
+    "&.Mui-disabled": {
+      backgroundColor: `${theme.palette.button.disabled} !important`,
+      color: `${theme.palette.text.primaryDisabled} !important`,
+    },
+  },
+  moreTwitts: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottom: `1px solid ${theme.palette.blur.main}`,
+    height: "50px",
+  },
+  loadTwitts: {
+    textTransform: "none !important",
   },
 }));

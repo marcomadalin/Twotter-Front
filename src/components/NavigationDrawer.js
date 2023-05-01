@@ -307,11 +307,11 @@ export default function NavigationDrawer() {
             },
           }}
         >
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          <Avatar alt="Madadun" src="/static/images/avatar/1.jpg" />
           {matches && (
             <div style={{ marginLeft: 15 }}>
-              <p className="userNames">Name Surname</p>
-              <p className="userNames">@username</p>
+              <p className="userNames">Marco Madalin</p>
+              <p className="userNames">@madadun</p>
             </div>
           )}
           {matches && (
@@ -340,7 +340,7 @@ export default function NavigationDrawer() {
           <MenuItem onClick={closeProfile}>
             <div>
               <p style={{ margin: 1 }}>Logout from</p>
-              <p style={{ margin: 0 }}>@username</p>
+              <p style={{ margin: 0 }}>@madadun</p>
             </div>
           </MenuItem>
         </Menu>

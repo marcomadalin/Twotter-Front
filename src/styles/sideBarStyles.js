@@ -151,7 +151,7 @@ export const sideBarStyles = makeStyles((theme) => ({
   feedbackMenu: {
     "& .MuiPaper-root": {
       backgroundColor: "black",
-      width: "250px",
+      width: "400px",
       borderRadius: "20px",
       boxShadow: theme.palette.boxShadow.main,
     },

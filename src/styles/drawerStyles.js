@@ -59,7 +59,9 @@ export const drawerStyles = makeStyles((theme) => ({
     width: 250,
     height: 50,
     borderRadius: "30px !important",
-    fontWeight: "bold",
+    fontWeight: "bold !important",
+    textTransform: "none !important",
+    fontSize: "20px !important",
   },
   twittButtonSmall: {
     height: "50px !important",

@@ -15,6 +15,7 @@ const themeDark = createTheme({
     },
     text: {
       primary: "#ffffff",
+      primaryDisabled: "rgba(255,255,255, 0.5)",
       secondary: "#55595c",
       tags: "#6c7176",
     },
@@ -28,6 +29,11 @@ const themeDark = createTheme({
       main: "#FFFFFF",
       primary: "#1d9bf0",
       secondary: "#55595c",
+      hover: "rgba(29,155,240, 0.12)",
+    },
+    button: {
+      primary: "#1d9bf0",
+      disabled: "rgba(29,155,240, 0.5)",
     },
     boxShadow: {
       main: "0 0 6px 1px rgba(255, 255, 255, 0.35)",
