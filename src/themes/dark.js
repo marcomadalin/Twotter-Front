@@ -33,6 +33,7 @@ const themeDark = createTheme({
       primary: "#1d9bf0",
       secondary: "#55595c",
       hover: "rgba(29,155,240, 0.15)",
+      hover2: "rgba(29,155,240, 0.35)",
     },
     button: {
       primary: "#1d9bf0",
@@ -48,6 +49,14 @@ const themeDark = createTheme({
       main: "rgba(255, 255, 255, 0.15)",
     },
     hoverFollowButton: "#d7dbdc",
+    retwitt: {
+      main: "rgba(1,158,106,1)",
+      hover: "rgba(1,158,106,0.15)",
+    },
+    like: {
+      main: "rgba(226,22,117,1)",
+      hover: "rgba(226,22,117,0.15)",
+    },
   },
 });
 
