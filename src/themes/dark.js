@@ -10,6 +10,9 @@ const themeDark = createTheme({
       hover: "#1d1f23",
       tags: "#202327",
     },
+    tertiary: {
+      main: "#55595c",
+    },
     border: {
       main: "#FFFFFF",
     },
@@ -29,7 +32,7 @@ const themeDark = createTheme({
       main: "#FFFFFF",
       primary: "#1d9bf0",
       secondary: "#55595c",
-      hover: "rgba(29,155,240, 0.12)",
+      hover: "rgba(29,155,240, 0.15)",
     },
     button: {
       primary: "#1d9bf0",

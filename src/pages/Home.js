@@ -12,6 +12,7 @@ import { homeStyles } from "../styles/homeStyles";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
 import SideBar from "../components/SideBar";
+import Twitt from "../components/Twitt";
 
 export default function Home() {
   const classes = homeStyles();
@@ -121,14 +122,14 @@ export default function Home() {
         {activeTab === 0 && (
           <Box className={classes.feedBox}>
             {posts.map((post, index) => (
-              <p key={index}>for you {post}</p>
+              <Twitt key={index} index={index} />
             ))}
           </Box>
         )}
         {activeTab === 1 && (
           <Box className={classes.feedBox}>
             {posts.map((post, index) => (
-              <p key={index}>following {post}</p>
+              <Twitt key={index} index={index} />
             ))}
           </Box>
         )}

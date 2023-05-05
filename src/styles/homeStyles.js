@@ -88,10 +88,10 @@ export const homeStyles = makeStyles((theme) => ({
     boxSizing: "border-box",
     display: "flex",
     marginTop: "20px",
-    marginLeft: "60px",
+    marginLeft: "50px",
   },
   h2: {
-    margin: "0 0 0 20px",
+    margin: "0 0 0 15px",
     fontWeight: "200",
     color: theme.palette.text.secondary,
   },
