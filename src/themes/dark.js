@@ -24,6 +24,7 @@ const themeDark = createTheme({
     },
     background: {
       default: "#000000",
+      secondary: "#FFFFFF",
     },
     opacityBackground: {
       main: "rgba(0, 0, 0, 0.8)",
@@ -56,6 +57,9 @@ const themeDark = createTheme({
     like: {
       main: "rgba(226,22,117,1)",
       hover: "rgba(226,22,117,0.15)",
+    },
+    coockie: {
+      button: "#3c3d3d",
     },
   },
 });
