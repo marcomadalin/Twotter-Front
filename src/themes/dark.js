@@ -35,6 +35,7 @@ const themeDark = createTheme({
       secondary: "#55595c",
       hover: "rgba(29,155,240, 0.15)",
       hover2: "rgba(29,155,240, 0.35)",
+      contrary: "#000000",
     },
     button: {
       primary: "#1d9bf0",
@@ -60,6 +61,9 @@ const themeDark = createTheme({
     },
     coockie: {
       button: "#3c3d3d",
+    },
+    modal: {
+      main: "rgba(29,155,240, 0.25)",
     },
   },
 });
