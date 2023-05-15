@@ -4,26 +4,35 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Divider,
-  Icon,
-  IconButton,
-  TextField,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import { useState } from "react";
 import { bannerStyles } from "../styles/bannerStyles";
+import LoginDialog from "./LoginDialog";
+import Grid from "@mui/material/Grid";
 
 export default function AuthenticationBanners() {
   const classes = bannerStyles();
+
+  const theme = useTheme();
+  const isMedium = useMediaQuery(theme.breakpoints.down("md"));
+  const isLarge = useMediaQuery(theme.breakpoints.down("lg"));
+
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
 
+  const [showCoockies, setShowCoockies] = useState(true);
+
   const openLoginModal = () => {
     setOpenLogin(true);
+    setShowCoockies(false);
   };
 
   const closeLoginModal = () => {
     setOpenLogin(false);
+    setShowCoockies(true);
   };
 
   const openSignupModal = () => {
@@ -34,72 +43,46 @@ export default function AuthenticationBanners() {
     setOpenSignup(false);
   };
 
+  const acceptCoockies = () => {
+    setShowCoockies(false);
+  };
+
   return (
     <Box className={classes.banners}>
-      <Box className={classes.auth}>
-        <Box>
-          <h2 className={classes.h2}>Stay up to date with what's going on</h2>
-          <p className={classes.p}>
-            Twitter users are always the first ones to know.
-          </p>
-        </Box>
-        <Box className={classes.buttons}>
-          <Button className={classes.login} onClick={openLoginModal}>
+      <Grid container className={classes.auth}>
+        {!isMedium && (
+          <Grid item md={8} lg={8} xl={8} className={classes.loginTitle}>
+            <h2 className={classes.h2}>Stay up to date with what's going on</h2>
+            <p className={classes.p}>
+              Twitter users are always the first ones to know.
+            </p>
+          </Grid>
+        )}
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={4}
+          lg={4}
+          xl={4}
+          className={classes.buttons}
+        >
+          <Button
+            className={classes.login}
+            onClick={openLoginModal}
+            sx={isMedium ? { width: "350px !important" } : {}}
+          >
             Login
           </Button>
-          <Dialog open={openLogin} className={classes.authDialog}>
-            <IconButton
-              color="icon"
-              size="small"
-              disableRipple
-              className={classes.closeButton}
-              onClick={closeLoginModal}
-            >
-              <Icon>close</Icon>
-            </IconButton>
-            <DialogTitle className={classes.dialogHeader}>
-              <Icon>cruelty_free</Icon>
-            </DialogTitle>
-            <DialogContent className={classes.loginModalWrapper}>
-              <Box className={classes.loginModalBody}>
-                <h1 style={{ marginLeft: "10px" }}>Log in on Twitter</h1>
-                <Box className={classes.loginButtonsWrapper}>
-                  <Button className={classes.loginButtons}>
-                    <Icon className={classes.loginButtonIcon}>public</Icon>
-                    Log in with Google
-                  </Button>
-                  <Button className={classes.loginButtons}>
-                    <Icon className={classes.loginButtonIcon}>
-                      phone_iphone
-                    </Icon>
-                    Log in with Apple
-                  </Button>
-                  <Box className={classes.dividerWrapper}>
-                    <Divider light className={classes.divider} />
-                    <p style={{ margin: "0 10px 0 10px" }}>Or</p>
-                    <Divider light className={classes.divider} />
-                  </Box>
-                  <TextField
-                    id="outlined-basic"
-                    label="Phone number, email or username"
-                    variant="outlined"
-                    className={classes.loginUsername}
-                  />
-                  <Button className={classes.loginButtons}>Next</Button>
-                  <Button className={classes.forgotPassword}>
-                    Forgot password?
-                  </Button>
-                </Box>
-                <p className={classes.loginText}>
-                  Don't have an account?
-                  <Button disableRipple className={classes.signupText}>
-                    <span>Sign up</span>{" "}
-                  </Button>
-                </p>
-              </Box>
-            </DialogContent>
-          </Dialog>
-          <Button className={classes.signup} onClick={openSignupModal}>
+          <LoginDialog
+            openLogin={openLogin}
+            closeLoginModal={closeLoginModal}
+          ></LoginDialog>
+          <Button
+            className={classes.signup}
+            onClick={openSignupModal}
+            sx={isMedium ? { width: "350px !important" } : {}}
+          >
             Signup
           </Button>
           <Dialog open={openSignup} className={classes.authDialog}>
@@ -110,25 +93,50 @@ export default function AuthenticationBanners() {
               <Button onClick={closeSignupModal}>Subscribe</Button>
             </DialogActions>
           </Dialog>
-        </Box>
-      </Box>
-      <Box className={classes.coockies}>
-        <Box>
-          <h4 className={classes.coockieHeader}>Did someone say… cookies?</h4>
-          <p className={classes.coockieText}>
-            Twitter and its partners use cookies to provide you with a better,
-            safer and faster service and to support our business. Some cookies
-            are necessary to use our services, improve them and make sure they
-            work properly.
-          </p>
-        </Box>
-        <Box className={classes.buttonsCoockie}>
-          <Button className={classes.coockieButton}>Accept coockies</Button>
-          <Button className={classes.coockieButton} sx={{ mt: 1 }}>
-            Reject coockies
-          </Button>
-        </Box>
-      </Box>
+        </Grid>
+      </Grid>
+      {showCoockies && (
+        <Grid container className={classes.coockies}>
+          <Grid
+            item
+            sm={12}
+            md={12}
+            lg={8}
+            xl={8}
+            className={classes.textCoockiesWrapper}
+          >
+            <h4 className={classes.coockieHeader}>Did someone say… cookies?</h4>
+            <p className={classes.coockieText}>
+              Twitter and its partners use cookies to provide you with a better,
+              safer and faster service and to support our business. Some cookies
+              are necessary to use our services, improve them and make sure they
+              work properly.
+            </p>
+          </Grid>
+          <Grid
+            item
+            sm={12}
+            md={12}
+            lg={4}
+            xl={4}
+            className={classes.buttonsCoockie}
+          >
+            <Button
+              className={classes.coockieButton}
+              onClick={acceptCoockies}
+              sx={isLarge ? { width: "400px !important", mt: 1 } : {}}
+            >
+              Accept coockies
+            </Button>
+            <Button
+              className={classes.coockieButton}
+              sx={isLarge ? { width: "400px !important", mt: 1 } : { mt: 1 }}
+            >
+              Reject coockies
+            </Button>
+          </Grid>
+        </Grid>
+      )}
     </Box>
   );
 }
