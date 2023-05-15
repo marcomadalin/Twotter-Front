@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/twotter/static/css/main.6591795f.css",
+    "main.js": "/twotter/static/js/main.5a13d12c.js",
+    "index.html": "/twotter/index.html",
+    "main.6591795f.css.map": "/twotter/static/css/main.6591795f.css.map",
+    "main.5a13d12c.js.map": "/twotter/static/js/main.5a13d12c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6591795f.css",
+    "static/js/main.5a13d12c.js"
+  ]
+}
