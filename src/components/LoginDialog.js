@@ -1,24 +1,45 @@
 import {
   Box,
   Button,
+  CircularProgress,
   DialogContent,
   DialogTitle,
   Divider,
+  FormControl,
   Icon,
   IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   TextField,
 } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import { loginDialogStyles } from "../styles/loginDialogStyles";
 import { useState } from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function LoginDialog(props) {
   const classes = loginDialogStyles();
 
   const [usernamePanel, setUsernamePanel] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [loginDisabled, setLoginDisabled] = useState(true);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const changePanel = () => {
     setUsernamePanel(false);
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   };
 
   const resetPanel = () => {
@@ -66,7 +87,7 @@ export default function LoginDialog(props) {
                 id="outlined-basic"
                 label="Phone number, email or username"
                 variant="outlined"
-                className={classes.loginUsername}
+                className={`${classes.loginUsername} ${classes.outlineInput}`}
               />
               <Button className={classes.loginButtons} onClick={changePanel}>
                 Next
@@ -76,32 +97,69 @@ export default function LoginDialog(props) {
               </Button>
             </Box>
           )}
-          {!usernamePanel && (
-            <Box className={classes.loginButtonsWrapper}>
+          {loading && (
+            <Box className={classes.loadingBox}>
+              <CircularProgress />
+            </Box>
+          )}
+          {!usernamePanel && !loading && (
+            <Box className={classes.passWordLoginWrapper}>
               <h1 style={{ fontSize: "28px", marginLeft: "-20px" }}>
                 Enter your password
               </h1>
-              <TextField
-                id="outlined-basic"
-                label="Password"
-                variant="outlined"
-                className={classes.loginUsername}
-              />
-              <Button
-                disableRipple
-                className={classes.signupText}
-                sx={{ marginTop: "-20px !important" }}
-              >
-                <span>Forgot password ?</span>
-              </Button>
+
+              <FormControl className={classes.passwordField}>
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Password
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  type={showPassword ? "text" : "password"}
+                  className={classes.outlineInput}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        className={classes.icon}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
+              </FormControl>
+              <Box className={classes.forgotPassWrapper}>
+                <Button
+                  disableRipple
+                  className={classes.signupText}
+                  sx={{ marginTop: "-20px !important" }}
+                >
+                  <span>Forgot password ?</span>
+                </Button>
+              </Box>
+              <Box className={classes.loginButtonBox}>
+                <Button
+                  disableRipple
+                  className={classes.loginButtonBig}
+                  disabled={loginDisabled}
+                >
+                  <span>Log in</span>
+                </Button>
+              </Box>
             </Box>
           )}
-          <p className={classes.loginText}>
-            Don't have an account?
-            <Button disableRipple className={classes.signupText}>
-              <span>Sign up</span>
-            </Button>
-          </p>
+          {!loading && (
+            <p className={classes.loginText}>
+              Don't have an account?
+              <Button disableRipple className={classes.signupText}>
+                <span>Sign up</span>
+              </Button>
+            </p>
+          )}
         </Box>
       </DialogContent>
     </Dialog>

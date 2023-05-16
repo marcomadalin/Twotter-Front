@@ -38,6 +38,9 @@ export const loginDialogStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
+  icon: {
+    color: `${theme.palette.icon.main} !important`,
+  },
   loginButtons: {
     borderRadius: "60px !important",
     backgroundColor: "white !important",
@@ -52,14 +55,6 @@ export const loginDialogStyles = makeStyles((theme) => ({
     width: "300px !important",
     marginBottom: "25px !important",
     backgroundColor: `${theme.palette.background.default} !important`,
-    "& input": {
-      border: `2px solid ${theme.palette.tertiary.main}`,
-      borderRadius: "5px",
-      backgroundColor: `${theme.palette.background.default} !important`,
-      "&:focus": {
-        border: `none`,
-      },
-    },
   },
   dividerWrapper: {
     display: "flex !important",
@@ -101,5 +96,58 @@ export const loginDialogStyles = makeStyles((theme) => ({
   loginButtonIcon: {
     color: theme.palette.icon.contrary,
     marginRight: "10px",
+  },
+  loadingBox: {
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  forgotPassWrapper: {
+    width: "100%",
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+  },
+  passwordField: {
+    width: "300px !important",
+    marginBottom: "25px !important",
+    borderRadius: "5px",
+    backgroundColor: `${theme.palette.background.default} !important`,
+  },
+  outlineInput: {
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: theme.palette.tertiary.main,
+      "&:hover": {
+        borderColor: theme.palette.border.main,
+      },
+      "&.Mui-focused": {
+        borderColor: theme.palette.primary.main,
+      },
+    },
+  },
+  passWordLoginWrapper: {
+    width: "300px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    height: "100%",
+  },
+  loginButtonBox: {
+    position: "relative",
+    marginBottom: 0,
+    marginTop: "auto",
+  },
+  loginButtonBig: {
+    width: "300px !important",
+    backgroundColor: `${theme.palette.icon.main} !important`,
+    color: `${theme.palette.background.default} !important`,
+    borderRadius: "60px !important",
+    textTransform: "none !important",
+    fontWeight: "bold !important",
+    fontSize: "18px !important",
+    "&.Mui-disabled": {
+      backgroundColor: `${theme.palette.tertiary.main} !important`,
+    },
   },
 }));
