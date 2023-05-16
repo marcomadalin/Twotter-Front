@@ -1,17 +1,9 @@
-import {
-  Box,
-  Button,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import Dialog from "@mui/material/Dialog";
+import { Box, Button, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
 import { bannerStyles } from "../styles/bannerStyles";
 import LoginDialog from "./LoginDialog";
 import Grid from "@mui/material/Grid";
+import SignupDialog from "./SignupDialog";
 
 export default function AuthenticationBanners() {
   const classes = bannerStyles();
@@ -26,6 +18,7 @@ export default function AuthenticationBanners() {
   const [showCoockies, setShowCoockies] = useState(true);
 
   const openLoginModal = () => {
+    setOpenSignup(false);
     setOpenLogin(true);
     setShowCoockies(false);
   };
@@ -36,6 +29,7 @@ export default function AuthenticationBanners() {
   };
 
   const openSignupModal = () => {
+    setOpenLogin(false);
     setOpenSignup(true);
   };
 
@@ -77,6 +71,7 @@ export default function AuthenticationBanners() {
           <LoginDialog
             openLogin={openLogin}
             closeLoginModal={closeLoginModal}
+            openSignupModal={openSignupModal}
           ></LoginDialog>
           <Button
             className={classes.signup}
@@ -85,14 +80,11 @@ export default function AuthenticationBanners() {
           >
             Signup
           </Button>
-          <Dialog open={openSignup} className={classes.authDialog}>
-            <DialogTitle>Signup</DialogTitle>
-            <DialogContent></DialogContent>
-            <DialogActions>
-              <Button onClick={closeSignupModal}>Cancel</Button>
-              <Button onClick={closeSignupModal}>Subscribe</Button>
-            </DialogActions>
-          </Dialog>
+          <SignupDialog
+            openSignup={openSignup}
+            closeSignupModal={closeSignupModal}
+            openLoginModal={openLoginModal}
+          ></SignupDialog>
         </Grid>
       </Grid>
       {showCoockies && (

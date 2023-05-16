@@ -67,7 +67,13 @@ export default function LoginDialog(props) {
         <Box className={classes.loginModalBody}>
           {usernamePanel && (
             <Box className={classes.loginButtonsWrapper}>
-              <h1 style={{ fontSize: "28px", marginLeft: "-40px" }}>
+              <h1
+                style={{
+                  fontSize: "28px",
+                  marginLeft: "-50px",
+                  marginBottom: "40px",
+                }}
+              >
                 Log in on Twitter
               </h1>
               <Button className={classes.loginButtons}>
@@ -155,7 +161,11 @@ export default function LoginDialog(props) {
           {!loading && (
             <p className={classes.loginText}>
               Don't have an account?
-              <Button disableRipple className={classes.signupText}>
+              <Button
+                disableRipple
+                className={classes.signupText}
+                onClick={props.openSignupModal}
+              >
                 <span>Sign up</span>
               </Button>
             </p>
