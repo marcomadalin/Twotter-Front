@@ -4,6 +4,7 @@ import { bannerStyles } from "../styles/bannerStyles";
 import LoginDialog from "./LoginDialog";
 import Grid from "@mui/material/Grid";
 import SignupDialog from "./SignupDialog";
+import FormSignupDialog from "./FormSingupDialog";
 
 export default function AuthenticationBanners() {
   const classes = bannerStyles();
@@ -14,7 +15,7 @@ export default function AuthenticationBanners() {
 
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
-
+  const [openForm, setOpenForm] = useState(false);
   const [showCoockies, setShowCoockies] = useState(true);
 
   const openLoginModal = () => {
@@ -39,6 +40,15 @@ export default function AuthenticationBanners() {
 
   const acceptCoockies = () => {
     setShowCoockies(false);
+  };
+
+  const openFormSignup = () => {
+    closeSignupModal();
+    setOpenForm(true);
+  };
+
+  const closeFormSingup = () => {
+    setOpenForm(false);
   };
 
   return (
@@ -84,7 +94,12 @@ export default function AuthenticationBanners() {
             openSignup={openSignup}
             closeSignupModal={closeSignupModal}
             openLoginModal={openLoginModal}
+            openFormSignup={openFormSignup}
           ></SignupDialog>
+          <FormSignupDialog
+            openForm={openForm}
+            closeFormSingup={closeFormSingup}
+          ></FormSignupDialog>
         </Grid>
       </Grid>
       {showCoockies && (

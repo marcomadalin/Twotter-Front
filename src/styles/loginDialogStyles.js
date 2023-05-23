@@ -2,9 +2,11 @@ import { makeStyles } from "@mui/styles";
 
 export const loginDialogStyles = makeStyles((theme) => ({
   authDialog: {
-    backgroundColor: theme.palette.modal.main,
+    "&.MuiDialog-root": {
+      backgroundColor: `${theme.palette.modal.main} !important`,
+    },
     "& .MuiPaper-root": {
-      width: "6000px",
+      width: "600px",
       height: "650px",
       backgroundColor: theme.palette.background.default,
       color: theme.palette.text.primary,

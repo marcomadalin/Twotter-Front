@@ -16,6 +16,8 @@ import Bookmarks from "./pages/Bookmarks";
 import Messages from "./pages/Messages";
 import themeDark from "./themes/dark";
 import Notifications from "./pages/Notifications";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,8 +39,10 @@ const router = createBrowserRouter(
 function App() {
   return (
     <ThemeProvider theme={themeDark}>
-      <CssBaseline />
-      <RouterProvider router={router} />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </LocalizationProvider>
     </ThemeProvider>
   );
 }

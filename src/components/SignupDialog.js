@@ -68,7 +68,10 @@ export default function SignupDialog(props) {
                 <p style={{ margin: "0 10px 0 10px" }}>Or</p>
                 <Divider light className={classes.divider} />
               </Box>
-              <Button className={classes.signupButtons}>
+              <Button
+                className={classes.signupButtons}
+                onClick={props.openFormSignup}
+              >
                 Create an account
               </Button>
               <p className={classes.termsText} style={{ marginTop: "-10px" }}>
