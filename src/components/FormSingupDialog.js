@@ -7,15 +7,18 @@ import {
   FormControl,
   Icon,
   IconButton,
+  InputAdornment,
   InputLabel,
   MenuItem,
+  OutlinedInput,
   Select,
   TextField,
   useTheme,
 } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { formSignupDialogStyles } from "../styles/formSignupDialogStyles";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function FormSignupDialog(props) {
   const theme = useTheme();
@@ -23,13 +26,9 @@ export default function FormSignupDialog(props) {
 
   const [step, setStep] = useState(1);
 
-  const [buttonsPanel, setButtonsPanel] = useState(true);
-
   const [loading, setLoading] = useState(false);
 
-  const [signupDisabled, setSignupDisabled] = useState(true);
-
-  const [nextDisabled, setNextDisabled] = useState(true);
+  const [nextDisabled, setNextDisabled] = useState(false);
 
   const [month, setMonth] = useState("");
 
@@ -38,6 +37,8 @@ export default function FormSignupDialog(props) {
   const [days, setDays] = useState([...Array(31).keys()].map((i) => i + 1));
 
   const [year, setYear] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const months = [
     "January",
@@ -58,11 +59,14 @@ export default function FormSignupDialog(props) {
     .reverse()
     .map((i) => i + new Date().getFullYear() - 110);
 
-  const changePanel = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const nextStep = () => {
+    setStep(step + 1);
   };
 
   const changeMonth = (event) => {
@@ -89,6 +93,10 @@ export default function FormSignupDialog(props) {
     setYear(event.target.value);
   };
 
+  useEffect(() => {
+    setStep(1);
+  }, [props.openForm]);
+
   const menuProps = {
     classes: {
       paper: classes.paper,
@@ -104,7 +112,13 @@ export default function FormSignupDialog(props) {
   };
 
   return (
-    <Dialog open={props.openForm} className={classes.authDialog}>
+    <Dialog
+      open={props.openForm}
+      className={classes.authDialog}
+      onClose={() => {
+        setStep(1);
+      }}
+    >
       <IconButton
         color="icon"
         size="small"
@@ -121,7 +135,7 @@ export default function FormSignupDialog(props) {
       </DialogTitle>
       <DialogContent className={classes.signupModalWrapper}>
         <Box className={classes.signupModalBody}>
-          {buttonsPanel && (
+          {step === 1 && (
             <Box className={classes.signupInputsWrapper}>
               <h1
                 style={{
@@ -217,9 +231,86 @@ export default function FormSignupDialog(props) {
               </Box>
             </Box>
           )}
-          <Button disabled={nextDisabled} className={classes.formButton}>
-            Next
-          </Button>
+          {step === 2 && (
+            <Box className={classes.signupInputsWrapper}>
+              <h1
+                style={{
+                  width: "400px",
+                  fontSize: "28px",
+                  marginBottom: "40px",
+                }}
+              >
+                Create an account
+              </h1>
+              <Box className={classes.usernameWrapper}>
+                <p className={classes.termsText}>
+                  This username will be used to tag you in twitts and threads.
+                </p>
+              </Box>
+              <TextField
+                id="outlined-basic"
+                label="Username"
+                variant="outlined"
+                className={`${classes.textInput} ${classes.outlineInput}`}
+              />
+              <FormControl className={classes.passwordField}>
+                <InputLabel htmlFor="password">Password</InputLabel>
+                <OutlinedInput
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  className={`${classes.textInput} ${classes.outlineInput}`}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        className={classes.icon}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
+              </FormControl>
+              <FormControl className={classes.passwordField}>
+                <InputLabel htmlFor="confirmPassword">Password</InputLabel>
+                <OutlinedInput
+                  id="confirmPassword"
+                  type={showPassword ? "text" : "password"}
+                  className={`${classes.textInput} ${classes.outlineInput}`}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        className={classes.icon}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
+              </FormControl>
+            </Box>
+          )}
+          {step < 3 && (
+            <Button
+              disabled={nextDisabled}
+              className={classes.formButton}
+              onClick={nextStep}
+            >
+              Next
+            </Button>
+          )}
+          {step >= 3 && (
+            <Button className={classes.formButton}>Create account</Button>
+          )}
           {loading && (
             <Box className={classes.loadingBox}>
               <CircularProgress />

@@ -137,4 +137,11 @@ export const formSignupDialogStyles = makeStyles((theme) => ({
       backgroundColor: `${theme.palette.tertiary.main} !important`,
     },
   },
+  usernameWrapper: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
 }));
