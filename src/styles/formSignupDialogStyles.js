@@ -144,4 +144,67 @@ export const formSignupDialogStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "flex-start",
   },
+  checkboxWrapper: {
+    width: "100% !important",
+  },
+  checkboxItem: {
+    width: "100% !important",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  checkboxTextWrapper: {
+    width: "80%",
+  },
+  checkboxTitle: {
+    fontSize: "16px",
+    marginTop: "20px",
+    marginBottom: "5px",
+    fontWeight: "bolder",
+  },
+  checkboxText: {
+    fontSize: "14px",
+    margin: "0 0 0 0",
+  },
+  overflowYContainer: {
+    maxHeight: "480px",
+    boxSizing: "content-box !important", // ensures padding and border are outside of box
+    // Customize scrollbar for Webkit browsers (Chrome, Safari)
+    overflowY: "auto",
+    "&::-webkit-scrollbar": {
+      width: "10px !important",
+    },
+    "&::-webkit-scrollbar-track": {
+      borderRadius: "10px !important",
+      backgroundColor: "transparent !important", // change as needed
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "darkgrey !important", // change as needed
+      borderRadius: "10px !important",
+    },
+    // Customize scrollbar for Firefox
+    scrollbarWidth: "thin !important",
+    scrollbarColor: "darkgrey transparent !important", // change as needed
+  },
+  termsCheckboxText: {
+    fontSize: "13px",
+    color: theme.palette.text.secondary,
+  },
+  blueCheckboxTermsText: {
+    padding: "0 0 0 0 !important",
+    textTransform: "none !important",
+    fontSize: "13px !important",
+    "&:hover": {
+      "& span": {
+        textDecoration: "underline !important",
+      },
+    },
+  },
+  checkboxStepWrapper: {
+    width: "420px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
 }));

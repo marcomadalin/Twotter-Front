@@ -1,10 +1,12 @@
 import {
   Box,
   Button,
+  Checkbox,
   CircularProgress,
   DialogContent,
   DialogTitle,
   FormControl,
+  FormGroup,
   Icon,
   IconButton,
   InputAdornment,
@@ -38,7 +40,7 @@ export default function FormSignupDialog(props) {
 
   const [year, setYear] = useState("");
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
 
   const months = [
     "January",
@@ -69,6 +71,10 @@ export default function FormSignupDialog(props) {
     setStep(step + 1);
   };
 
+  const prevStep = () => {
+    setStep(step - 1);
+  };
+
   const changeMonth = (event) => {
     setMonth(event.target.value);
     if (
@@ -91,6 +97,13 @@ export default function FormSignupDialog(props) {
 
   const changeYear = (event) => {
     setYear(event.target.value);
+  };
+
+  const createAccount = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -119,15 +132,28 @@ export default function FormSignupDialog(props) {
         setStep(1);
       }}
     >
-      <IconButton
-        color="icon"
-        size="small"
-        disableRipple
-        className={classes.closeButton}
-        onClick={props.closeFormSingup}
-      >
-        <Icon>close</Icon>
-      </IconButton>
+      {step === 1 && (
+        <IconButton
+          color="icon"
+          size="small"
+          disableRipple
+          className={classes.closeButton}
+          onClick={props.closeFormSingup}
+        >
+          <Icon>close</Icon>
+        </IconButton>
+      )}
+      {step > 1 && (
+        <IconButton
+          color="icon"
+          size="small"
+          disableRipple
+          className={classes.closeButton}
+          onClick={prevStep}
+        >
+          <Icon>arrow_back_ios</Icon>
+        </IconButton>
+      )}
       <DialogTitle className={classes.dialogHeader}>
         <Box className={classes.stepperWrapper}>
           <h4 style={{ margin: "0 0 0 0" }}>Step {step} of 3</h4>
@@ -135,7 +161,7 @@ export default function FormSignupDialog(props) {
       </DialogTitle>
       <DialogContent className={classes.signupModalWrapper}>
         <Box className={classes.signupModalBody}>
-          {step === 1 && (
+          {step === 1 && !loading && (
             <Box className={classes.signupInputsWrapper}>
               <h1
                 style={{
@@ -231,7 +257,7 @@ export default function FormSignupDialog(props) {
               </Box>
             </Box>
           )}
-          {step === 2 && (
+          {step === 2 && !loading && (
             <Box className={classes.signupInputsWrapper}>
               <h1
                 style={{
@@ -299,7 +325,98 @@ export default function FormSignupDialog(props) {
               </FormControl>
             </Box>
           )}
-          {step < 3 && (
+          {step === 3 && !loading && (
+            <Box
+              className={`${classes.overflowYContainer} ${classes.checkboxStepWrapper}`}
+            >
+              <h1
+                style={{
+                  width: "400px",
+                  fontSize: "28px",
+                  marginBottom: "30px",
+                  marginLeft: "-10px",
+                }}
+              >
+                Customize your experience
+              </h1>
+              <FormGroup className={classes.checkboxWrapper}>
+                <Box className={classes.checkboxItem}>
+                  <Box className={classes.checkboxTextWrapper}>
+                    <h3 className={classes.checkboxTitle}>
+                      Take advantage of Twitter even more
+                    </h3>
+                    <p className={classes.checkboxText}>
+                      Receive an email about your Twitter activity and
+                      recommendations.
+                    </p>
+                  </Box>
+                  <Checkbox sx={{ mr: "20px" }} />
+                </Box>
+                <Box className={classes.checkboxItem}>
+                  <Box className={classes.checkboxTextWrapper}>
+                    <h3 className={classes.checkboxTitle}>
+                      Connect with people you know
+                    </h3>
+                    <p className={classes.checkboxText}>
+                      Allow other users to find your Twitter account by your
+                      email address.
+                    </p>
+                  </Box>
+                  <Checkbox sx={{ mr: "20px" }} />
+                </Box>
+                <Box className={classes.checkboxItem}>
+                  <Box className={classes.checkboxTextWrapper}>
+                    <h3 className={classes.checkboxTitle}>Personalized ads</h3>
+                    <p className={classes.checkboxText}>
+                      The ads you see on Twitter always depend on your activity
+                      on Twitter. If you turn this setting on, Twitter will be
+                      able to better personalize ads from Twitter advertisers,
+                      on and off Twitter, by combining your activity on Twitter
+                      with other online activities and information provided by
+                      our partners.
+                    </p>
+                  </Box>
+                  <Checkbox sx={{ mr: "20px" }} />
+                </Box>
+                <p
+                  className={classes.termsCheckboxText}
+                  style={{ marginTop: "40px" }}
+                >
+                  By signing up, you agree to our
+                  <Button
+                    disableRipple
+                    className={classes.blueCheckboxTermsText}
+                  >
+                    <span>Terms</span>
+                  </Button>
+                  ,{" "}
+                  <Button
+                    disableRipple
+                    className={classes.blueCheckboxTermsText}
+                  >
+                    <span>Privacy Policy</span>
+                  </Button>{" "}
+                  and
+                  <Button
+                    disableRipple
+                    className={classes.blueCheckboxTermsText}
+                  >
+                    <span>Cookie Policy</span>
+                  </Button>
+                  . Twitter may use your contact information, such as your email
+                  address and phone number, for the purposes described in our
+                  Privacy Policy.
+                  <Button
+                    disableRipple
+                    className={classes.blueCheckboxTermsText}
+                  >
+                    <span>More information</span>
+                  </Button>
+                </p>
+              </FormGroup>
+            </Box>
+          )}
+          {step < 3 && !loading && (
             <Button
               disabled={nextDisabled}
               className={classes.formButton}
@@ -308,8 +425,10 @@ export default function FormSignupDialog(props) {
               Next
             </Button>
           )}
-          {step >= 3 && (
-            <Button className={classes.formButton}>Create account</Button>
+          {step >= 3 && !loading && (
+            <Button className={classes.formButton} onClick={createAccount}>
+              Create account
+            </Button>
           )}
           {loading && (
             <Box className={classes.loadingBox}>
