@@ -75,9 +75,22 @@ export const homeStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
   twittWrapper: {
+    width: "100%",
     boxSizing: "border-box",
     display: "flex",
     alignItems: "flex-start",
+  },
+  twittCreate: {
+    width: "100% !important",
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: `${theme.palette.background.default} !important`,
+      "&:hover": {
+        borderColor: `${theme.palette.background.default} !important`,
+      },
+      "&.Mui-focused": {
+        borderColor: `${theme.palette.background.default} !important`,
+      },
+    },
   },
   twittButtonsWrapper: {
     display: "flex",

@@ -69,7 +69,7 @@ export default function Twitt({ index }) {
           </Menu>
         </Box>
         <Box>
-          <p className={classes.twittText}>twit text {index}</p>
+          <p className={classes.twittText}>twitt text {index}</p>
           <Box className={classes.twittButtons}>
             <Box className={classes.comment}>
               <IconButton id="comment" color="tertiary" size="medium">

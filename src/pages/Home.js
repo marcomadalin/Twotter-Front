@@ -6,13 +6,15 @@ import {
   IconButton,
   Tab,
   Tabs,
+  TextField,
   useMediaQuery,
 } from "@mui/material";
 import { homeStyles } from "../styles/homeStyles";
 import Grid from "@mui/material/Grid";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SideBar from "../components/SideBar";
 import Twitt from "../components/Twitt";
+import axios from "axios";
 
 export default function Home() {
   const classes = homeStyles();
@@ -20,11 +22,29 @@ export default function Home() {
   const renderContacts = useMediaQuery("(min-width:1300px)");
 
   const [activeTab, setActiveTab] = useState(0);
+  const twittText = useRef("");
 
-  const posts = [...Array(30).keys()];
+  const [posts, setPosts] = useState([...Array(30).keys()]);
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
+  };
+
+  const createTwitt = () => {
+    const twitt = {
+      text: twittText.current.value,
+      mentionId: null,
+      comments: [],
+      retwitts: 0,
+      likes: 0,
+      user: Math.random(),
+      username: "jonnymacarroni",
+    };
+
+    axios
+      .post("http://localhost:4000/twitts/new", twitt)
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
   };
 
   function a11yProps(index) {
@@ -75,7 +95,13 @@ export default function Home() {
         <Box className={classes.twittPost}>
           <Box className={classes.twittWrapper}>
             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-            <h2 className={classes.h2}>What's going on ?</h2>
+            <TextField
+              className={classes.twittCreate}
+              placeholder="What's going on ?"
+              multiline
+              maxRows={7}
+              inputRef={twittText}
+            />
           </Box>
           <Box className={classes.twittButtonsWrapper}>
             <Box className={classes.twittButtons}>
@@ -107,8 +133,8 @@ export default function Home() {
             <Button
               variant="contained"
               size="small"
-              disabled
               className={classes.twittButton}
+              onClick={createTwitt}
             >
               Twitt
             </Button>
