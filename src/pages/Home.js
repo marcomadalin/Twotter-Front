@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { homeStyles } from "../styles/homeStyles";
 import Grid from "@mui/material/Grid";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SideBar from "../components/SideBar";
 import Twitt from "../components/Twitt";
 import axios from "axios";
@@ -22,28 +22,45 @@ export default function Home() {
   const renderContacts = useMediaQuery("(min-width:1300px)");
 
   const [activeTab, setActiveTab] = useState(0);
-  const twittText = useRef("");
+  const twittTextRef = useRef("");
 
-  const [posts, setPosts] = useState([...Array(30).keys()]);
+  const [posts, setPosts] = useState([]);
+
+  const fetchTwitts = async () => {
+    await axios
+      .get("http://localhost:4000/twitts/all")
+      .then((response) => {
+        setPosts(response.data);
+        console.log(response.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    fetchTwitts();
+  }, []);
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
   };
 
-  const createTwitt = () => {
+  const createTwitt = async () => {
     const twitt = {
-      text: twittText.current.value,
+      text: twittTextRef.current.value,
       mentionId: null,
       comments: [],
       retwitts: 0,
       likes: 0,
-      user: Math.random(),
-      username: "jonnymacarroni",
+      user: "id" + Math.floor(Math.random() * 1000000),
+      username: "randomuser" + Math.floor(Math.random() * 1000000),
     };
 
-    axios
+    await axios
       .post("http://localhost:4000/twitts/new", twitt)
-      .then((response) => console.log(response))
+      .then((response) => {
+        setPosts((oldPosts) => [response.data].concat(oldPosts));
+        twittTextRef.current.value = "";
+      })
       .catch((err) => console.log(err));
   };
 
@@ -94,13 +111,13 @@ export default function Home() {
         </Box>
         <Box className={classes.twittPost}>
           <Box className={classes.twittWrapper}>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            <Avatar alt="User" src="/static/images/avatar/1.jpg" />
             <TextField
               className={classes.twittCreate}
               placeholder="What's going on ?"
               multiline
               maxRows={7}
-              inputRef={twittText}
+              inputRef={twittTextRef}
             />
           </Box>
           <Box className={classes.twittButtonsWrapper}>
@@ -148,14 +165,14 @@ export default function Home() {
         {activeTab === 0 && (
           <Box className={classes.feedBox}>
             {posts.map((post, index) => (
-              <Twitt key={index} index={index} />
+              <Twitt key={index} data={post} />
             ))}
           </Box>
         )}
         {activeTab === 1 && (
           <Box className={classes.feedBox}>
             {posts.map((post, index) => (
-              <Twitt key={index} index={index} />
+              <Twitt key={index} data={post} />
             ))}
           </Box>
         )}

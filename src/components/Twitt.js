@@ -4,7 +4,7 @@ import { useState } from "react";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-export default function Twitt({ index }) {
+export default function Twitt({ data }) {
   const classes = twittStyles();
 
   const feedbackMenuOptions = [
@@ -26,15 +26,20 @@ export default function Twitt({ index }) {
     setAnchorEl(null);
   };
 
+  const getDate = (timestamp) => {
+    const date = timestamp.split("T")[0].split("-");
+    return date[2] + "-" + date[1] + "-" + date[0];
+  };
+
   return (
     <Box className={classes.twittBox}>
-      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+      <Avatar alt={data.username} src="/static/images/avatar/1.jpg" />
       <Box className={classes.twittContent}>
         <Box className={classes.twittHeader}>
           <Box className={classes.userHeader}>
-            <p className={classes.user}>User</p>
-            <p className={classes.username}>@username · </p>
-            <p className={classes.date}>2 May</p>
+            <p className={classes.user}>{data.username}</p>
+            <p className={classes.username}>{"@" + data.username} · </p>
+            <p className={classes.date}>{getDate(data.createdAt)}</p>
           </Box>
           <IconButton
             className={classes.iconButton}
@@ -69,25 +74,25 @@ export default function Twitt({ index }) {
           </Menu>
         </Box>
         <Box>
-          <p className={classes.twittText}>twitt text {index}</p>
+          <p className={classes.twittText}>{data.text}</p>
           <Box className={classes.twittButtons}>
             <Box className={classes.comment}>
               <IconButton id="comment" color="tertiary" size="medium">
                 <Icon fontSize="small">chat_bubble</Icon>
               </IconButton>
-              <p className={classes.buttonText}>50,2k</p>
+              <p className={classes.buttonText}>{data.comments.length}</p>
             </Box>
             <Box className={classes.retwitt}>
               <IconButton id="retwitt" color="tertiary" size="medium">
                 <Icon fontSize="small">autorenew</Icon>
               </IconButton>
-              <p className={classes.buttonText}>133,4k</p>
+              <p className={classes.buttonText}>{data.retwitts}</p>
             </Box>
             <Box className={classes.like}>
               <IconButton id="like" color="tertiary" size="medium">
                 <Icon fontSize="small">favorite</Icon>
               </IconButton>
-              <p className={classes.buttonText}>222,4k</p>
+              <p className={classes.buttonText}>{data.likes}</p>
             </Box>
           </Box>
         </Box>
