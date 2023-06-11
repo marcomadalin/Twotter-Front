@@ -86,6 +86,7 @@ export default function NavigationDrawer() {
           </ListItem>
           {[
             { name: "Explore", icon: "search", path: "explore" },
+            /*
             {
               name: "Notifications",
               icon: "notifications",
@@ -98,6 +99,8 @@ export default function NavigationDrawer() {
               icon: "verified",
               path: "twitter_blue",
             },
+       
+               */
             { name: "Profile", icon: "person", path: "profile" },
           ].map((link, index) => (
             <ListItem

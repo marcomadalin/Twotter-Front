@@ -65,6 +65,9 @@ const themeDark = createTheme({
     modal: {
       main: "rgba(29,155,240, 0.25)",
     },
+    error: {
+      main: "#b22222",
+    },
   },
 });
 

@@ -21,6 +21,7 @@ import Dialog from "@mui/material/Dialog";
 import { useEffect, useState } from "react";
 import { formSignupDialogStyles } from "../styles/formSignupDialogStyles";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import axios from "axios";
 
 export default function FormSignupDialog(props) {
   const theme = useTheme();
@@ -40,7 +41,23 @@ export default function FormSignupDialog(props) {
 
   const [year, setYear] = useState("");
 
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [name, setName] = useState("");
+
+  const [email, setEmail] = useState("");
+
+  const [username, setUsername] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  const [confirmation, setConfiramtion] = useState("");
+
+  const [checked1, setChecked1] = useState(false);
+
+  const [checked2, setChecked2] = useState(false);
+
+  const [checked3, setChecked3] = useState(false);
 
   const months = [
     "January",
@@ -99,11 +116,25 @@ export default function FormSignupDialog(props) {
     setYear(event.target.value);
   };
 
-  const createAccount = () => {
+  const createAccount = async () => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    const user = {
+      name: name,
+      username: username,
+      email: email,
+      password: password,
+      birthdate: day + "-" + month + "-" + year,
+      followers: [],
+      following: [],
+    };
+
+    await axios
+      .post("http://localhost:4000/users/new", user)
+      .then((response) => {
+        setLoading(false);
+        props.closeFormSingup();
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -173,15 +204,21 @@ export default function FormSignupDialog(props) {
                 Create an account
               </h1>
               <TextField
-                id="outlined-basic"
                 label="Name"
                 variant="outlined"
+                value={name}
+                onChange={(event) => {
+                  setName(event.target.value);
+                }}
                 className={`${classes.textInput} ${classes.outlineInput}`}
               />
               <TextField
-                id="outlined-basic"
                 label="Email"
                 variant="outlined"
+                value={email}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                }}
                 className={`${classes.textInput} ${classes.outlineInput}`}
               />
               <Box sx={{ marginBottom: "10px !important" }}>
@@ -277,6 +314,10 @@ export default function FormSignupDialog(props) {
                 id="outlined-basic"
                 label="Username"
                 variant="outlined"
+                value={username}
+                onChange={(event) => {
+                  setUsername(event.target.value);
+                }}
                 className={`${classes.textInput} ${classes.outlineInput}`}
               />
               <FormControl className={classes.passwordField}>
@@ -284,7 +325,12 @@ export default function FormSignupDialog(props) {
                 <OutlinedInput
                   id="password"
                   type={showPassword ? "text" : "password"}
+                  error={password !== confirmation}
                   className={`${classes.textInput} ${classes.outlineInput}`}
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                  }}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -306,7 +352,12 @@ export default function FormSignupDialog(props) {
                 <OutlinedInput
                   id="confirmPassword"
                   type={showPassword ? "text" : "password"}
+                  error={password !== confirmation}
                   className={`${classes.textInput} ${classes.outlineInput}`}
+                  value={confirmation}
+                  onChange={(event) => {
+                    setConfiramtion(event.target.value);
+                  }}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -350,7 +401,13 @@ export default function FormSignupDialog(props) {
                       recommendations.
                     </p>
                   </Box>
-                  <Checkbox sx={{ mr: "20px" }} />
+                  <Checkbox
+                    sx={{ mr: "20px" }}
+                    checked={checked1}
+                    onChange={(event) => {
+                      setChecked1(event.target.checked);
+                    }}
+                  />
                 </Box>
                 <Box className={classes.checkboxItem}>
                   <Box className={classes.checkboxTextWrapper}>
@@ -362,7 +419,13 @@ export default function FormSignupDialog(props) {
                       email address.
                     </p>
                   </Box>
-                  <Checkbox sx={{ mr: "20px" }} />
+                  <Checkbox
+                    sx={{ mr: "20px" }}
+                    checked={checked2}
+                    onChange={(event) => {
+                      setChecked2(event.target.checked);
+                    }}
+                  />
                 </Box>
                 <Box className={classes.checkboxItem}>
                   <Box className={classes.checkboxTextWrapper}>
@@ -376,7 +439,13 @@ export default function FormSignupDialog(props) {
                       our partners.
                     </p>
                   </Box>
-                  <Checkbox sx={{ mr: "20px" }} />
+                  <Checkbox
+                    sx={{ mr: "20px" }}
+                    checked={checked3}
+                    onChange={(event) => {
+                      setChecked3(event.target.checked);
+                    }}
+                  />
                 </Box>
                 <p
                   className={classes.termsCheckboxText}
@@ -389,7 +458,7 @@ export default function FormSignupDialog(props) {
                   >
                     <span>Terms</span>
                   </Button>
-                  ,{" "}
+                  ,
                   <Button
                     disableRipple
                     className={classes.blueCheckboxTermsText}
@@ -426,7 +495,11 @@ export default function FormSignupDialog(props) {
             </Button>
           )}
           {step >= 3 && !loading && (
-            <Button className={classes.formButton} onClick={createAccount}>
+            <Button
+              disabled={!(checked1 && checked2 && checked3)}
+              className={classes.formButton}
+              onClick={createAccount}
+            >
               Create account
             </Button>
           )}
