@@ -134,7 +134,10 @@ export default function FormSignupDialog(props) {
         setLoading(false);
         props.closeFormSingup();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
   };
 
   useEffect(() => {

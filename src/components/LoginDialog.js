@@ -17,6 +17,7 @@ import Dialog from "@mui/material/Dialog";
 import { loginDialogStyles } from "../styles/loginDialogStyles";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import axios from "axios";
 
 export default function LoginDialog(props) {
   const classes = loginDialogStyles();
@@ -26,7 +27,9 @@ export default function LoginDialog(props) {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const [loginDisabled, setLoginDisabled] = useState(true);
+  const [username, setUsername] = useState("");
+
+  const [password, setPassword] = useState("");
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -36,17 +39,34 @@ export default function LoginDialog(props) {
 
   const changePanel = () => {
     setUsernamePanel(false);
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
   };
 
   const resetPanel = () => {
     props.closeLoginModal();
     setTimeout(() => {
       setUsernamePanel(true);
+      setUsername("");
+      setPassword("");
     }, 200);
+  };
+
+  const loginUser = async () => {
+    const user = {
+      username: username,
+      password: password,
+    };
+    setLoading(true);
+    await axios
+      .post("http://localhost:4000/users/login", user)
+      .then((response) => {
+        console.log(response);
+        setLoading(false);
+        resetPanel();
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
   };
 
   return (
@@ -65,7 +85,7 @@ export default function LoginDialog(props) {
       </DialogTitle>
       <DialogContent className={classes.loginModalWrapper}>
         <Box className={classes.loginModalBody}>
-          {usernamePanel && (
+          {usernamePanel && !loading && (
             <Box className={classes.loginButtonsWrapper}>
               <h1
                 style={{
@@ -91,8 +111,12 @@ export default function LoginDialog(props) {
               </Box>
               <TextField
                 id="outlined-basic"
-                label="Phone number, email or username"
+                label="Username"
                 variant="outlined"
+                value={username}
+                onChange={(event) => {
+                  setUsername(event.target.value);
+                }}
                 className={`${classes.loginUsername} ${classes.outlineInput}`}
               />
               <Button className={classes.loginButtons} onClick={changePanel}>
@@ -122,6 +146,10 @@ export default function LoginDialog(props) {
                   id="outlined-adornment-password"
                   type={showPassword ? "text" : "password"}
                   className={classes.outlineInput}
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                  }}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -151,7 +179,8 @@ export default function LoginDialog(props) {
                 <Button
                   disableRipple
                   className={classes.loginButtonBig}
-                  disabled={loginDisabled}
+                  disabled={username === "" || password === ""}
+                  onClick={loginUser}
                 >
                   <span>Log in</span>
                 </Button>
