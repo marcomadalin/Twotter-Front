@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { drawerStyles } from "../styles/drawerStyles.js";
+import { useLogout } from "../hooks/useLogout";
 
 export default function NavigationDrawer() {
   const [anchorProfile, setAnchorProfile] = useState(null);
@@ -31,6 +32,8 @@ export default function NavigationDrawer() {
   const theme = useTheme();
   const matches = useMediaQuery("(min-width:1200px)");
   const classes = drawerStyles();
+
+  const { logout } = useLogout();
 
   const handleClickProfile = (event) => {
     setAnchorProfile(event.currentTarget);
@@ -342,7 +345,9 @@ export default function NavigationDrawer() {
           <MenuItem onClick={closeProfile}>Add existing account</MenuItem>
           <MenuItem onClick={closeProfile}>
             <div>
-              <p style={{ margin: 1 }}>Logout from</p>
+              <p style={{ margin: 1 }} onClick={() => logout()}>
+                Logout from
+              </p>
               <p style={{ margin: 0 }}>@madadun</p>
             </div>
           </MenuItem>

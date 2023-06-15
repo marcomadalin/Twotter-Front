@@ -3,9 +3,11 @@ import Grid from "@mui/material/Grid";
 import NavigationDrawer from "../components/NavigationDrawer";
 import { mainLayoutStyles } from "../styles/mainLayoutStyles";
 import AuthenticationBanners from "../components/AuthenticationBanners";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function MainLayout() {
   const classes = mainLayoutStyles();
+  const { user, token } = useAuthContext();
   return (
     <div>
       <ScrollRestoration />
@@ -34,7 +36,7 @@ export default function MainLayout() {
           <Outlet />
         </Grid>
       </Grid>
-      {true && <AuthenticationBanners />}
+      {!(user && token) && <AuthenticationBanners />}
     </div>
   );
 }

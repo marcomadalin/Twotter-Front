@@ -17,7 +17,7 @@ import Dialog from "@mui/material/Dialog";
 import { loginDialogStyles } from "../styles/loginDialogStyles";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import axios from "axios";
+import { useLogin } from "../hooks/useLogin";
 
 export default function LoginDialog(props) {
   const classes = loginDialogStyles();
@@ -31,6 +31,7 @@ export default function LoginDialog(props) {
 
   const [password, setPassword] = useState("");
 
+  const { login } = useLogin();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -51,15 +52,9 @@ export default function LoginDialog(props) {
   };
 
   const loginUser = async () => {
-    const user = {
-      username: username,
-      password: password,
-    };
     setLoading(true);
-    await axios
-      .post("http://localhost:4000/users/login", user)
-      .then((response) => {
-        console.log(response);
+    await login(username, password)
+      .then(() => {
         setLoading(false);
         resetPanel();
       })
