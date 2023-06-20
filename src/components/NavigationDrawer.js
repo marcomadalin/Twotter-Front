@@ -14,7 +14,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { drawerStyles } from "../styles/drawerStyles.js";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -22,9 +22,6 @@ import { useAuthContext } from "../hooks/useAuthContext";
 export default function NavigationDrawer() {
   const [anchorProfile, setAnchorProfile] = useState(null);
   const openProfile = Boolean(anchorProfile);
-
-  const [anchorSettings, setAnchorSettings] = useState(null);
-  const openSettings = Boolean(anchorSettings);
 
   const theme = useTheme();
   const matches = useMediaQuery("(min-width:1200px)");
@@ -34,6 +31,10 @@ export default function NavigationDrawer() {
 
   const { user, token } = useAuthContext();
 
+  useEffect(() => {
+    setAnchorProfile(null);
+  }, [user]);
+
   const handleClickProfile = (event) => {
     setAnchorProfile(event.currentTarget);
   };
@@ -42,19 +43,11 @@ export default function NavigationDrawer() {
     setAnchorProfile(null);
   };
 
-  const handleClickSettings = (event) => {
-    setAnchorSettings(event.currentTarget);
-  };
-
-  const closeSettings = () => {
-    setAnchorSettings(null);
-  };
-
   return (
     <div className={matches ? "drawer" : "drawerSmall"}>
       <div className="navDiv">
         <div style={{ paddingLeft: 10, paddingRight: 0 }}>
-          <NavLink to="home">
+          <NavLink to={user ? "home" : "explore"}>
             <ListItemIcon sx={{ mr: 0 }}>
               <Icon
                 fontSize="large"
@@ -67,73 +60,63 @@ export default function NavigationDrawer() {
           </NavLink>
         </div>
         <List>
+          {user && token && (
+            <ListItem
+              sx={{
+                px: 0,
+              }}
+            >
+              <NavLink
+                to="home"
+                className={`${classes.link} ${
+                  matches ? "drawerButton" : "drawerButtonSmall"
+                }`}
+              >
+                <ListItemIcon sx={{ mr: 0 }}>
+                  <Badge color="primary" variant="dot">
+                    <Icon sx={{ color: theme.palette.icon.main }}>home</Icon>
+                  </Badge>
+                </ListItemIcon>
+                {matches && <ListItemText primary="Home" sx={{ ml: 0 }} />}
+              </NavLink>
+            </ListItem>
+          )}
           <ListItem
             sx={{
               px: 0,
             }}
           >
             <NavLink
-              to="home"
+              to="explore"
               className={`${classes.link} ${
                 matches ? "drawerButton" : "drawerButtonSmall"
               }`}
             >
               <ListItemIcon sx={{ mr: 0 }}>
-                <Badge color="primary" variant="dot">
-                  <Icon sx={{ color: theme.palette.icon.main }}>home</Icon>
-                </Badge>
+                <Icon sx={{ color: theme.palette.icon.main }}>search</Icon>
               </ListItemIcon>
-              {matches && <ListItemText primary="Home" sx={{ ml: 0 }} />}
+              {matches && <ListItemText primary="Explore" sx={{ ml: 0 }} />}
             </NavLink>
           </ListItem>
-          {[
-            { name: "Explore", icon: "search", path: "explore" },
-            /*
-            {
-              name: "Notifications",
-              icon: "notifications",
-              path: "notifications",
-            },
-            { name: "Messages", icon: "mail", path: "messages" },
-            { name: "Bookmarks", icon: "bookmark", path: "bookmarks" },
-            {
-              name: "Twitter Blue",
-              icon: "verified",
-              path: "twitter_blue",
-            },
-       
-               */
-            { name: "Profile", icon: "person", path: "profile" },
-          ].map((link, index) => (
+          {user && token && (
             <ListItem
-              key={index}
               sx={{
                 px: 0,
               }}
             >
               <NavLink
-                to={link.path}
+                to="profile"
                 className={`${classes.link} ${
                   matches ? "drawerButton" : "drawerButtonSmall"
                 }`}
               >
                 <ListItemIcon sx={{ mr: 0 }}>
-                  {link.name === "Notifications" ? (
-                    <Badge color="primary" badgeContent={1}>
-                      <Icon sx={{ color: theme.palette.icon.main }}>
-                        {link.icon}
-                      </Icon>
-                    </Badge>
-                  ) : (
-                    <Icon sx={{ color: theme.palette.icon.main }}>
-                      {link.icon}
-                    </Icon>
-                  )}
+                  <Icon sx={{ color: theme.palette.icon.main }}>person</Icon>
                 </ListItemIcon>
-                {matches && <ListItemText primary={link.name} sx={{ ml: 0 }} />}
+                {matches && <ListItemText primary="Profile" sx={{ ml: 0 }} />}
               </NavLink>
             </ListItem>
-          ))}
+          )}
         </List>
         {matches ? (
           <Button

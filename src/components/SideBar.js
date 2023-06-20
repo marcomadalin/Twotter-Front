@@ -16,10 +16,13 @@ import ListItemText from "@mui/material/ListItemText";
 import { sideBarStyles } from "../styles/sideBarStyles";
 import { useState } from "react";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function SideBar() {
   const classes = sideBarStyles();
   const [anchorElList, setAnchorElList] = useState([]);
+
+  const { user, token } = useAuthContext();
 
   const handleMenuOpen = (event, index) => {
     const newAnchorElList = [...anchorElList];
@@ -48,118 +51,129 @@ export default function SideBar() {
 
   return (
     <div className={classes.sideBarContainer}>
-      <div className={classes.search}>
-        <div className={classes.searchIconWrapper}>
-          <Icon className={classes.searchIcon}>search</Icon>
+      {user && token && (
+        <div className={classes.search}>
+          <div className={classes.searchIconWrapper}>
+            <Icon className={classes.searchIcon}>search</Icon>
+          </div>
+          <InputBase
+            className={classes.searchInput}
+            placeholder="Search on Twitter"
+          />
         </div>
-        <InputBase
-          className={classes.searchInput}
-          placeholder="Search on Twitter"
-        />
-      </div>
-      <Box className={classes.listContainer}>
-        <h3 className={classes.h3}>What's hot</h3>
-        <List>
-          {topics.map((topic, index) => (
-            <ListItem key={index} disablePadding className={classes.listItem}>
-              <ListItemText>
-                <p className={classes.secondaryText}>{topic.area}</p>
-                <p className={classes.primaryText}>{topic.topic}</p>
-                <p className={classes.secondaryText}>{topic.interest}</p>
-              </ListItemText>
-              <IconButton
-                className={classes.iconButton}
-                color="primary"
-                onClick={(event) => handleMenuOpen(event, index)}
+      )}
+      {user && token && (
+        <Box className={classes.listContainer}>
+          <h3 className={classes.h3}>What's hot</h3>
+          <List>
+            {topics.map((topic, index) => (
+              <ListItem key={index} disablePadding className={classes.listItem}>
+                <ListItemText>
+                  <p className={classes.secondaryText}>{topic.area}</p>
+                  <p className={classes.primaryText}>{topic.topic}</p>
+                  <p className={classes.secondaryText}>{topic.interest}</p>
+                </ListItemText>
+                <IconButton
+                  className={classes.iconButton}
+                  color="primary"
+                  onClick={(event) => handleMenuOpen(event, index)}
+                >
+                  <Icon className={classes.moreIcon}>more_horizontal</Icon>
+                </IconButton>
+                <Menu
+                  className={classes.feedbackMenu}
+                  anchorEl={anchorElList[index]}
+                  open={Boolean(anchorElList[index])}
+                  onClose={() => handleMenuClose(index)}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                >
+                  <MenuItem onClick={() => handleMenuClose(index)}>
+                    <ListItemIcon>
+                      <Icon className={classes.sadIcon}>
+                        sentiment_dissatisfied
+                      </Icon>
+                    </ListItemIcon>
+                    <ListItemText>Not interested</ListItemText>
+                  </MenuItem>
+                  <MenuItem onClick={() => handleMenuClose(index)}>
+                    <ListItemIcon>
+                      <Icon className={classes.sadIcon}>
+                        sentiment_dissatisfied
+                      </Icon>
+                    </ListItemIcon>
+                    <ListItemText>Spam or harmful</ListItemText>
+                  </MenuItem>
+                </Menu>
+              </ListItem>
+            ))}
+          </List>
+          <Button disableRipple size="large" className={classes.moreButton}>
+            More
+          </Button>
+        </Box>
+      )}
+      {user && token && (
+        <Box className={classes.listContainer}>
+          <h3 className={classes.h3}>Who to follow</h3>
+          <List>
+            {users.map((user, index) => (
+              <ListItem
+                key={index}
+                disablePadding
+                className={`${classes.listItem} ${classes.userList}`}
               >
-                <Icon className={classes.moreIcon}>more_horizontal</Icon>
-              </IconButton>
-              <Menu
-                className={classes.feedbackMenu}
-                anchorEl={anchorElList[index]}
-                open={Boolean(anchorElList[index])}
-                onClose={() => handleMenuClose(index)}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-              >
-                <MenuItem onClick={() => handleMenuClose(index)}>
-                  <ListItemIcon>
-                    <Icon className={classes.sadIcon}>
-                      sentiment_dissatisfied
-                    </Icon>
-                  </ListItemIcon>
-                  <ListItemText>Not interested</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={() => handleMenuClose(index)}>
-                  <ListItemIcon>
-                    <Icon className={classes.sadIcon}>
-                      sentiment_dissatisfied
-                    </Icon>
-                  </ListItemIcon>
-                  <ListItemText>Spam or harmful</ListItemText>
-                </MenuItem>
-              </Menu>
-            </ListItem>
-          ))}
-        </List>
-        <Button disableRipple size="large" className={classes.moreButton}>
-          More
-        </Button>
-      </Box>
-      <Box className={classes.listContainer}>
-        <h3 className={classes.h3}>Who to follow</h3>
-        <List>
-          {users.map((user, index) => (
-            <ListItem
-              key={index}
-              disablePadding
-              className={`${classes.listItem} ${classes.userList}`}
-            >
-              <ListItemAvatar>
-                <Avatar alt={user.username} src="/static/images/avatar/1.jpg" />
-              </ListItemAvatar>
-              <ListItemText>
-                <p className={classes.primaryText}>{user.username}</p>
-                <span className={classes.secondaryText}>
-                  {user.tag}
-                  {user.followed && (
-                    <Chip
-                      label="Followed"
-                      size="small"
-                      className={classes.followTag}
-                    />
-                  )}
-                </span>
-              </ListItemText>
-              <Button
-                disableRipple
-                size="medium"
-                className={classes.followButton}
-              >
-                Follow
-              </Button>
-            </ListItem>
-          ))}
-        </List>
-        <Button disableRipple size="large" className={classes.moreButton}>
-          More
-        </Button>
-      </Box>
-      <Box className={classes.policyTextWrapper}>
-        <a className={classes.policyText}>Term of Service</a>
-        <a className={classes.policyText}>Privacy policy</a>
-        <a className={classes.policyText}>Accessibility</a>
-        <div>
-          <a className={classes.policyText}>Cookie policy</a>
-          <span className={classes.copyright}>© 2023 X Corp.</span>
-        </div>
-      </Box>
+                <ListItemAvatar>
+                  <Avatar
+                    alt={user.username}
+                    src="/static/images/avatar/1.jpg"
+                  />
+                </ListItemAvatar>
+                <ListItemText>
+                  <p className={classes.primaryText}>{user.username}</p>
+                  <span className={classes.secondaryText}>
+                    {user.tag}
+                    {user.followed && (
+                      <Chip
+                        label="Followed"
+                        size="small"
+                        className={classes.followTag}
+                      />
+                    )}
+                  </span>
+                </ListItemText>
+                <Button
+                  disableRipple
+                  size="medium"
+                  className={classes.followButton}
+                >
+                  Follow
+                </Button>
+              </ListItem>
+            ))}
+          </List>
+          <Button disableRipple size="large" className={classes.moreButton}>
+            More
+          </Button>
+        </Box>
+      )}
+      {user && token && (
+        <Box className={classes.policyTextWrapper}>
+          <a className={classes.policyText}>Term of Service</a>
+          <a className={classes.policyText}>Privacy policy</a>
+          <a className={classes.policyText}>Accessibility</a>
+          <div>
+            <a className={classes.policyText}>Cookie policy</a>
+            <span className={classes.copyright}>© 2023 X Corp.</span>
+          </div>
+        </Box>
+      )}
     </div>
   );
 }

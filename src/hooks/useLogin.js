@@ -17,7 +17,10 @@ export function useLogin() {
         localStorage.setItem("user", user);
         localStorage.setItem("token", token);
 
-        dispatch({ type: "LOGIN", payload: { user: user, token: token } });
+        dispatch({
+          type: "LOGIN",
+          payload: { user: response.data.user, token: response.data.token },
+        });
       })
       .catch((err) => {
         console.log(err);
