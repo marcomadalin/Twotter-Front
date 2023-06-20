@@ -15,6 +15,7 @@ import { useEffect, useRef, useState } from "react";
 import SideBar from "../components/SideBar";
 import Twitt from "../components/Twitt";
 import axios from "axios";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function Home() {
   const classes = homeStyles();
@@ -25,6 +26,8 @@ export default function Home() {
   const twittTextRef = useRef("");
 
   const [posts, setPosts] = useState([]);
+
+  const { user, token } = useAuthContext();
 
   const fetchTwitts = async () => {
     await axios
@@ -111,7 +114,9 @@ export default function Home() {
         </Box>
         <Box className={classes.twittPost}>
           <Box className={classes.twittWrapper}>
-            <Avatar alt="User" src="/static/images/avatar/1.jpg" />
+            {user && (
+              <Avatar alt={user.username} src="/static/images/avatar/1.jpg" />
+            )}
             <TextField
               className={classes.twittCreate}
               placeholder="What's going on ?"
