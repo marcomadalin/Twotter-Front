@@ -14,21 +14,24 @@ import Profile from "./pages/Profile";
 import themeDark from "./themes/dark";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route>
-      <Route element={<MainLayout />}>
-        <Route path="home" element={<Home />} />
-        <Route path="explore" element={<Explore />} />
-        <Route path="profile" element={<Profile />} />
-      </Route>
-      <Route path="*" element={<Navigate to="home" />} />
-    </Route>
-  )
-);
+import { useAuthContext } from "./hooks/useAuthContext";
 
 function App() {
+  const { user } = useAuthContext();
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route>
+        <Route element={<MainLayout />}>
+          <Route path="home" element={user ? <Home /> : <Explore />} />
+          <Route path="explore" element={<Explore />} />
+          <Route path="profile" element={user ? <Profile /> : <Explore />} />
+        </Route>
+        <Route path="*" element={<Navigate to="explore" />} />
+      </Route>
+    )
+  );
+
   return (
     <ThemeProvider theme={themeDark}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>

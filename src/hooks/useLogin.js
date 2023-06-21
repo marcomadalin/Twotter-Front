@@ -1,5 +1,6 @@
 import { useAuthContext } from "./useAuthContext";
 import axios from "axios";
+import { redirect } from "react-router-dom";
 
 export function useLogin() {
   const { dispatch } = useAuthContext();
@@ -21,6 +22,7 @@ export function useLogin() {
           type: "LOGIN",
           payload: { user: response.data.user, token: response.data.token },
         });
+        redirect("/home");
       })
       .catch((err) => {
         console.log(err);

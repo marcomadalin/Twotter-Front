@@ -118,7 +118,7 @@ export default function NavigationDrawer() {
             </ListItem>
           )}
         </List>
-        {matches ? (
+        {matches && user && (
           <Button
             variant="contained"
             size="large"
@@ -126,7 +126,8 @@ export default function NavigationDrawer() {
           >
             Twitt
           </Button>
-        ) : (
+        )}
+        {!matches && user && (
           <Button
             variant="contained"
             color="primary"
