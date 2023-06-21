@@ -28,7 +28,6 @@ export default function AuthenticationBanners() {
 
   const closeLoginModal = () => {
     setOpenLogin(false);
-    setShowCoockies(true);
   };
 
   const openSignupModal = () => {
