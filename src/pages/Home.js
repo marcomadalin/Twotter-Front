@@ -77,7 +77,7 @@ export default function Home() {
   return (
     <Grid
       container
-      id="homeContainer"
+      className={user ? classes.mainContainer : classes.mainContainerAuth}
       alignItems="flex-start"
       justifyContent="flex-start"
       direction="row"

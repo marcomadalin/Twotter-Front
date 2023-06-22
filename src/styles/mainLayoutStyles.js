@@ -5,6 +5,10 @@ export const mainLayoutStyles = makeStyles((theme) => ({
     minHeight: "100% !important",
     marginTop: "0 !important",
   },
+  defaultGridAuth: {
+    height: "calc(100vh - 80px) !important",
+    marginTop: "0 !important",
+  },
   drawerGrid: {
     flexGrow: "1 !important",
     paddingBottom: "10px !important",

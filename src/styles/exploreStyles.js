@@ -1,6 +1,16 @@
 import { makeStyles } from "@mui/styles";
 
 export const exploreStyles = makeStyles((theme) => ({
+  mainContainer: {
+    boxSizing: "border-box !important",
+    height: "100vh",
+    padding: "0 0 0 0",
+  },
+  mainContainerAuth: {
+    boxSizing: "border-box !important",
+    height: "calc(100vh - 80px) !important",
+    padding: "0 0 0 0",
+  },
   homeButtonFeed: {
     color: `${theme.palette.text.primary} !important`,
     background: "transparent !important",

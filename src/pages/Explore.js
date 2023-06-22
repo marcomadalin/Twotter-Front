@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import Twitt from "../components/Twitt";
 import SideBar from "../components/SideBar";
 import { exploreStyles } from "../styles/exploreStyles";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function Explore() {
   const classes = exploreStyles();
@@ -12,6 +13,8 @@ export default function Explore() {
   const renderContacts = useMediaQuery("(min-width:1300px)");
 
   const [posts, setPosts] = useState([]);
+
+  const { user } = useAuthContext();
 
   const fetchTwitts = async () => {
     await axios
@@ -30,7 +33,7 @@ export default function Explore() {
   return (
     <Grid
       container
-      id="homeContainer"
+      className={user ? classes.mainContainer : classes.mainContainerAuth}
       alignItems="flex-start"
       justifyContent="flex-start"
       direction="row"

@@ -3,13 +3,20 @@ import Grid from "@mui/material/Grid";
 import NavigationDrawer from "../components/NavigationDrawer";
 import { mainLayoutStyles } from "../styles/mainLayoutStyles";
 import AuthenticationBanners from "../components/AuthenticationBanners";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function MainLayout() {
   const classes = mainLayoutStyles();
+  const { user } = useAuthContext();
+
   return (
     <div>
       <ScrollRestoration />
-      <Grid container spacing={2} className={classes.defaultGrid}>
+      <Grid
+        container
+        spacing={2}
+        className={user ? classes.defaultGrid : classes.defaultGridAuth}
+      >
         <Grid
           item
           container
