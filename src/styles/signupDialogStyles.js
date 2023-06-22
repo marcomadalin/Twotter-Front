@@ -49,9 +49,9 @@ export const signupDialogStyles = makeStyles((theme) => ({
     textTransform: "none !important",
     color: "black !important",
     width: "300px !important",
-    height: "40px !important",
-    marginBottom: "25px !important",
+    height: "44px !important",
     fontWeight: "bold !important",
+    fontSize: "16px !important",
   },
   dividerWrapper: {
     display: "flex !important",
@@ -74,6 +74,7 @@ export const signupDialogStyles = makeStyles((theme) => ({
   signupText: {
     fontSize: "14px",
     color: theme.palette.text.secondary,
+    marginBottom: "25px",
   },
   blueTermsText: {
     padding: "0 0 0 0 !important",

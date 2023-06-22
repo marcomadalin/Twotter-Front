@@ -4,9 +4,9 @@ import {
   CircularProgress,
   DialogContent,
   DialogTitle,
-  Divider,
   Icon,
   IconButton,
+  Stack,
 } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import { useState } from "react";
@@ -55,25 +55,6 @@ export default function SignupDialog(props) {
               >
                 Sing up on Twitter
               </h1>
-              <Button className={classes.signupButtons}>
-                <Icon className={classes.signupButtonIcon}>public</Icon>
-                Sing up with Google
-              </Button>
-              <Button className={classes.signupButtons}>
-                <Icon className={classes.signupButtonIcon}>phone_iphone</Icon>
-                Sing up with Apple
-              </Button>
-              <Box className={classes.dividerWrapper}>
-                <Divider light className={classes.divider} />
-                <p style={{ margin: "0 10px 0 10px" }}>Or</p>
-                <Divider light className={classes.divider} />
-              </Box>
-              <Button
-                className={classes.signupButtons}
-                onClick={props.openFormSignup}
-              >
-                Create an account
-              </Button>
               <p className={classes.termsText} style={{ marginTop: "-10px" }}>
                 By signing up, you agree to the{" "}
                 <Button disableRipple className={classes.blueTermsText}>
@@ -97,16 +78,24 @@ export default function SignupDialog(props) {
             </Box>
           )}
           {!loading && (
-            <p className={classes.signupText}>
-              Already have an account?
+            <Stack>
               <Button
-                disableRipple
-                className={classes.blueText}
-                onClick={props.openLoginModal}
+                className={classes.signupButtons}
+                onClick={props.openFormSignup}
               >
-                <span>Log in</span>
+                Create an account
               </Button>
-            </p>
+              <p className={classes.signupText}>
+                Already have an account?
+                <Button
+                  disableRipple
+                  className={classes.blueText}
+                  onClick={props.openLoginModal}
+                >
+                  <span>Log in</span>
+                </Button>
+              </p>
+            </Stack>
           )}
         </Box>
       </DialogContent>

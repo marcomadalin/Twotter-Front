@@ -59,6 +59,8 @@ export default function FormSignupDialog(props) {
 
   const [checked3, setChecked3] = useState(false);
 
+  const [emailError, setEmailError] = useState(false);
+
   const months = [
     "January",
     "February",
@@ -116,6 +118,21 @@ export default function FormSignupDialog(props) {
     setYear(event.target.value);
   };
 
+  const clearInputs = () => {
+    setName("");
+    setEmail("");
+    setUsername("");
+    setPassword("");
+    setConfiramtion("");
+    setChecked1(false);
+    setChecked2(false);
+    setChecked3(false);
+    setMonth("");
+    setDay("");
+    setYear("");
+    setEmailError(false);
+  };
+
   const createAccount = async () => {
     setLoading(true);
     const user = {
@@ -164,6 +181,7 @@ export default function FormSignupDialog(props) {
       className={classes.authDialog}
       onClose={() => {
         setStep(1);
+        clearInputs();
       }}
     >
       {step === 1 && (
@@ -172,7 +190,10 @@ export default function FormSignupDialog(props) {
           size="small"
           disableRipple
           className={classes.closeButton}
-          onClick={props.closeFormSingup}
+          onClick={() => {
+            clearInputs();
+            props.closeFormSingup();
+          }}
         >
           <Icon>close</Icon>
         </IconButton>
@@ -211,7 +232,12 @@ export default function FormSignupDialog(props) {
                 variant="outlined"
                 value={name}
                 onChange={(event) => {
-                  setName(event.target.value);
+                  if (event.target.value.length <= 50) {
+                    setName(event.target.value);
+                  }
+                }}
+                inputProps={{
+                  maxLength: 50,
                 }}
                 className={`${classes.textInput} ${classes.outlineInput}`}
               />
@@ -221,7 +247,9 @@ export default function FormSignupDialog(props) {
                 value={email}
                 onChange={(event) => {
                   setEmail(event.target.value);
+                  setEmailError(!/\S+@\S+\.\S+/.test(event.target.value));
                 }}
+                error={emailError}
                 className={`${classes.textInput} ${classes.outlineInput}`}
               />
               <Box sx={{ marginBottom: "10px !important" }}>
@@ -319,7 +347,12 @@ export default function FormSignupDialog(props) {
                 variant="outlined"
                 value={username}
                 onChange={(event) => {
-                  setUsername(event.target.value);
+                  if (event.target.value.length <= 15) {
+                    setUsername(event.target.value);
+                  }
+                }}
+                inputProps={{
+                  maxLength: 15,
                 }}
                 className={`${classes.textInput} ${classes.outlineInput}`}
               />
