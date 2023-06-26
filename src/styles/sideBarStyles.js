@@ -4,6 +4,8 @@ export const sideBarStyles = makeStyles((theme) => ({
   sideBarContainer: {
     boxSizing: "border-box",
     margin: "20px 0 0 20px",
+    width: "100%",
+    paddingRight: "20px",
   },
   search: {
     marginLeft: 0,
@@ -17,7 +19,6 @@ export const sideBarStyles = makeStyles((theme) => ({
     marginBottom: "20px",
     display: "flex",
     alignItems: "center",
-    marginRight: "20px",
     position: "relative",
     "&:focus-within": {
       backgroundColor: theme.palette.background.default,
@@ -37,11 +38,9 @@ export const sideBarStyles = makeStyles((theme) => ({
   searchIcon: {
     color: theme.palette.text.secondary,
   },
-  sadIcon: {
-    color: theme.palette.icon.main,
-  },
   searchInput: {
     color: "inherit",
+    width: "100%",
     "& .MuiInputBase-input": {
       padding: theme.spacing(1, 1, 1, 0),
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
@@ -49,73 +48,44 @@ export const sideBarStyles = makeStyles((theme) => ({
       width: "100%",
     },
   },
-  listContainer: {
-    boxSizing: "border-box",
-    backgroundColor: theme.palette.secondary.main,
-    borderRadius: "20px",
-    minWidth: "280px",
+  signupWrapper: {
     maxWidth: "350px",
+    minWidth: "200px",
+    width: "100%",
     marginBottom: "20px",
-    marginRight: "20px",
+    boxSizing: "border-box",
+    border: `1px solid ${theme.palette.blur.main}`,
+    borderRadius: "20px",
+    padding: "0px 20px 20px 20px",
   },
-  listItem: {
-    minWidth: "50px",
-    paddingLeft: "20px !important",
-    paddingRight: "20px !important",
-    "&:hover": {
-      backgroundColor: theme.palette.secondary.hover,
-    },
-  },
-  h3: {
-    margin: "0px 0px 0px 0px",
-    padding: "20px 0px 0 20px",
-    fontWeight: "bold",
-    fontSize: "23px",
-  },
-  moreButton: {
-    width: "100% !important",
+  signupButtons: {
+    borderRadius: "60px !important",
+    backgroundColor: "white !important",
     textTransform: "none !important",
-    borderRadius: "0 0 20px 20px !important",
-    minHeight: "50px !important",
-    justifyContent: "flex-start !important",
-    paddingLeft: "20px !important",
+    color: "black !important",
+    minWidth: "200px !important",
+    height: "40px !important",
+    fontWeight: "bold !important",
+    fontSize: "16px !important",
+    margin: "5px 0 5px 0 !important",
+  },
+  blueTermsText: {
+    padding: "0 0 0 0 !important",
+    textTransform: "none !important",
+    fontSize: "13px !important",
     "&:hover": {
-      backgroundColor: `${theme.palette.secondary.hover} !important`,
+      "& span": {
+        textDecoration: "underline !important",
+      },
     },
   },
-  secondaryText: {
-    margin: "0px 0px 0px 0px",
-    fontSize: "14px",
-    fontWeight: "500",
+  termsText: {
+    fontSize: "13px",
     color: theme.palette.text.secondary,
-  },
-  primaryText: {
-    margin: "0px 0px 0px 0px",
-    fontSize: "16px",
-    fontWeight: "600",
-  },
-  moreIcon: {
-    color: theme.palette.icon.secondary,
-    "&:hover": {
-      color: theme.palette.icon.primary,
-    },
-  },
-  iconButton: {
-    marginTop: "-15px !important",
-  },
-  userList: {
-    height: "70px",
-  },
-  followTag: {
-    backgroundColor: `${theme.palette.secondary.tags} !important`,
-    borderRadius: "5px !important",
-    marginLeft: "5px !important",
-    fontSize: "10px !important",
-    color: `${theme.palette.text.tags} !important`,
   },
   policyTextWrapper: {
     boxSizing: "border-box",
-    minWidth: "280px",
+    minWidth: "200px",
     maxWidth: "350px",
     width: "100%",
     marginBottom: "20px",
@@ -136,24 +106,5 @@ export const sideBarStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     fontWeight: "500",
     fontSize: "14px",
-  },
-  followButton: {
-    backgroundColor: `${theme.palette.icon.main} !important`,
-    color: `${theme.palette.background.default} !important`,
-    borderRadius: "60px !important",
-    textTransform: "none !important",
-    fontWeight: "500 !important",
-    width: "80px !important",
-    "&:hover": {
-      backgroundColor: `${theme.palette.hoverFollowButton} !important`,
-    },
-  },
-  feedbackMenu: {
-    "& .MuiPaper-root": {
-      backgroundColor: "black",
-      width: "400px",
-      borderRadius: "20px",
-      boxShadow: theme.palette.boxShadow.main,
-    },
   },
 }));

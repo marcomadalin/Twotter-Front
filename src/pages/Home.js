@@ -54,8 +54,8 @@ export default function Home() {
       comments: [],
       retwitts: 0,
       likes: 0,
-      user: "id" + Math.floor(Math.random() * 1000000),
-      username: "randomuser" + Math.floor(Math.random() * 1000000),
+      user: user.name,
+      username: user.username,
     };
 
     await axios
@@ -183,7 +183,7 @@ export default function Home() {
         )}
       </Grid>
       {renderGrid && (
-        <Grid item className={classes.contactsGrid}>
+        <Grid item xs className={classes.contactsGrid}>
           {renderContacts && <SideBar />}
         </Grid>
       )}

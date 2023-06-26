@@ -19,15 +19,6 @@ export default function SignupDialog(props) {
 
   const [loading, setLoading] = useState(false);
 
-  const [signupDisabled, setSignupDisabled] = useState(true);
-
-  const changePanel = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  };
-
   return (
     <Dialog open={props.openSignup} className={classes.authDialog}>
       <IconButton

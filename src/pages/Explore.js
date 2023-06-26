@@ -56,7 +56,7 @@ export default function Explore() {
         </Box>
       </Grid>
       {renderGrid && (
-        <Grid item className={classes.contactsGrid}>
+        <Grid item xs className={classes.contactsGrid}>
           {renderContacts && <SideBar />}
         </Grid>
       )}

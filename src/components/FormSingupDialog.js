@@ -22,6 +22,8 @@ import { useEffect, useState } from "react";
 import { formSignupDialogStyles } from "../styles/formSignupDialogStyles";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
+import { useLogin } from "../hooks/useLogin";
+import { redirect } from "react-router-dom";
 
 export default function FormSignupDialog(props) {
   const theme = useTheme();
@@ -60,6 +62,8 @@ export default function FormSignupDialog(props) {
   const [checked3, setChecked3] = useState(false);
 
   const [emailError, setEmailError] = useState(false);
+
+  const { login } = useLogin();
 
   const months = [
     "January",
@@ -133,6 +137,18 @@ export default function FormSignupDialog(props) {
     setEmailError(false);
   };
 
+  const loginUser = async () => {
+    setLoading(true);
+    await login(username, password)
+      .then(() => {
+        props.closeFormSingup();
+        redirect("/home");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const createAccount = async () => {
     setLoading(true);
     const user = {
@@ -147,9 +163,9 @@ export default function FormSignupDialog(props) {
 
     await axios
       .post("http://localhost:4000/users/new", user)
-      .then((response) => {
+      .then(async (response) => {
         setLoading(false);
-        props.closeFormSingup();
+        await loginUser();
       })
       .catch((err) => {
         console.log(err);

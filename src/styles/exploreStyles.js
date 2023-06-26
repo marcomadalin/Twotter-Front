@@ -55,7 +55,7 @@ export const exploreStyles = makeStyles((theme) => ({
     width: "inherit",
   },
   contactsGrid: {
-    padding: "0 0 0 0 !important",
+    padding: "0 20px 0 0 !important",
     height: "100%",
     flexGrow: 1,
     flexShrink: 1,

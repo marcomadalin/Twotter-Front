@@ -8,7 +8,6 @@ export const userRecommendationStyles = makeStyles((theme) => ({
     minWidth: "280px",
     maxWidth: "350px",
     marginBottom: "20px",
-    marginRight: "20px",
   },
   listItem: {
     minWidth: "50px",

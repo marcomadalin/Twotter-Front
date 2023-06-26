@@ -18,6 +18,7 @@ import { loginDialogStyles } from "../styles/loginDialogStyles";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useLogin } from "../hooks/useLogin";
+import { redirect } from "react-router-dom";
 
 export default function LoginDialog(props) {
   const classes = loginDialogStyles();
@@ -51,6 +52,7 @@ export default function LoginDialog(props) {
       .then(() => {
         setLoading(false);
         resetPanel();
+        redirect("/home");
       })
       .catch((err) => {
         console.log(err);
