@@ -37,7 +37,7 @@ export default function Twitt({ data }) {
       <Box className={classes.twittContent}>
         <Box className={classes.twittHeader}>
           <Box className={classes.userHeader}>
-            <p className={classes.user}>{data.username}</p>
+            <p className={classes.user}>{data.name}</p>
             <p className={classes.username}>{"@" + data.username} · </p>
             <p className={classes.date}>{getDate(data.createdAt)}</p>
           </Box>

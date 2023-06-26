@@ -47,7 +47,6 @@ export const homeStyles = makeStyles((theme) => ({
     position: "sticky",
     top: 0,
     zIndex: "1000 !important",
-    height: "130px !important",
     display: "flex !important",
     flexDirection: "column !important",
     justifyContent: "space-between !important",

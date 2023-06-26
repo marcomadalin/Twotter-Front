@@ -54,12 +54,17 @@ export default function Home() {
       comments: [],
       retwitts: 0,
       likes: 0,
-      user: user.name,
+      user: user._id,
+      name: user.name,
       username: user.username,
     };
-
+    console.log(twitt);
     await axios
-      .post("http://localhost:4000/twitts/new", twitt)
+      .post("http://localhost:4000/twitts/new", twitt, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
       .then((response) => {
         setPosts((oldPosts) => [response.data].concat(oldPosts));
         twittTextRef.current.value = "";
