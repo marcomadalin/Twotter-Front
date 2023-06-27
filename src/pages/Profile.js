@@ -1,4 +1,12 @@
-import { Box, Button, useMediaQuery } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  CardMedia,
+  Stack,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
@@ -15,6 +23,8 @@ export default function Profile() {
   const [posts, setPosts] = useState([]);
 
   const { user, token } = useAuthContext();
+
+  const theme = useTheme();
 
   const fetchTwitts = async () => {
     await axios
@@ -52,8 +62,35 @@ export default function Profile() {
           >
             {user.name}
           </Button>
+          <p
+            style={{ margin: "0 0 0 0" }}
+            className={`${classes.secondaryText}`}
+          >
+            {posts.length + " tweets"}
+          </p>
         </Box>
-        <Box className={classes.profileBox}></Box>
+        <Stack className={classes.profileBox}>
+          <CardMedia
+            component="img"
+            height="200"
+            image="/static/images/cards/paella.jpg"
+            sx={{ backgroundColor: theme.palette.primary.main }}
+          />
+          <Box className={classes.profileEditBox}>
+            <Avatar
+              alt={user.username}
+              src="/static/images/avatar/1.jpg"
+              className={classes.profilePic}
+            />
+            <Button className={classes.editProfile}>Edit profile</Button>
+          </Box>
+          <h2 style={{ margin: "0 0 0 0", marginLeft: "20px" }}>{user.name}</h2>
+          <p className={`${classes.username} ${classes.secondaryText}`}>
+            {"@" + user.username}
+          </p>
+          <p style={{ marginLeft: "20px", marginRight: "20px" }}>allo?</p>
+          <Box className={classes.userInfoBox}></Box>
+        </Stack>
         <Box className={classes.feedBox}>
           {posts.map((post, index) => (
             <Twitt key={index} data={post} />
