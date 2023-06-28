@@ -44,6 +44,7 @@ export const exploreStyles = makeStyles((theme) => ({
   },
   tabBox: {
     backdropFilter: "blur(6px)",
+    backgroundColor: theme.palette.background.lowOpacityBlack,
     position: "sticky",
     top: 0,
     zIndex: "1000 !important",

@@ -28,8 +28,7 @@ export const profileStyles = makeStyles((theme) => ({
     },
   },
   profileBox: {
-    borderLeft: `1px solid ${theme.palette.blur.main}`,
-    borderRight: `1px solid ${theme.palette.blur.main}`,
+    borderBottom: `1px solid ${theme.palette.blur.main}`,
   },
   profileEditBox: {
     display: "flex",
@@ -54,6 +53,9 @@ export const profileStyles = makeStyles((theme) => ({
     fontWeight: "bold !important",
     marginTop: "20px !important",
     marginRight: "20px !important",
+    "&:hover": {
+      backgroundColor: `${theme.palette.icon.hoverMain} !important`,
+    },
   },
   username: {
     marginTop: "0px",
@@ -64,6 +66,19 @@ export const profileStyles = makeStyles((theme) => ({
     fontSize: "14px",
     fontWeight: "500",
     color: theme.palette.text.secondary,
+  },
+  userInfoBox: {
+    display: "flex",
+    padding: "0 20px 0 20px",
+  },
+  userInfoIcon: {
+    marginRight: "5px",
+    color: theme.palette.text.secondary,
+  },
+  userInfoIconWrapper: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
   },
   feedGrid: {
     borderLeft: `1px solid ${theme.palette.blur.main}`,
@@ -81,17 +96,34 @@ export const profileStyles = makeStyles((theme) => ({
     zIndex: "900 !important",
     position: "relative",
   },
+  navLink: {
+    textDecoration: "none ! important",
+    "&:hover": {
+      textDecoration: "underline !important",
+    },
+  },
   tabBox: {
     backdropFilter: "blur(6px)",
+    backgroundColor: theme.palette.background.lowOpacityBlack,
     position: "sticky",
     top: 0,
     zIndex: "1000 !important",
     height: "80px !important",
     display: "flex !important",
-    flexDirection: "column !important",
+    flexDirection: "row !important",
     borderBottom: `1px solid ${theme.palette.blur.main}`,
     width: "inherit",
     padding: "0px 20px 0px 20px",
+    alignItems: "center",
+  },
+  backArrow: {
+    color: `${theme.palette.icon.main} !important`,
+    height: "45px !important",
+    width: "45px !important",
+    "&:hover": {
+      backgroundColor: `${theme.palette.icon.hoverMain} !important`,
+      color: `${theme.palette.icon.main} !important`,
+    },
   },
   contactsGrid: {
     padding: "0 20px 0 0 !important",

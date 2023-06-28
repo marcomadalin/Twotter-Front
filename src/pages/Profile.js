@@ -3,6 +3,8 @@ import {
   Box,
   Button,
   CardMedia,
+  Icon,
+  IconButton,
   Stack,
   useMediaQuery,
   useTheme,
@@ -14,6 +16,7 @@ import Twitt from "../components/Twitt";
 import SideBar from "../components/SideBar";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { profileStyles } from "../styles/profileStyles";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const classes = profileStyles();
@@ -25,6 +28,23 @@ export default function Profile() {
   const { user, token } = useAuthContext();
 
   const theme = useTheme();
+
+  const navigate = useNavigate();
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   const fetchTwitts = async () => {
     await axios
@@ -55,19 +75,28 @@ export default function Profile() {
     >
       <Grid item className={classes.feedGrid}>
         <Box className={classes.tabBox}>
-          <Button
-            disableRipple
-            disableFocusRipple
-            className={classes.homeButtonFeed}
+          <IconButton
+            size="large"
+            className={classes.backArrow}
+            onClick={() => navigate(-1)}
           >
-            {user.name}
-          </Button>
-          <p
-            style={{ margin: "0 0 0 0" }}
-            className={`${classes.secondaryText}`}
-          >
-            {posts.length + " tweets"}
-          </p>
+            <Icon fontSize="medium">arrow_back</Icon>
+          </IconButton>
+          <Box sx={{ marginLeft: "10px" }}>
+            <Button
+              disableRipple
+              disableFocusRipple
+              className={classes.homeButtonFeed}
+            >
+              {user.name}
+            </Button>
+            <p
+              style={{ margin: "0 0 0 0" }}
+              className={`${classes.secondaryText}`}
+            >
+              {posts.length + " tweets"}
+            </p>
+          </Box>
         </Box>
         <Stack className={classes.profileBox}>
           <CardMedia
@@ -88,8 +117,65 @@ export default function Profile() {
           <p className={`${classes.username} ${classes.secondaryText}`}>
             {"@" + user.username}
           </p>
-          <p style={{ marginLeft: "20px", marginRight: "20px" }}>allo?</p>
-          <Box className={classes.userInfoBox}></Box>
+          {user.bio && user.bio !== "" && (
+            <p style={{ marginLeft: "20px", marginRight: "20px" }}>
+              {user.bio}
+            </p>
+          )}
+          <Box className={classes.userInfoBox}>
+            {user.location && user.location !== "" && (
+              <Box
+                className={classes.userInfoIconWrapper}
+                sx={{ marginRight: "50px" }}
+              >
+                <Icon className={classes.userInfoIcon}>location_on</Icon>
+                <p className={classes.secondaryText}>{user.location}</p>
+              </Box>
+            )}
+            <Box
+              className={classes.userInfoIconWrapper}
+              sx={{ marginRight: "50px" }}
+            >
+              <Icon className={classes.userInfoIcon}>cake</Icon>
+              <p className={classes.secondaryText}>
+                Birthdate: {user.birthdate.replaceAll("-", " ")}
+              </p>
+            </Box>
+            <Box className={classes.userInfoIconWrapper}>
+              <Icon className={classes.userInfoIcon}>calendar_month</Icon>
+              <p className={classes.secondaryText}>
+                Joined in{" "}
+                {months[
+                  parseInt(user.createdAt.split("T")[0].split("-")[1]) - 1
+                ] +
+                  " " +
+                  user.createdAt.split("T")[0].split("-")[0]}
+              </p>
+            </Box>
+          </Box>
+          <Box className={classes.userInfoBox} sx={{ marginBottom: "20px" }}>
+            <Box
+              className={classes.userInfoIconWrapper}
+              sx={{ marginRight: "30px" }}
+            >
+              {user.following.length}
+              <NavLink
+                className={`${classes.secondaryText} ${classes.navLink}`}
+                style={{ marginLeft: "5px" }}
+              >
+                Following
+              </NavLink>
+            </Box>
+            <Box className={classes.userInfoIconWrapper}>
+              {user.followers.length}
+              <NavLink
+                className={`${classes.secondaryText} ${classes.navLink}`}
+                style={{ marginLeft: "5px" }}
+              >
+                Followers
+              </NavLink>
+            </Box>
+          </Box>
         </Stack>
         <Box className={classes.feedBox}>
           {posts.map((post, index) => (

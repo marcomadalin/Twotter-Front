@@ -25,6 +25,7 @@ const themeDark = createTheme({
     background: {
       default: "#000000",
       secondary: "#FFFFFF",
+      lowOpacityBlack: "rgba(0,0,0, 0.2)",
     },
     opacityBackground: {
       main: "rgba(0, 0, 0, 0.8)",
@@ -36,6 +37,7 @@ const themeDark = createTheme({
       hover: "rgba(29,155,240, 0.15)",
       hover2: "rgba(29,155,240, 0.35)",
       contrary: "#000000",
+      hoverMain: "rgba(255,255,255,0.1)",
     },
     button: {
       primary: "#1d9bf0",
