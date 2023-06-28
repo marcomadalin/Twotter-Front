@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
 
-export const signupDialogStyles = makeStyles((theme) => ({
+export const editProfileStyles = makeStyles((theme) => ({
   authDialog: {
     "&.MuiDialog-root": {
       backgroundColor: `${theme.palette.modal.main} !important`,
@@ -31,98 +31,64 @@ export const signupDialogStyles = makeStyles((theme) => ({
       scrollbarColor: "darkgrey transparent", // change as needed
     },
   },
-  dialogHeader: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  signupModalWrapper: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  signupModalBody: {
-    display: "flex",
-    flexDirection: "column",
+  tabBox: {
+    backdropFilter: "blur(6px)",
+    backgroundColor: theme.palette.background.lowOpacityBlack,
+    position: "sticky",
+    top: 0,
+    zIndex: "1000 !important",
+    display: "flex !important",
+    flexDirection: "row !important",
     justifyContent: "space-between",
-    height: "100%",
+    padding: "0 20px 0px 20px",
+    alignItems: "center",
+    borderTopRightRadius: "10px",
+    borderTopLeftRadius: "10px",
+  },
+  editCloseWrapper: {
+    display: "flex",
+    alignItems: "center",
   },
   closeButton: {
-    position: "fixed !important",
-    margin: "10px 0 0 20px !important",
     height: "45px !important",
     width: "45px !important",
+    marginRight: "10px !important",
     "&:hover": {
       backgroundColor: `${theme.palette.icon.hoverMain} !important`,
       color: `${theme.palette.icon.main} !important`,
     },
   },
-  signupButtonsWrapper: {
-    width: "300px",
+  profileEditBox: {
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    height: "80px",
   },
-  icon: {
-    color: `${theme.palette.icon.main} !important`,
-  },
-  signupButtons: {
-    borderRadius: "60px !important",
-    backgroundColor: "white !important",
-    textTransform: "none !important",
-    color: "black !important",
-    width: "300px !important",
-    height: "44px !important",
-    fontWeight: "bold !important",
-    fontSize: "16px !important",
-  },
-  dividerWrapper: {
+  profilePic: {
+    top: "-50px !important",
+    height: "120px !important",
+    width: "120px !important",
+    border: "5px solid black",
+    marginLeft: "20px",
     display: "flex !important",
-    flexDirection: "row !important",
-    justifyContent: "center !important",
     alignItems: "center !important",
-    width: "100% !important",
-    marginBottom: "20px !important",
+    justifyContent: "center !important",
   },
-  divider: {
-    display: "flex",
-    height: "1px",
-    width: "130px",
-    background: theme.palette.tertiary.main,
+  banner: {
+    backgroundColor: theme.palette.primary.main,
+    height: "200px",
+    display: "flex !important",
+    alignItems: "center !important",
+    justifyContent: "center !important",
   },
-  termsText: {
-    fontSize: "13px",
-    color: theme.palette.text.secondary,
-  },
-  signupText: {
-    fontSize: "14px",
-    color: theme.palette.text.secondary,
-    marginBottom: "25px",
-  },
-  blueTermsText: {
-    padding: "0 0 0 0 !important",
-    textTransform: "none !important",
-    fontSize: "13px !important",
+  picEditButton: {
+    height: "45px !important",
+    width: "45px !important",
+    color: `${theme.palette.icon.main} !important`,
+    backgroundColor: `${theme.palette.icon.transaprent} !important`,
     "&:hover": {
-      "& span": {
-        textDecoration: "underline !important",
-      },
+      backgroundColor: `${theme.palette.icon.hoverMain2} !important`,
     },
-  },
-  blueText: {
-    padding: "0 0 0 0 !important",
-    textTransform: "none !important",
-    fontSize: "14px !important",
-    "&:hover": {
-      "& span": {
-        textDecoration: "underline !important",
-      },
-    },
-  },
-  signupButtonIcon: {
-    color: theme.palette.icon.contrary,
-    marginRight: "10px",
   },
   loadingBox: {
     height: "100%",
@@ -130,7 +96,24 @@ export const signupDialogStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
+  saveProfile: {
+    borderRadius: "60px !important",
+    textTransform: "none !important",
+    color: `${theme.palette.background.default} !important`,
+    border: `1px solid ${theme.palette.border.main}`,
+    width: "80px !important",
+    height: "35px !important",
+    fontWeight: "bold !important",
+    backgroundColor: `${theme.palette.icon.main} !important`,
+    "&:hover": {
+      backgroundColor: `${theme.palette.hoverFollowButton} !important`,
+    },
+  },
   outlineInput: {
+    boxSizing: "border-box",
+    width: "100%",
+    marginBottom: "20px !important",
+    backgroundColor: `${theme.palette.background.default} !important`,
     "& .MuiOutlinedInput-notchedOutline": {
       borderColor: theme.palette.tertiary.main,
       "&:hover": {

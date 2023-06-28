@@ -126,6 +126,7 @@ export default function Home() {
               className={classes.twittCreate}
               placeholder="What's going on ?"
               multiline
+              minRows={1}
               maxRows={7}
               inputRef={twittTextRef}
             />

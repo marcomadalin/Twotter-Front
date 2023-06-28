@@ -11,6 +11,24 @@ export const loginDialogStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.background.default,
       color: theme.palette.text.primary,
       borderRadius: "10px",
+      overflowX: "hidden !important",
+      overflowY: "auto",
+      boxSizing: "content-box", // ensures padding and border are outside of box
+      // Customize scrollbar for Webkit browsers (Chrome, Safari)
+      "&::-webkit-scrollbar": {
+        width: "10px",
+      },
+      "&::-webkit-scrollbar-track": {
+        borderRadius: "10px",
+        backgroundColor: "transparent", // change as needed
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "darkgrey", // change as needed
+        borderRadius: "10px",
+      },
+      // Customize scrollbar for Firefox
+      scrollbarWidth: "thin",
+      scrollbarColor: "darkgrey transparent", // change as needed
     },
   },
   dialogHeader: {
@@ -33,6 +51,12 @@ export const loginDialogStyles = makeStyles((theme) => ({
   closeButton: {
     position: "fixed !important",
     margin: "10px 0 0 20px !important",
+    height: "45px !important",
+    width: "45px !important",
+    "&:hover": {
+      backgroundColor: `${theme.palette.icon.hoverMain} !important`,
+      color: `${theme.palette.icon.main} !important`,
+    },
   },
   loginButtonsWrapper: {
     width: "300px",

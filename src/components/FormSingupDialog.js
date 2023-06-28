@@ -247,6 +247,7 @@ export default function FormSignupDialog(props) {
                 label="Name"
                 variant="outlined"
                 value={name}
+                error={name.length > 50}
                 onChange={(event) => {
                   if (event.target.value.length <= 50) {
                     setName(event.target.value);

@@ -17,6 +17,7 @@ import SideBar from "../components/SideBar";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { profileStyles } from "../styles/profileStyles";
 import { NavLink, useNavigate } from "react-router-dom";
+import EditProfileModal from "../components/EditProfileModal";
 
 export default function Profile() {
   const classes = profileStyles();
@@ -24,6 +25,7 @@ export default function Profile() {
   const renderContacts = useMediaQuery("(min-width:1300px)");
 
   const [posts, setPosts] = useState([]);
+  const [showEditProfile, setShowEditProfile] = useState(false);
 
   const { user, token } = useAuthContext();
 
@@ -111,7 +113,16 @@ export default function Profile() {
               src="/static/images/avatar/1.jpg"
               className={classes.profilePic}
             />
-            <Button className={classes.editProfile}>Edit profile</Button>
+            <Button
+              className={classes.editProfile}
+              onClick={() => setShowEditProfile(true)}
+            >
+              Edit profile
+            </Button>
+            <EditProfileModal
+              openModal={showEditProfile}
+              closeModal={() => setShowEditProfile(false)}
+            ></EditProfileModal>
           </Box>
           <h2 style={{ margin: "0 0 0 0", marginLeft: "20px" }}>{user.name}</h2>
           <p className={`${classes.username} ${classes.secondaryText}`}>

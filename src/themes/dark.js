@@ -38,6 +38,8 @@ const themeDark = createTheme({
       hover2: "rgba(29,155,240, 0.35)",
       contrary: "#000000",
       hoverMain: "rgba(255,255,255,0.1)",
+      hoverMain2: "rgba(0,0,0,0.1)",
+      transaprent: "rgba(0,0,0,0.3)",
     },
     button: {
       primary: "#1d9bf0",
