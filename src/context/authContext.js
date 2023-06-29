@@ -7,6 +7,8 @@ export function authReducer(state, action) {
   switch (action.type) {
     case "LOGIN":
       return { user: action.payload.user, token: action.payload.token };
+    case "UPDATE":
+      return { user: action.payload.user, token: action.payload.token };
     case "LOGOUT":
       return { user: null, token: null };
     default:

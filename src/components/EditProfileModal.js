@@ -11,9 +11,10 @@ import {
   useTheme,
 } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { editProfileStyles } from "../styles/editProfileStyles";
 import { useAuthContext } from "../hooks/useAuthContext";
+import axios from "axios";
 
 export default function EditProfileModal(props) {
   const classes = editProfileStyles();
@@ -26,7 +27,13 @@ export default function EditProfileModal(props) {
 
   const [location, setLocation] = useState("");
 
-  const { user } = useAuthContext();
+  const [bannerImage, setBannerImage] = useState(null);
+  const bannerImageRef = useRef(null);
+
+  const [profileImage, setProfileImage] = useState(null);
+  const profileImageRef = useRef(null);
+
+  const { user, token, dispatch } = useAuthContext();
 
   const theme = useTheme();
 
@@ -38,6 +45,56 @@ export default function EditProfileModal(props) {
 
   const resetPanel = () => {
     props.closeModal();
+  };
+
+  const updateBannerPic = (event) => {
+    setBannerImage(event.target.files[0]);
+  };
+
+  const handleBannerClick = () => {
+    bannerImageRef.current.click();
+  };
+
+  const updateProfilePic = (event) => {
+    setProfileImage(event.target.files[0]);
+  };
+
+  const handleProfileClick = () => {
+    profileImageRef.current.click();
+  };
+
+  const saveChanges = async () => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("banner", bannerImage);
+    formData.append("profile", profileImage);
+    formData.append("name", name);
+    formData.append("bio", bio);
+    formData.append("location", location);
+
+    console.log("Form");
+    console.log([...formData]);
+    await axios
+      .put(`http://localhost:4000/users/${user._id}`, formData, {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(async (response) => {
+        console.log(response.data);
+
+        localStorage.setItem("user", JSON.stringify(response.data));
+        await dispatch({
+          type: "UPDATE",
+          payload: { user: response.data, token: token },
+        });
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
   };
 
   return (
@@ -55,8 +112,17 @@ export default function EditProfileModal(props) {
           </IconButton>
           <h4>Edit profile</h4>
         </Box>
-        <Button className={classes.saveProfile} onClick={() => {}}>
-          Save
+        <Button
+          className={classes.saveProfile}
+          onClick={saveChanges}
+          disabled={loading}
+        >
+          {!loading && "Save"}
+          {loading && (
+            <Box className={classes.loadingBox}>
+              <CircularProgress />
+            </Box>
+          )}
         </Button>
       </Box>
       <Stack>
@@ -71,7 +137,15 @@ export default function EditProfileModal(props) {
             disableRipple
             className={classes.picEditButton}
             sx={{ marginRight: "10px !important" }}
+            onClick={handleBannerClick}
           >
+            <input
+              type="file"
+              accept="image/*"
+              ref={bannerImageRef}
+              onChange={updateBannerPic}
+              hidden
+            />
             <Icon>camera</Icon>
           </IconButton>
           <IconButton
@@ -95,14 +169,21 @@ export default function EditProfileModal(props) {
               size="small"
               disableRipple
               className={classes.picEditButton}
+              onClick={handleProfileClick}
             >
+              <input
+                type="file"
+                accept="image/*"
+                ref={profileImageRef}
+                onChange={updateProfilePic}
+                hidden
+              />
               <Icon>camera</Icon>
             </IconButton>
           </Avatar>
         </Box>
         <Stack sx={{ padding: "20px 20px 0px 20px" }}>
           <TextField
-            id="outlined-basic"
             label="Name"
             variant="outlined"
             value={name}
@@ -118,7 +199,6 @@ export default function EditProfileModal(props) {
             className={classes.outlineInput}
           />
           <TextField
-            id="outlined-basic"
             label="Bio"
             variant="outlined"
             multiline
@@ -136,7 +216,6 @@ export default function EditProfileModal(props) {
             className={classes.outlineInput}
           />
           <TextField
-            id="outlined-basic"
             label="Location"
             variant="outlined"
             value={location}
@@ -151,11 +230,6 @@ export default function EditProfileModal(props) {
             className={classes.outlineInput}
           />
         </Stack>
-        {loading && (
-          <Box className={classes.loadingBox}>
-            <CircularProgress />
-          </Box>
-        )}
       </Stack>
     </Dialog>
   );

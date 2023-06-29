@@ -129,15 +129,13 @@ export default function Profile() {
             {"@" + user.username}
           </p>
           {user.bio && user.bio !== "" && (
-            <p style={{ marginLeft: "20px", marginRight: "20px" }}>
-              {user.bio}
-            </p>
+            <p style={{ margin: "20px 20px 10px 20px" }}>{user.bio}</p>
           )}
           <Box className={classes.userInfoBox}>
             {user.location && user.location !== "" && (
               <Box
                 className={classes.userInfoIconWrapper}
-                sx={{ marginRight: "50px" }}
+                sx={{ marginRight: "20px", marginLeft: "-5px" }}
               >
                 <Icon className={classes.userInfoIcon}>location_on</Icon>
                 <p className={classes.secondaryText}>{user.location}</p>
@@ -145,7 +143,7 @@ export default function Profile() {
             )}
             <Box
               className={classes.userInfoIconWrapper}
-              sx={{ marginRight: "50px" }}
+              sx={{ marginRight: "20px" }}
             >
               <Icon className={classes.userInfoIcon}>cake</Icon>
               <p className={classes.secondaryText}>
@@ -167,7 +165,7 @@ export default function Profile() {
           <Box className={classes.userInfoBox} sx={{ marginBottom: "20px" }}>
             <Box
               className={classes.userInfoIconWrapper}
-              sx={{ marginRight: "30px" }}
+              sx={{ marginRight: "20px" }}
             >
               {user.following.length}
               <NavLink

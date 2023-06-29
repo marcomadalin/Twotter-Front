@@ -159,6 +159,10 @@ export default function FormSignupDialog(props) {
       birthdate: day + "-" + month + "-" + year,
       followers: [],
       following: [],
+      bio: "",
+      location: "",
+      banner: "",
+      profile: "",
     };
 
     await axios
