@@ -12,8 +12,6 @@ import Explore from "./pages/Explore";
 import MainLayout from "./layouts/MainLayout";
 import Profile from "./pages/Profile";
 import themeDark from "./themes/dark";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useAuthContext } from "./hooks/useAuthContext";
 
 function App() {
@@ -34,10 +32,8 @@ function App() {
 
   return (
     <ThemeProvider theme={themeDark}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <CssBaseline />
-        <RouterProvider router={router} />
-      </LocalizationProvider>
+      <CssBaseline />
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
 }

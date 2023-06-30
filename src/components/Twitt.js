@@ -4,7 +4,7 @@ import { useState } from "react";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-export default function Twitt({ data }) {
+export default function Twitt({ data, image }) {
   const classes = twittStyles();
 
   const feedbackMenuOptions = [
@@ -33,7 +33,7 @@ export default function Twitt({ data }) {
 
   return (
     <Box className={classes.twittBox}>
-      <Avatar alt={data.username} src="/static/images/avatar/1.jpg" />
+      <Avatar alt={data.username} src={`data:image/png;base64,${image}`} />
       <Box className={classes.twittContent}>
         <Box className={classes.twittHeader}>
           <Box className={classes.userHeader}>

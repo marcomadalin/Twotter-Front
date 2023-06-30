@@ -104,13 +104,13 @@ export default function Profile() {
           <CardMedia
             component="img"
             height="200"
-            image="/static/images/cards/paella.jpg"
+            image={`data:image/png;base64,${user.banner}`}
             sx={{ backgroundColor: theme.palette.primary.main }}
           />
           <Box className={classes.profileEditBox}>
             <Avatar
               alt={user.username}
-              src="/static/images/avatar/1.jpg"
+              src={`data:image/png;base64,${user.profile}`}
               className={classes.profilePic}
             />
             <Button
@@ -188,7 +188,7 @@ export default function Profile() {
         </Stack>
         <Box className={classes.feedBox}>
           {posts.map((post, index) => (
-            <Twitt key={index} data={post} />
+            <Twitt key={index} data={post} image={user.profile} />
           ))}
         </Box>
       </Grid>

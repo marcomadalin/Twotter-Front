@@ -72,8 +72,6 @@ export default function EditProfileModal(props) {
     formData.append("bio", bio);
     formData.append("location", location);
 
-    console.log("Form");
-    console.log([...formData]);
     await axios
       .put(`http://localhost:4000/users/${user._id}`, formData, {
         headers: {
@@ -128,7 +126,7 @@ export default function EditProfileModal(props) {
       <Stack>
         <CardMedia
           height="200"
-          image="/static/images/cards/paella.jpg"
+          image={`data:image/png;base64,${user.banner}`}
           className={classes.banner}
         >
           <IconButton
@@ -161,7 +159,7 @@ export default function EditProfileModal(props) {
         <Box className={classes.profileEditBox}>
           <Avatar
             alt={user.username}
-            src="/static/images/avatar/1.jpg"
+            src={`data:image/png;base64,${user.profile}`}
             className={classes.profilePic}
           >
             <IconButton

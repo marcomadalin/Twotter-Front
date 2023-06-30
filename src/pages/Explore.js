@@ -51,7 +51,7 @@ export default function Explore() {
         </Box>
         <Box className={classes.feedBox}>
           {posts.map((post, index) => (
-            <Twitt key={index} data={post} />
+            <Twitt key={index} data={post} image={post.image} />
           ))}
         </Box>
       </Grid>

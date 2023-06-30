@@ -157,7 +157,10 @@ export default function NavigationDrawer() {
               },
             }}
           >
-            <Avatar alt={user.username} src="/static/images/avatar/1.jpg" />
+            <Avatar
+              alt={user.username}
+              src={`data:image/png;base64,${user.profile}`}
+            />
             {matches && (
               <div style={{ marginLeft: 15 }}>
                 <p className="userNames">{user.name}</p>

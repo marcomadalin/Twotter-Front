@@ -120,7 +120,10 @@ export default function Home() {
         <Box className={classes.twittPost}>
           <Box className={classes.twittWrapper}>
             {user && (
-              <Avatar alt={user.username} src="/static/images/avatar/1.jpg" />
+              <Avatar
+                alt={user.username}
+                src={`data:image/png;base64,${user.profile}`}
+              />
             )}
             <TextField
               className={classes.twittCreate}
@@ -176,14 +179,14 @@ export default function Home() {
         {activeTab === 0 && (
           <Box className={classes.feedBox}>
             {posts.map((post, index) => (
-              <Twitt key={index} data={post} />
+              <Twitt key={index} data={post} image={post.image} />
             ))}
           </Box>
         )}
         {activeTab === 1 && (
           <Box className={classes.feedBox}>
             {posts.map((post, index) => (
-              <Twitt key={index} data={post} />
+              <Twitt key={index} data={post} image={post.image} />
             ))}
           </Box>
         )}
