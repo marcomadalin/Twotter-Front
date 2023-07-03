@@ -102,10 +102,12 @@ export default function Profile() {
         </Box>
         <Stack className={classes.profileBox}>
           <CardMedia
-            component="img"
             height="200"
             image={`data:image/png;base64,${user.banner}`}
-            sx={{ backgroundColor: theme.palette.primary.main }}
+            sx={{
+              backgroundColor: theme.palette.primary.main,
+              height: "200px !important",
+            }}
           />
           <Box className={classes.profileEditBox}>
             <Avatar

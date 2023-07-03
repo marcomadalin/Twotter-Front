@@ -34,6 +34,7 @@ const themeDark = createTheme({
       main: "#FFFFFF",
       primary: "#1d9bf0",
       secondary: "#55595c",
+      profile: "rgba(189,189,189,255)",
       hover: "rgba(29,155,240, 0.15)",
       hover2: "rgba(29,155,240, 0.35)",
       contrary: "#000000",

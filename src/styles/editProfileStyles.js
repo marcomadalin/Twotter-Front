@@ -65,14 +65,16 @@ export const editProfileStyles = makeStyles((theme) => ({
     height: "80px",
   },
   profilePic: {
-    top: "-50px !important",
+    marginTop: "-50px !important",
     height: "120px !important",
     width: "120px !important",
-    border: "5px solid black",
+    border: "5px solid black !important",
+    borderRadius: "120px !important",
     marginLeft: "20px",
     display: "flex !important",
     alignItems: "center !important",
     justifyContent: "center !important",
+    backgroundColor: theme.palette.icon.profile,
   },
   banner: {
     backgroundColor: theme.palette.primary.main,

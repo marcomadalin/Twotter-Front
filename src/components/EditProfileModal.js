@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   CardMedia,
@@ -28,9 +27,11 @@ export default function EditProfileModal(props) {
   const [location, setLocation] = useState("");
 
   const [bannerImage, setBannerImage] = useState(null);
+  const [bannerImage64, setBannerImage64] = useState("");
   const bannerImageRef = useRef(null);
 
   const [profileImage, setProfileImage] = useState(null);
+  const [profileImage64, setProfileImage64] = useState("");
   const profileImageRef = useRef(null);
 
   const { user, token, dispatch } = useAuthContext();
@@ -41,6 +42,8 @@ export default function EditProfileModal(props) {
     setName(user.name);
     setBio(user.bio);
     setLocation(user.location);
+    setProfileImage64(user.profile);
+    setBannerImage64(user.banner);
   }, [user, props.openModal]);
 
   const resetPanel = () => {
@@ -49,6 +52,14 @@ export default function EditProfileModal(props) {
 
   const updateBannerPic = (event) => {
     setBannerImage(event.target.files[0]);
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const base64String = reader.result.split(",")[1];
+      setBannerImage64(base64String);
+    };
+    reader.readAsDataURL(event.target.files[0]);
   };
 
   const handleBannerClick = () => {
@@ -57,6 +68,14 @@ export default function EditProfileModal(props) {
 
   const updateProfilePic = (event) => {
     setProfileImage(event.target.files[0]);
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const base64String = reader.result.split(",")[1];
+      setProfileImage64(base64String);
+    };
+    reader.readAsDataURL(event.target.files[0]);
   };
 
   const handleProfileClick = () => {
@@ -66,6 +85,7 @@ export default function EditProfileModal(props) {
   const saveChanges = async () => {
     setLoading(true);
     const formData = new FormData();
+    if (bannerImage == null) formData.append("deleteBanner", true);
     formData.append("banner", bannerImage);
     formData.append("profile", profileImage);
     formData.append("name", name);
@@ -116,17 +136,13 @@ export default function EditProfileModal(props) {
           disabled={loading}
         >
           {!loading && "Save"}
-          {loading && (
-            <Box className={classes.loadingBox}>
-              <CircularProgress />
-            </Box>
-          )}
+          {loading && <CircularProgress size="20px" />}
         </Button>
       </Box>
       <Stack>
         <CardMedia
           height="200"
-          image={`data:image/png;base64,${user.banner}`}
+          image={`data:image/png;base64,${bannerImage64}`}
           className={classes.banner}
         >
           <IconButton
@@ -152,14 +168,19 @@ export default function EditProfileModal(props) {
             disableRipple
             className={classes.picEditButton}
             sx={{ marginLeft: "10px !important" }}
+            onClick={() => {
+              console.log("clicked");
+              setBannerImage(null);
+              setBannerImage64("");
+            }}
           >
             <Icon>close</Icon>
           </IconButton>
         </CardMedia>
         <Box className={classes.profileEditBox}>
-          <Avatar
+          <CardMedia
             alt={user.username}
-            src={`data:image/png;base64,${user.profile}`}
+            image={`data:image/png;base64,${profileImage64}`}
             className={classes.profilePic}
           >
             <IconButton
@@ -168,6 +189,7 @@ export default function EditProfileModal(props) {
               disableRipple
               className={classes.picEditButton}
               onClick={handleProfileClick}
+              sx={{ zIndex: "1000 !important" }}
             >
               <input
                 type="file"
@@ -178,7 +200,7 @@ export default function EditProfileModal(props) {
               />
               <Icon>camera</Icon>
             </IconButton>
-          </Avatar>
+          </CardMedia>
         </Box>
         <Stack sx={{ padding: "20px 20px 0px 20px" }}>
           <TextField
