@@ -3,20 +3,15 @@ import { Avatar, Box, Icon, IconButton, Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import axios from "axios";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function Twitt({ data, image }) {
   const classes = twittStyles();
 
-  const feedbackMenuOptions = [
-    { text: "Not interested", icon: "sentiment_dissatisfied" },
-    { text: "Follow user", icon: "person_add" },
-    { text: "Add/remove user from list", icon: "list_alt" },
-    { text: "Mute", icon: "volume_off" },
-    { text: "Block", icon: "block" },
-    { text: "Insert twitt", icon: "code" },
-    { text: "Report twitt", icon: "flag" },
-  ];
   const [anchorEl, setAnchorEl] = useState();
+
+  const { user, token, dispatch } = useAuthContext();
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -29,6 +24,29 @@ export default function Twitt({ data, image }) {
   const getDate = (timestamp) => {
     const date = timestamp.split("T")[0].split("-");
     return date[2] + "-" + date[1] + "-" + date[0];
+  };
+
+  const updateFollowers = async (follow) => {
+    await axios
+      .put(
+        `http://localhost:4000/users/follow`,
+        { actualUser: user._id, targetUser: data.user, follow: follow },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then((response) => {
+        localStorage.setItem("user", JSON.stringify(response.data.userAct));
+        dispatch({
+          type: "UPDATE",
+          payload: { user: response.data.userAct, token: token },
+        });
+        console.log(response.data);
+      })
+      .catch((err) => console.log(err));
+    handleMenuClose();
   };
 
   return (
@@ -63,14 +81,30 @@ export default function Twitt({ data, image }) {
               horizontal: "right",
             }}
           >
-            {feedbackMenuOptions.map((option, index) => (
-              <MenuItem key={index} onClick={() => handleMenuClose()}>
+            {!user.following.includes(data.user) && (
+              <MenuItem onClick={() => updateFollowers(true)}>
                 <ListItemIcon>
-                  <Icon className={classes.whiteIcon}>{option.icon}</Icon>
+                  <Icon className={classes.whiteIcon}>person_add</Icon>
                 </ListItemIcon>
-                <ListItemText>{option.text}</ListItemText>
+                <ListItemText>Follow user</ListItemText>
               </MenuItem>
-            ))}
+            )}
+
+            {user.following.includes(data.user) && (
+              <MenuItem onClick={() => updateFollowers(false)}>
+                <ListItemIcon>
+                  <Icon className={classes.whiteIcon}>person_remove</Icon>
+                </ListItemIcon>
+                <ListItemText>Unfollow user</ListItemText>
+              </MenuItem>
+            )}
+
+            <MenuItem onClick={() => handleMenuClose()}>
+              <ListItemIcon>
+                <Icon className={classes.whiteIcon}>block</Icon>
+              </ListItemIcon>
+              <ListItemText>Block</ListItemText>
+            </MenuItem>
           </Menu>
         </Box>
         <Box>
