@@ -23,7 +23,10 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="home" element={user ? <Home /> : <Explore />} />
           <Route path="explore" element={<Explore />} />
-          <Route path="profile" element={user ? <Profile /> : <Explore />} />
+          <Route path=":username" element={user ? <Profile /> : <Explore />}>
+            <Route path="following" element={<Explore />} />
+            <Route path="followers" element={<Explore />} />
+          </Route>
         </Route>
         <Route path="*" element={<Navigate to="explore" />} />
       </Route>

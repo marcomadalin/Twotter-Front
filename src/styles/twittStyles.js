@@ -35,11 +35,19 @@ export const twittStyles = makeStyles((theme) => ({
     margin: "0 0 0 0",
     fontWeight: "bold",
     fontSize: "16px",
+    "&:hover": {
+      textDecoration: "underline",
+      cursor: "pointer",
+    },
   },
   username: {
     margin: "0 0 0 5px",
     color: theme.palette.text.secondary,
     fontSize: "15px",
+    "&:hover": {
+      textDecoration: "underline",
+      cursor: "pointer",
+    },
   },
   date: {
     margin: "0 0 0 5px",

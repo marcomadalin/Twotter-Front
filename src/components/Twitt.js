@@ -5,6 +5,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Twitt({ data, image }) {
   const classes = twittStyles();
@@ -12,6 +13,8 @@ export default function Twitt({ data, image }) {
   const [anchorEl, setAnchorEl] = useState();
 
   const { user, token, dispatch } = useAuthContext();
+
+  const navigate = useNavigate();
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -49,14 +52,22 @@ export default function Twitt({ data, image }) {
     handleMenuClose();
   };
 
+  const redirectToProfile = () => {
+    navigate(`/${data.username}`);
+  };
+
   return (
     <Box className={classes.twittBox}>
       <Avatar alt={data.username} src={`data:image/png;base64,${image}`} />
       <Box className={classes.twittContent}>
         <Box className={classes.twittHeader}>
           <Box className={classes.userHeader}>
-            <p className={classes.user}>{data.name}</p>
-            <p className={classes.username}>{"@" + data.username} · </p>
+            <p className={classes.user} onClick={() => redirectToProfile()}>
+              {data.name}
+            </p>
+            <p className={classes.username} onClick={() => redirectToProfile()}>
+              {"@" + data.username} ·{" "}
+            </p>
             <p className={classes.date}>{getDate(data.createdAt)}</p>
           </Box>
           <IconButton

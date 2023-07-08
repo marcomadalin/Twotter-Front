@@ -105,7 +105,7 @@ export default function NavigationDrawer() {
               }}
             >
               <NavLink
-                to="profile"
+                to={user.username}
                 className={`${classes.link} ${
                   matches ? "drawerButton" : "drawerButtonSmall"
                 }`}
