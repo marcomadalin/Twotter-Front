@@ -21,7 +21,6 @@ export default function Explore() {
       .get("http://localhost:4000/twitts/all")
       .then((response) => {
         setPosts(response.data);
-        console.log(response.data);
       })
       .catch((err) => console.log(err));
   };

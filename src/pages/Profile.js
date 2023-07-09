@@ -60,7 +60,6 @@ export default function Profile() {
       })
       .then((response) => {
         setUser(response.data);
-        console.log(response.data);
       })
       .catch((err) => console.log(err));
   };
@@ -74,7 +73,6 @@ export default function Profile() {
       })
       .then((response) => {
         setPosts(response.data);
-        console.log(response.data);
       })
       .catch((err) => console.log(err));
   };

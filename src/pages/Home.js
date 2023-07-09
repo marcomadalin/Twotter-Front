@@ -34,7 +34,6 @@ export default function Home() {
       .get("http://localhost:4000/twitts/all")
       .then((response) => {
         setPosts(response.data);
-        console.log(response.data);
       })
       .catch((err) => console.log(err));
   };
@@ -58,7 +57,7 @@ export default function Home() {
       name: user.name,
       username: user.username,
     };
-    console.log(twitt);
+
     await axios
       .post("http://localhost:4000/twitts/new", twitt, {
         headers: {

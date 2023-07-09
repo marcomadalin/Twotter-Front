@@ -13,7 +13,6 @@ export function useLogin() {
         password: password,
       })
       .then((response) => {
-        console.log(response);
         const user = JSON.stringify(response.data.user);
         const token = JSON.stringify(response.data.token);
 

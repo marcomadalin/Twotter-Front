@@ -101,8 +101,6 @@ export default function EditProfileModal(props) {
         },
       })
       .then(async (response) => {
-        console.log(response.data);
-
         localStorage.setItem("user", JSON.stringify(response.data));
         await dispatch({
           type: "UPDATE",
@@ -170,7 +168,6 @@ export default function EditProfileModal(props) {
             className={classes.picEditButton}
             sx={{ marginLeft: "10px !important" }}
             onClick={() => {
-              console.log("clicked");
               setBannerImage(null);
               setBannerImage64("");
             }}

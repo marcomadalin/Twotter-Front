@@ -46,7 +46,6 @@ export default function Twitt({ data, image }) {
           type: "UPDATE",
           payload: { user: response.data.userAct, token: token },
         });
-        console.log(response.data);
       })
       .catch((err) => console.log(err));
     handleMenuClose();

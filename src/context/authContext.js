@@ -34,7 +34,6 @@ export function AuthContextProvider({ children }) {
         },
       })
       .then((response) => {
-        console.log(response);
         return true;
       })
       .catch((err) => {
@@ -52,8 +51,6 @@ export function AuthContextProvider({ children }) {
       dispatch({ type: "LOGOUT" });
     }
   }, []);
-
-  console.log("AuthContext state: ", state);
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>
