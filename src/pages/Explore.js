@@ -18,7 +18,7 @@ export default function Explore() {
 
   const fetchTwitts = async () => {
     await axios
-      .get("http://localhost:4000/twitts/all")
+      .get(API_URL + `/twitts/all`)
       .then((response) => {
         setPosts(response.data);
       })

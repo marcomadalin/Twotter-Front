@@ -18,6 +18,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { profileStyles } from "../styles/profileStyles";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import EditProfileModal from "../components/EditProfileModal";
+import { API_URL } from "../utils/Constants";
 
 export default function Profile() {
   const classes = profileStyles();
@@ -53,7 +54,7 @@ export default function Profile() {
 
   const fetchUser = async () => {
     await axios
-      .get(`http://localhost:4000/users/${username}`, {
+      .get(API_URL + `/users/${username}`, {
         headers: {
           Authorization: "Bearer " + auth.token,
         },
@@ -66,7 +67,7 @@ export default function Profile() {
 
   const fetchTwitts = async () => {
     await axios
-      .get(`http://localhost:4000/twitts/allUser/${user._id}`, {
+      .get(API_URL + `/twitts/allUser/${user._id}`, {
         headers: {
           Authorization: "Bearer " + auth.token,
         },

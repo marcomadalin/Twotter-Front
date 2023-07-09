@@ -16,6 +16,7 @@ import SideBar from "../components/SideBar";
 import Twitt from "../components/Twitt";
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { API_URL } from "../utils/Constants";
 
 export default function Home() {
   const classes = homeStyles();
@@ -31,7 +32,7 @@ export default function Home() {
 
   const fetchTwitts = async () => {
     await axios
-      .get("http://localhost:4000/twitts/all")
+      .get(API_URL + `/twitts/all`)
       .then((response) => {
         setPosts(response.data);
       })
@@ -59,7 +60,7 @@ export default function Home() {
     };
 
     await axios
-      .post("http://localhost:4000/twitts/new", twitt, {
+      .post(API_URL + `/twitts/new`, twitt, {
         headers: {
           Authorization: "Bearer " + token,
         },

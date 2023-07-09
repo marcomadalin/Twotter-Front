@@ -24,6 +24,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
 import { useLogin } from "../hooks/useLogin";
 import { redirect } from "react-router-dom";
+import { API_URL } from "../utils/Constants";
 
 export default function FormSignupDialog(props) {
   const theme = useTheme();
@@ -166,7 +167,7 @@ export default function FormSignupDialog(props) {
     };
 
     await axios
-      .post("http://localhost:4000/users/new", user)
+      .post(API_URL + `/users/new`, user)
       .then(async (response) => {
         setLoading(false);
         await loginUser();

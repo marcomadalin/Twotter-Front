@@ -6,6 +6,7 @@ import ListItemText from "@mui/material/ListItemText";
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../utils/Constants";
 
 export default function Twitt({ data, image }) {
   const classes = twittStyles();
@@ -32,7 +33,7 @@ export default function Twitt({ data, image }) {
   const updateFollowers = async (follow) => {
     await axios
       .put(
-        `http://localhost:4000/users/follow`,
+        API_URL + `/users/follow`,
         { actualUser: user._id, targetUser: data.user, follow: follow },
         {
           headers: {

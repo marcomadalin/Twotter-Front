@@ -1,5 +1,6 @@
 import { createContext, useEffect, useReducer } from "react";
 import axios from "axios";
+import { API_URL } from "../utils/Constants";
 
 export const AuthContext = createContext();
 
@@ -28,7 +29,7 @@ export function AuthContextProvider({ children }) {
 
   const verifyToken = async () => {
     await axios
-      .get("http://localhost:4000/users/verify", {
+      .get(API_URL + `/users/verify`, {
         headers: {
           Authorization: "Bearer " + token,
         },

@@ -1,6 +1,7 @@
 import { useAuthContext } from "./useAuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../utils/Constants";
 
 export function useLogin() {
   const { dispatch } = useAuthContext();
@@ -8,7 +9,7 @@ export function useLogin() {
 
   async function login(username, password) {
     await axios
-      .post("http://localhost:4000/users/login", {
+      .post(API_URL + `/users/login`, {
         username: username,
         password: password,
       })

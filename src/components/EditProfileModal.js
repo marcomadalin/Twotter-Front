@@ -15,6 +15,7 @@ import { useEffect, useRef, useState } from "react";
 import { editProfileStyles } from "../styles/editProfileStyles";
 import { useAuthContext } from "../hooks/useAuthContext";
 import axios from "axios";
+import { API_URL } from "../utils/Constants";
 
 export default function EditProfileModal(props) {
   const classes = editProfileStyles();
@@ -94,7 +95,7 @@ export default function EditProfileModal(props) {
     formData.append("location", location);
 
     await axios
-      .put(`http://localhost:4000/users/${user._id}`, formData, {
+      .put(API_URL + `/users/${user._id}`, formData, {
         headers: {
           Authorization: "Bearer " + token,
           "Content-Type": "multipart/form-data",
