@@ -6,6 +6,7 @@ import Twitt from "../components/Twitt";
 import SideBar from "../components/SideBar";
 import { exploreStyles } from "../styles/exploreStyles";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { API_URL } from "../utils/Constants";
 
 export default function Explore() {
   const classes = exploreStyles();
