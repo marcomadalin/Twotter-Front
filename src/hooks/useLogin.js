@@ -1,9 +1,11 @@
 import { useAuthContext } from "./useAuthContext";
 import axios from "axios";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function useLogin() {
   const { dispatch } = useAuthContext();
+  const navigate = useNavigate();
+
   async function login(username, password) {
     await axios
       .post("http://localhost:4000/users/login", {
@@ -22,7 +24,7 @@ export function useLogin() {
           type: "LOGIN",
           payload: { user: response.data.user, token: response.data.token },
         });
-        redirect("/home");
+        navigate("/home");
       })
       .catch((err) => {
         console.log(err);

@@ -92,7 +92,7 @@ export default function Twitt({ data, image }) {
               horizontal: "right",
             }}
           >
-            {!user.following.includes(data.user) && (
+            {user && !user.following.includes(data.user) && (
               <MenuItem onClick={() => updateFollowers(true)}>
                 <ListItemIcon>
                   <Icon className={classes.whiteIcon}>person_add</Icon>
@@ -101,7 +101,7 @@ export default function Twitt({ data, image }) {
               </MenuItem>
             )}
 
-            {user.following.includes(data.user) && (
+            {user && user.following.includes(data.user) && (
               <MenuItem onClick={() => updateFollowers(false)}>
                 <ListItemIcon>
                   <Icon className={classes.whiteIcon}>person_remove</Icon>

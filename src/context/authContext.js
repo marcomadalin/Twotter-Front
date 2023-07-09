@@ -1,6 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
 import axios from "axios";
-import { redirect } from "react-router-dom";
 
 export const AuthContext = createContext();
 
@@ -40,7 +39,6 @@ export function AuthContextProvider({ children }) {
       })
       .catch((err) => {
         console.log(err);
-        redirect("/explore");
         return false;
       });
   };
@@ -51,6 +49,7 @@ export function AuthContextProvider({ children }) {
     } else {
       localStorage.removeItem("user");
       localStorage.removeItem("token");
+      dispatch({ type: "LOGOUT" });
     }
   }, []);
 
