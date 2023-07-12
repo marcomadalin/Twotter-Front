@@ -44,7 +44,7 @@ export default function SignupDialog(props) {
                   marginBottom: "40px",
                 }}
               >
-                Sing up on Twitter
+                Sing up on Twotter
               </h1>
               <p className={classes.termsText} style={{ marginTop: "-10px" }}>
                 By signing up, you agree to the{" "}

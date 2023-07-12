@@ -66,6 +66,7 @@ export default function Home() {
         },
       })
       .then((response) => {
+        response.data.image = user.profile;
         setPosts((oldPosts) => [response.data].concat(oldPosts));
         twittTextRef.current.value = "";
       })

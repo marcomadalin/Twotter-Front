@@ -21,17 +21,17 @@ export default function SideBar() {
           </div>
           <InputBase
             className={classes.searchInput}
-            placeholder="Search on Twitter"
+            placeholder="Search on Twotter"
           />
         </div>
       )}
       {user && token && <UserRecommendation />}
       {!user && (
         <Stack className={classes.signupWrapper}>
-          <h2 style={{ fontSize: "22px" }}>Are you new to Twitter?</h2>
+          <h2 style={{ fontSize: "22px" }}>Are you new to Twotter?</h2>
           <p className={classes.termsText} style={{ marginTop: "-10px" }}>
             Sign up now to get your own personalized timeline and post on
-            Twitter.
+            Twotter.
           </p>
           <Button
             className={classes.signupButtons}

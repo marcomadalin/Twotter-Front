@@ -66,7 +66,7 @@ export const twittStyles = makeStyles((theme) => ({
     alignItems: "flex-start",
     justifyContent: "space-between",
     marginLeft: "-6px",
-    marginTop: "5px",
+    marginTop: "15px",
     maxWidth: "350px",
   },
   comment: {

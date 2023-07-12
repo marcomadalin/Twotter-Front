@@ -155,7 +155,14 @@ export default function Profile() {
               {"@" + user.username}
             </p>
             {user.bio && user.bio !== "" && (
-              <p style={{ margin: "20px 20px 10px 20px" }}>{user.bio}</p>
+              <div style={{ margin: "10px 20px 10px 20px" }}>
+                {user.bio &&
+                  user.bio.split(/\r?\n|\r|\n/g).map((text, key) => (
+                    <p style={{ margin: "5px 0 0 0 " }} key={key}>
+                      {text}
+                    </p>
+                  ))}
+              </div>
             )}
             <Box className={classes.userInfoBox}>
               {user.location && user.location !== "" && (

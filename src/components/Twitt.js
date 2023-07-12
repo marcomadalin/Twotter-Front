@@ -119,7 +119,11 @@ export default function Twitt({ data, image }) {
           </Menu>
         </Box>
         <Box>
-          <p className={classes.twittText}>{data.text}</p>
+          {data.text.split(/\r?\n|\r|\n/g).map((text, key) => (
+            <p key={key} className={classes.twittText}>
+              {text}
+            </p>
+          ))}
           <Box className={classes.twittButtons}>
             <Box className={classes.comment}>
               <IconButton id="comment" color="tertiary" size="medium">

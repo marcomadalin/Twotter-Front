@@ -452,10 +452,10 @@ export default function FormSignupDialog(props) {
                 <Box className={classes.checkboxItem}>
                   <Box className={classes.checkboxTextWrapper}>
                     <h3 className={classes.checkboxTitle}>
-                      Take advantage of Twitter even more
+                      Take advantage of Twotter even more
                     </h3>
                     <p className={classes.checkboxText}>
-                      Receive an email about your Twitter activity and
+                      Receive an email about your Twotter activity and
                       recommendations.
                     </p>
                   </Box>
@@ -473,7 +473,7 @@ export default function FormSignupDialog(props) {
                       Connect with people you know
                     </h3>
                     <p className={classes.checkboxText}>
-                      Allow other users to find your Twitter account by your
+                      Allow other users to find your Twotter account by your
                       email address.
                     </p>
                   </Box>
@@ -489,10 +489,10 @@ export default function FormSignupDialog(props) {
                   <Box className={classes.checkboxTextWrapper}>
                     <h3 className={classes.checkboxTitle}>Personalized ads</h3>
                     <p className={classes.checkboxText}>
-                      The ads you see on Twitter always depend on your activity
-                      on Twitter. If you turn this setting on, Twitter will be
-                      able to better personalize ads from Twitter advertisers,
-                      on and off Twitter, by combining your activity on Twitter
+                      The ads you see on Twotter always depend on your activity
+                      on Twotter. If you turn this setting on, Twitter will be
+                      able to better personalize ads from Twotter advertisers,
+                      on and off Twotter, by combining your activity on Twitter
                       with other online activities and information provided by
                       our partners.
                     </p>
@@ -530,7 +530,7 @@ export default function FormSignupDialog(props) {
                   >
                     <span>Cookie Policy</span>
                   </Button>
-                  . Twitter may use your contact information, such as your email
+                  . Twotter may use your contact information, such as your email
                   address and phone number, for the purposes described in our
                   Privacy Policy.
                   <Button

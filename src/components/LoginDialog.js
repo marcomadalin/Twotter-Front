@@ -85,7 +85,7 @@ export default function LoginDialog(props) {
                   marginBottom: "40px",
                 }}
               >
-                Log in on Twitter
+                Log in on Twotter
               </h1>
               <TextField
                 id="outlined-basic"

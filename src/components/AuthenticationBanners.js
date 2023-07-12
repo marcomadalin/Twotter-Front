@@ -71,7 +71,7 @@ export default function AuthenticationBanners() {
                 Stay up to date with what's going on
               </h2>
               <p className={classes.p}>
-                Twitter users are always the first ones to know.
+                Twotter users are always the first ones to know.
               </p>
             </Grid>
           )}
@@ -128,7 +128,7 @@ export default function AuthenticationBanners() {
           >
             <h4 className={classes.coockieHeader}>Did someone say… cookies?</h4>
             <p className={classes.coockieText}>
-              Twitter and its partners use cookies to provide you with a better,
+              Twotter and its partners use cookies to provide you with a better,
               safer and faster service and to support our business. Some cookies
               are necessary to use our services, improve them and make sure they
               work properly.
