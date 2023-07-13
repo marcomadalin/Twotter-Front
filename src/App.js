@@ -21,9 +21,15 @@ function App() {
     createRoutesFromElements(
       <Route>
         <Route element={<MainLayout />}>
-          <Route path="home" element={user ? <Home /> : <Explore />} />
+          <Route
+            path="home"
+            element={user ? <Home /> : <Navigate replace to={"/explore"} />}
+          />
           <Route path="explore" element={<Explore />} />
-          <Route path=":username" element={user ? <Profile /> : <Explore />}>
+          <Route
+            path=":username"
+            element={user ? <Profile /> : <Navigate replace to={"/explore"} />}
+          >
             <Route path="following" element={<Explore />} />
             <Route path="followers" element={<Explore />} />
           </Route>

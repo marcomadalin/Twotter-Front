@@ -27,30 +27,32 @@ export function AuthContextProvider({ children }) {
 
   const token = JSON.parse(localStorage.getItem("token"));
 
-  const verifyToken = async () => {
-    await axios
-      .get(API_URL + `/users/verify`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((response) => {
-        return true;
-      })
-      .catch((err) => {
-        console.log(err);
-        return false;
-      });
-  };
-
   useEffect(() => {
-    if (user && token && verifyToken(token)) {
-      dispatch({ type: "LOGIN", payload: { user: user, token: token } });
-    } else {
+    const removeToken = () => {
       localStorage.removeItem("user");
       localStorage.removeItem("token");
       dispatch({ type: "LOGOUT" });
-    }
+    };
+
+    const verifyToken = async () => {
+      if (user && token) {
+        await axios
+          .get(API_URL + `/users/verify`, {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          })
+          .then(() => {
+            dispatch({ type: "LOGIN", payload: { user: user, token: token } });
+          })
+          .catch((err) => {
+            removeToken();
+            console.log(err);
+          });
+      } else removeToken();
+    };
+
+    verifyToken();
   }, []);
 
   return (
