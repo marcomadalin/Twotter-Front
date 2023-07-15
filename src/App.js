@@ -12,27 +12,19 @@ import Explore from "./pages/Explore";
 import MainLayout from "./layouts/MainLayout";
 import Profile from "./pages/Profile";
 import themeDark from "./themes/dark";
-import { useAuthContext } from "./hooks/useAuthContext";
+import Following from "./pages/Following";
+import Followers from "./pages/Followers";
 
 function App() {
-  const { user } = useAuthContext();
-
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
         <Route element={<MainLayout />}>
-          <Route
-            path="home"
-            element={user ? <Home /> : <Navigate replace to={"/explore"} />}
-          />
+          <Route path="home" element={<Home />} />
           <Route path="explore" element={<Explore />} />
-          <Route
-            path=":username"
-            element={user ? <Profile /> : <Navigate replace to={"/explore"} />}
-          >
-            <Route path="following" element={<Explore />} />
-            <Route path="followers" element={<Explore />} />
-          </Route>
+          <Route path=":username/following" element={<Following />} />
+          <Route path=":username/followers" element={<Followers />} />
+          <Route path=":username" element={<Profile />} />
         </Route>
         <Route path="*" element={<Navigate to="explore" />} />
       </Route>

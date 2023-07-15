@@ -4,10 +4,15 @@ import NavigationDrawer from "../components/NavigationDrawer";
 import { mainLayoutStyles } from "../styles/mainLayoutStyles";
 import AuthenticationBanners from "../components/AuthenticationBanners";
 import { useAuthContext } from "../hooks/useAuthContext";
+import SideBar from "../components/SideBar";
+import { useMediaQuery } from "@mui/material";
 
 export default function MainLayout() {
   const classes = mainLayoutStyles();
   const { user } = useAuthContext();
+
+  const renderGrid = useMediaQuery("(min-width:850px)");
+  const renderContacts = useMediaQuery("(min-width:1300px)");
 
   return (
     <div>
@@ -38,7 +43,21 @@ export default function MainLayout() {
           xl={9}
           className={classes.outletGrid}
         >
-          <Outlet />
+          <Grid
+            container
+            className={user ? classes.mainContainer : classes.mainContainerAuth}
+            alignItems="flex-start"
+            justifyContent="flex-start"
+            direction="row"
+            sx={{ overflowY: "auto" }}
+          >
+            <Outlet />
+            {renderGrid && (
+              <Grid item xs className={classes.contactsGrid}>
+                {renderContacts && <SideBar />}
+              </Grid>
+            )}
+          </Grid>
         </Grid>
       </Grid>
       <AuthenticationBanners />

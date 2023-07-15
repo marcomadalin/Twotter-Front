@@ -18,12 +18,9 @@ import { loginDialogStyles } from "../styles/loginDialogStyles";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useLogin } from "../hooks/useLogin";
-import { redirect } from "react-router-dom";
 
 export default function LoginDialog(props) {
   const classes = loginDialogStyles();
-
-  const [loading, setLoading] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -31,7 +28,7 @@ export default function LoginDialog(props) {
 
   const [password, setPassword] = useState("");
 
-  const { login } = useLogin();
+  const { login, loading } = useLogin();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -44,20 +41,6 @@ export default function LoginDialog(props) {
       setUsername("");
       setPassword("");
     }, 200);
-  };
-
-  const loginUser = async () => {
-    setLoading(true);
-    await login(username, password)
-      .then(() => {
-        setLoading(false);
-        resetPanel();
-        redirect("/home");
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
   };
 
   return (
@@ -148,7 +131,7 @@ export default function LoginDialog(props) {
                   disableRipple
                   className={classes.loginButtonBig}
                   disabled={username === "" || password === ""}
-                  onClick={loginUser}
+                  onClick={() => login(username, password)}
                 >
                   <span>Log in</span>
                 </Button>

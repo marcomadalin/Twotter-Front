@@ -6,14 +6,12 @@ import {
   Icon,
   IconButton,
   Stack,
-  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
 import Twitt from "../components/Twitt";
-import SideBar from "../components/SideBar";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { profileStyles } from "../styles/profileStyles";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
@@ -22,8 +20,6 @@ import { API_URL } from "../utils/Constants";
 
 export default function Profile() {
   const classes = profileStyles();
-  const renderGrid = useMediaQuery("(min-width:850px)");
-  const renderContacts = useMediaQuery("(min-width:1300px)");
 
   const [posts, setPosts] = useState([]);
   const [showEditProfile, setShowEditProfile] = useState(false);
@@ -62,7 +58,10 @@ export default function Profile() {
       .then((response) => {
         setUser(response.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        navigate("/explore");
+        console.log(err);
+      });
   };
 
   const fetchTwitts = async () => {
@@ -79,7 +78,8 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    if (username === auth.user.username) setUser(auth.user);
+    if (auth.user == null) navigate("/explore");
+    else if (username === auth.user.username) setUser(auth.user);
     else fetchUser();
   }, []);
 
@@ -88,14 +88,7 @@ export default function Profile() {
   }, [user]);
 
   return (
-    <Grid
-      container
-      className={user ? classes.mainContainer : classes.mainContainerAuth}
-      alignItems="flex-start"
-      justifyContent="flex-start"
-      direction="row"
-      sx={{ overflowY: "auto" }}
-    >
+    <>
       {user && (
         <Grid item className={classes.feedGrid}>
           <Box className={classes.tabBox}>
@@ -204,6 +197,7 @@ export default function Profile() {
                 <NavLink
                   className={`${classes.secondaryText} ${classes.navLink}`}
                   style={{ marginLeft: "5px" }}
+                  to={`following`}
                 >
                   Following
                 </NavLink>
@@ -213,6 +207,7 @@ export default function Profile() {
                 <NavLink
                   className={`${classes.secondaryText} ${classes.navLink}`}
                   style={{ marginLeft: "5px" }}
+                  to={`followers`}
                 >
                   Followers
                 </NavLink>
@@ -226,11 +221,6 @@ export default function Profile() {
           </Box>
         </Grid>
       )}
-      {user && renderGrid && (
-        <Grid item xs className={classes.contactsGrid}>
-          {renderContacts && <SideBar />}
-        </Grid>
-      )}
-    </Grid>
+    </>
   );
 }

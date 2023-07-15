@@ -22,4 +22,28 @@ export const mainLayoutStyles = makeStyles((theme) => ({
     overflowY: "auto !important",
     flexGrow: "1 !important",
   },
+  mainContainer: {
+    boxSizing: "border-box !important",
+    height: "100vh",
+    padding: "0 0 0 0",
+  },
+  mainContainerAuth: {
+    boxSizing: "border-box !important",
+    height: "calc(100vh - 80px) !important",
+    padding: "0 0 0 0",
+  },
+  contactsGrid: {
+    padding: "0 20px 0 0 !important",
+    height: "100%",
+    flexGrow: 1,
+    flexShrink: 1,
+    position: "sticky !important",
+    top: 0,
+    overflowY: "auto !important",
+    scrollbarWidth: "none !important",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+    "-msOverflowStyle": "none",
+  },
 }));

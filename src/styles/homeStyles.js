@@ -1,16 +1,6 @@
 import { makeStyles } from "@mui/styles";
 
 export const homeStyles = makeStyles((theme) => ({
-  mainContainer: {
-    boxSizing: "border-box !important",
-    height: "100vh",
-    padding: "0 0 0 0",
-  },
-  mainContainerAuth: {
-    boxSizing: "border-box !important",
-    height: "calc(100vh - 80px) !important",
-    padding: "0 0 0 0",
-  },
   homeButtonFeed: {
     color: `${theme.palette.text.primary} !important`,
     background: "transparent !important",
@@ -53,20 +43,6 @@ export const homeStyles = makeStyles((theme) => ({
     justifyContent: "space-between !important",
     borderBottom: `1px solid ${theme.palette.blur.main}`,
     width: "inherit",
-  },
-  contactsGrid: {
-    padding: "0 20px 0 0 !important",
-    height: "100%",
-    flexGrow: 1,
-    flexShrink: 1,
-    position: "sticky !important",
-    top: 0,
-    overflowY: "auto !important",
-    scrollbarWidth: "none !important",
-    "&::-webkit-scrollbar": {
-      display: "none",
-    },
-    "-msOverflowStyle": "none",
   },
   feedTab: {
     textTransform: "none !important",
