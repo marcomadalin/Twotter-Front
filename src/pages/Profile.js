@@ -78,8 +78,8 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    if (auth.user == null) navigate("/explore");
-    else if (username === auth.user.username) setUser(auth.user);
+    if (auth.user !== null && username === auth.user.username)
+      setUser(auth.user);
     else fetchUser();
   }, []);
 
@@ -130,16 +130,20 @@ export default function Profile() {
                 src={`data:image/png;base64,${user.profile}`}
                 className={classes.profilePic}
               />
-              <Button
-                className={classes.editProfile}
-                onClick={() => setShowEditProfile(true)}
-              >
-                Edit profile
-              </Button>
-              <EditProfileModal
-                openModal={showEditProfile}
-                closeModal={() => setShowEditProfile(false)}
-              ></EditProfileModal>
+              {auth.user != null && (
+                <>
+                  <Button
+                    className={classes.editProfile}
+                    onClick={() => setShowEditProfile(true)}
+                  >
+                    Edit profile
+                  </Button>
+                  <EditProfileModal
+                    openModal={showEditProfile}
+                    closeModal={() => setShowEditProfile(false)}
+                  ></EditProfileModal>
+                </>
+              )}
             </Box>
             <h2 style={{ margin: "0 0 0 0", marginLeft: "20px" }}>
               {user.name}
