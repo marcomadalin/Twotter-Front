@@ -9,14 +9,6 @@ export const userRecommendationStyles = makeStyles((theme) => ({
     maxWidth: "350px",
     marginBottom: "20px",
   },
-  listItem: {
-    minWidth: "50px",
-    paddingLeft: "20px !important",
-    paddingRight: "20px !important",
-    "&:hover": {
-      backgroundColor: theme.palette.secondary.hover,
-    },
-  },
   h3: {
     margin: "0px 0px 0px 0px",
     padding: "20px 0px 0 20px",
@@ -32,6 +24,14 @@ export const userRecommendationStyles = makeStyles((theme) => ({
     paddingLeft: "20px !important",
     "&:hover": {
       backgroundColor: `${theme.palette.secondary.hover} !important`,
+    },
+  },
+  listItem: {
+    minWidth: "50px",
+    paddingLeft: "20px !important",
+    paddingRight: "20px !important",
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.hover,
     },
   },
   secondaryText: {

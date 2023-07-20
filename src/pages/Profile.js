@@ -48,6 +48,27 @@ export default function Profile() {
     "December",
   ];
 
+  const updateFollowers = async (follow, target) => {
+    await axios
+      .put(
+        API_URL + `/users/follow`,
+        { actualUser: auth.user._id, targetUser: target, follow: follow },
+        {
+          headers: {
+            Authorization: "Bearer " + auth.token,
+          },
+        }
+      )
+      .then((response) => {
+        localStorage.setItem("user", JSON.stringify(response.data.userAct));
+        auth.dispatch({
+          type: "UPDATE",
+          payload: { user: response.data.userAct, token: auth.token },
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
   const fetchUser = async () => {
     await axios
       .get(API_URL + `/users/${username}`, {
@@ -130,7 +151,7 @@ export default function Profile() {
                 src={`data:image/png;base64,${user.profile}`}
                 className={classes.profilePic}
               />
-              {auth.user != null && (
+              {auth.user && auth.user.username === username && (
                 <>
                   <Button
                     className={classes.editProfile}
@@ -143,6 +164,21 @@ export default function Profile() {
                     closeModal={() => setShowEditProfile(false)}
                   ></EditProfileModal>
                 </>
+              )}
+              {auth.user && auth.user.username !== username && (
+                <Button
+                  className={classes.followButton}
+                  onClick={() =>
+                    updateFollowers(
+                      !auth.user.following.includes(user._id),
+                      user._id
+                    )
+                  }
+                >
+                  {auth.user.following.includes(user._id)
+                    ? "Unfollow"
+                    : "Follow"}
+                </Button>
               )}
             </Box>
             <h2 style={{ margin: "0 0 0 0", marginLeft: "20px" }}>

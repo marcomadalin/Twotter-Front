@@ -57,6 +57,20 @@ export const profileStyles = makeStyles((theme) => ({
       backgroundColor: `${theme.palette.icon.hoverMain} !important`,
     },
   },
+  followButton: {
+    borderRadius: "60px !important",
+    textTransform: "none !important",
+    backgroundColor: `${theme.palette.background.secondary} !important`,
+    color: `${theme.palette.background.default} !important`,
+    width: "120px !important",
+    height: "35px !important",
+    fontWeight: "bold !important",
+    marginTop: "20px !important",
+    marginRight: "20px !important",
+    "&:hover": {
+      backgroundColor: `${theme.palette.icon.profile} !important`,
+    },
+  },
   username: {
     marginTop: "0px",
     marginBottom: "0px",
