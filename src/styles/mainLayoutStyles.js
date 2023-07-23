@@ -16,6 +16,7 @@ export const mainLayoutStyles = makeStyles((theme) => ({
     height: "100vh !important",
     overflowY: "auto !important",
     overflowX: "hidden !important",
+    borderRight: `1px solid ${theme.palette.blur.main}`,
   },
   outletGrid: {
     padding: "0 0 0 0 !important",
@@ -33,6 +34,7 @@ export const mainLayoutStyles = makeStyles((theme) => ({
     padding: "0 0 0 0",
   },
   contactsGrid: {
+    borderLeft: `1px solid ${theme.palette.blur.main}`,
     padding: "0 20px 0 0 !important",
     height: "100%",
     flexGrow: 1,

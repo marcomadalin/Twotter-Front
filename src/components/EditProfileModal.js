@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   CardMedia,
@@ -177,9 +176,9 @@ export default function EditProfileModal(props) {
           </IconButton>
         </CardMedia>
         <Box className={classes.profileEditBox}>
-          <Avatar
+          <CardMedia
             alt={user.username}
-            src={`data:image/png;base64,${profileImage64}`}
+            image={`data:image/png;base64,${profileImage64}`}
             className={classes.profilePic}
           >
             <IconButton
@@ -199,7 +198,7 @@ export default function EditProfileModal(props) {
               />
               <Icon>camera</Icon>
             </IconButton>
-          </Avatar>
+          </CardMedia>
         </Box>
         <Stack sx={{ padding: "20px 20px 0px 20px" }}>
           <TextField

@@ -27,8 +27,6 @@ export const exploreStyles = makeStyles((theme) => ({
     },
   },
   feedGrid: {
-    borderLeft: `1px solid ${theme.palette.blur.main}`,
-    borderRight: `1px solid ${theme.palette.blur.main}`,
     padding: "0px !important",
     width: "100%",
     maxWidth: "700px",

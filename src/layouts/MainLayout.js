@@ -52,11 +52,9 @@ export default function MainLayout() {
             sx={{ overflowY: "auto" }}
           >
             <Outlet />
-            {renderGrid && (
-              <Grid item xs className={classes.contactsGrid}>
-                {renderContacts && <SideBar />}
-              </Grid>
-            )}
+            <Grid item xs className={classes.contactsGrid}>
+              {renderContacts && <SideBar />}
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

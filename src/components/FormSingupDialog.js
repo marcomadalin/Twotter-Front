@@ -64,6 +64,8 @@ export default function FormSignupDialog(props) {
 
   const [emailError, setEmailError] = useState(false);
 
+  const [error, setError] = useState("");
+
   const { login } = useLogin();
 
   const months = [
@@ -91,8 +93,22 @@ export default function FormSignupDialog(props) {
     event.preventDefault();
   };
 
+  const checkUsername = async () => {
+    await axios
+      .get(API_URL + `/users/checkUsername`, { params: { username: username } })
+      .then(async (response) => {
+        setError("");
+        setStep(step + 1);
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err.response.data.error);
+      });
+  };
+
   const nextStep = () => {
-    setStep(step + 1);
+    if (step === 2) checkUsername();
+    else setStep(step + 1);
   };
 
   const prevStep = () => {
@@ -432,6 +448,9 @@ export default function FormSignupDialog(props) {
                   label="Password"
                 />
               </FormControl>
+              {error !== "" && (
+                <p style={{ color: theme.palette.error.main }}>{error}</p>
+              )}
             </Box>
           )}
           {step === 3 && !loading && (

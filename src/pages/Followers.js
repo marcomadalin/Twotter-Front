@@ -7,6 +7,8 @@ import {
   Icon,
   IconButton,
   ListItemAvatar,
+  Tab,
+  Tabs,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -27,6 +29,19 @@ export default function Followers() {
   const [followers, setFollowers] = useState(null);
 
   const [loading, setLoading] = useState(false);
+
+  const [activeTab, setActiveTab] = useState(1);
+
+  function a11yProps(index) {
+    return {
+      id: `feed-tab-${index}`,
+      "aria-controls": `feed-tabpanel-${index}`,
+    };
+  }
+
+  const handleTabChange = (event, newValue) => {
+    setActiveTab(newValue);
+  };
 
   const auth = useAuthContext();
 
@@ -122,6 +137,27 @@ export default function Followers() {
               </p>
             </Box>
           </Box>
+          <Tabs
+            value={activeTab}
+            onChange={handleTabChange}
+            textColor="inherit"
+            indicatorColor="primary"
+            aria-label="feed tabs"
+            variant="fullWidth"
+          >
+            <Tab
+              label="Following"
+              className={classes.feedTab}
+              {...a11yProps(0)}
+              onClick={() => navigate(`/${username}/following`)}
+            />
+            <Tab
+              label="Followers"
+              className={classes.feedTab}
+              {...a11yProps(1)}
+              onClick={() => navigate(`/${username}/followers`)}
+            />
+          </Tabs>
           <List className={classes.feedBox}>
             {followers.map((follower, index) => (
               <ListItem
