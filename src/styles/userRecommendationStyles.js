@@ -66,4 +66,18 @@ export const userRecommendationStyles = makeStyles((theme) => ({
       backgroundColor: `${theme.palette.hoverFollowButton} !important`,
     },
   },
+  redBorder: {
+    border: `2px solid ${theme.palette.error.main} !important`,
+  },
+  link: {
+    textDecoration: "none",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
+  hover: {
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
 }));

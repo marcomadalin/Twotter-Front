@@ -167,7 +167,11 @@ export default function Profile() {
               )}
               {auth.user && auth.user.username !== username && (
                 <Button
-                  className={classes.followButton}
+                  className={
+                    auth.user.following.includes(user._id)
+                      ? `${classes.followButton} ${classes.redBorder}`
+                      : `${classes.followButton}`
+                  }
                   onClick={() =>
                     updateFollowers(
                       !auth.user.following.includes(user._id),

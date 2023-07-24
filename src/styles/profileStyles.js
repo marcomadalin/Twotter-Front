@@ -151,4 +151,7 @@ export const profileStyles = makeStyles((theme) => ({
     },
     "-msOverflowStyle": "none",
   },
+  redBorder: {
+    border: `2px solid ${theme.palette.error.main} !important`,
+  },
 }));

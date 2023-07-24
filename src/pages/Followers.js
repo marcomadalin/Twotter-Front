@@ -177,7 +177,7 @@ export default function Followers() {
                 </ListItemAvatar>
                 <ListItemText>
                   <p
-                    className={`${classes.primaryText}`}
+                    className={`${classes.primaryText} ${classes.hover}`}
                     onClick={() => {
                       navigate(`/${follower.username}`);
                     }}
