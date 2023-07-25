@@ -12,6 +12,7 @@ import {
   OutlinedInput,
   Stack,
   TextField,
+  useTheme,
 } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import { loginDialogStyles } from "../styles/loginDialogStyles";
@@ -28,7 +29,9 @@ export default function LoginDialog(props) {
 
   const [password, setPassword] = useState("");
 
-  const { login, loading } = useLogin();
+  const theme = useTheme();
+
+  const { login, loading, error } = useLogin();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -126,6 +129,17 @@ export default function LoginDialog(props) {
           )}
           {!loading && (
             <Stack>
+              {error !== "" && (
+                <p
+                  style={{
+                    color: theme.palette.error.main,
+                    display: "flex",
+                    alignSelf: "center",
+                  }}
+                >
+                  {error}
+                </p>
+              )}
               <Box className={classes.loginButtonBox}>
                 <Button
                   disableRipple

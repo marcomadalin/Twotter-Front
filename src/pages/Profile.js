@@ -102,7 +102,7 @@ export default function Profile() {
     if (auth.user !== null && username === auth.user.username)
       setUser(auth.user);
     else fetchUser();
-  }, []);
+  }, [username]);
 
   useEffect(() => {
     if (user && user._id) fetchTwitts();

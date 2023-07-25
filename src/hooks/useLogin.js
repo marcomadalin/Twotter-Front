@@ -10,8 +10,11 @@ export function useLogin() {
 
   const [loading, setLoading] = useState(false);
 
+  const [error, setError] = useState("");
+
   async function login(username, password) {
     setLoading(true);
+    setError("");
     await axios
       .post(API_URL + `/users/login`, {
         username: username,
@@ -29,13 +32,15 @@ export function useLogin() {
           payload: { user: response.data.user, token: response.data.token },
         });
         setLoading(false);
+        setError("");
         navigate("/home");
       })
       .catch((err) => {
         console.log(err);
+        setError(err.response.data.error);
         setLoading(false);
       });
   }
 
-  return { login, loading };
+  return { login, loading, error };
 }
