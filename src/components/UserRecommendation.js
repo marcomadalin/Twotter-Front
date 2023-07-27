@@ -76,6 +76,7 @@ export default function UserRecommendation() {
                   <Avatar
                     alt={recommendation.username}
                     src={`data:image/png;base64,${recommendation.profile}`}
+                    className={classes.hover}
                     onClick={() => {
                       navigate(`/${recommendation.username}`);
                     }}

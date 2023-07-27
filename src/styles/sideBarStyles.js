@@ -107,4 +107,68 @@ export const sideBarStyles = makeStyles((theme) => ({
     fontWeight: "500",
     fontSize: "14px",
   },
+  searchList: {
+    position: "fixed !important",
+    zIndex: "1500 !important",
+    minWidth: "280px",
+    maxWidth: "350px",
+    width: "100% !important",
+    minHeight: "50px",
+    backgroundColor: `${theme.palette.background.default} !important`,
+    borderRadius: "10px !important",
+    boxShadow: theme.palette.boxShadow.main,
+    overflowX: "hidden !important",
+    overflowY: "auto",
+    boxSizing: "content-box", // ensures padding and border are outside of box
+    // Customize scrollbar for Webkit browsers (Chrome, Safari)
+    "&::-webkit-scrollbar": {
+      width: "10px",
+    },
+    "&::-webkit-scrollbar-track": {
+      borderRadius: "10px",
+      backgroundColor: "transparent", // change as needed
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "darkgrey", // change as needed
+      borderRadius: "10px",
+    },
+    // Customize scrollbar for Firefox
+    scrollbarWidth: "thin",
+    scrollbarColor: "darkgrey transparent", // change as needed
+  },
+  listItem: {
+    minWidth: "50px",
+    paddingLeft: "20px !important",
+    paddingRight: "20px !important",
+  },
+  secondaryText2: {
+    margin: "0px 0px 0px 0px",
+    fontSize: "14px",
+    fontWeight: "500",
+    color: theme.palette.text.secondary,
+  },
+  primaryText: {
+    margin: "0px 0px 0px 0px",
+    fontSize: "16px",
+    fontWeight: "600",
+  },
+  userList: {
+    height: "70px",
+  },
+  hover: {
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
+  link: {
+    textDecoration: "none",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
+  secondaryText: {
+    fontSize: "14px",
+    fontWeight: "500",
+    color: theme.palette.text.secondary,
+  },
 }));
