@@ -109,9 +109,9 @@ export default function Profile() {
   }, [user]);
 
   return (
-    <>
+    <Grid item className={classes.feedGrid}>
       {user && (
-        <Grid item className={classes.feedGrid}>
+        <>
           <Box className={classes.tabBox}>
             <IconButton
               size="large"
@@ -263,8 +263,8 @@ export default function Profile() {
               <Twitt key={index} data={post} image={user.profile} />
             ))}
           </Box>
-        </Grid>
+        </>
       )}
-    </>
+    </Grid>
   );
 }
