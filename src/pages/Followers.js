@@ -110,9 +110,9 @@ export default function Followers() {
   }, []);
 
   return (
-    <>
+    <Grid item className={classes.feedGrid}>
       {user && followers && (
-        <Grid item className={classes.feedGrid}>
+        <>
           <Box className={classes.tabBox}>
             <IconButton
               size="large"
@@ -228,15 +228,15 @@ export default function Followers() {
               </ListItem>
             ))}
           </List>
-        </Grid>
+          {loading && (
+            <Grid item>
+              <Box className="loadingBox">
+                <CircularProgress />
+              </Box>
+            </Grid>
+          )}
+        </>
       )}
-      {loading && (
-        <Grid item>
-          <Box className="loadingBox">
-            <CircularProgress />
-          </Box>
-        </Grid>
-      )}
-    </>
+    </Grid>
   );
 }

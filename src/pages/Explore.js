@@ -31,6 +31,7 @@ export default function Explore() {
           disableRipple
           disableFocusRipple
           className={classes.homeButtonFeed}
+          onClick={() => window.scrollTo(0, 0)}
         >
           Explore
         </Button>

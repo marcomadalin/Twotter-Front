@@ -24,6 +24,7 @@ export default function Home() {
   const twittTextRef = useRef("");
 
   const [posts, setPosts] = useState([]);
+  const [followingPosts, setFollowingPosts] = useState([]);
 
   const { user, token } = useAuthContext();
 
@@ -31,17 +32,35 @@ export default function Home() {
 
   const fetchTwitts = async () => {
     await axios
-      .get(API_URL + `/twitts/all`)
+      .get(API_URL + `/twitts/all`, {})
       .then((response) => {
         setPosts(response.data);
       })
       .catch((err) => console.log(err));
   };
 
+  const fetchFollowingTwitts = async () => {
+    await axios
+      .get(API_URL + `/twitts/allFollowing`, {
+        params: {
+          following: user.following,
+        },
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => {
+        setFollowingPosts(response.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
-    if (user == null) navigate("/explore");
-    fetchTwitts();
-  }, []);
+    if (user !== null) {
+      fetchTwitts();
+      fetchFollowingTwitts();
+    }
+  }, [user]);
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
@@ -89,6 +108,7 @@ export default function Home() {
               disableRipple
               disableFocusRipple
               className={classes.homeButtonFeed}
+              onClick={() => window.scrollTo(0, 0)}
             >
               Home
             </Button>
@@ -180,7 +200,7 @@ export default function Home() {
           )}
           {activeTab === 1 && (
             <Box className={classes.feedBox}>
-              {posts.map((post, index) => (
+              {followingPosts.map((post, index) => (
                 <Twitt key={index} data={post} image={post.image} />
               ))}
             </Box>
