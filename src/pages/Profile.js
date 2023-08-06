@@ -162,6 +162,7 @@ export default function Profile() {
                   <EditProfileModal
                     openModal={showEditProfile}
                     closeModal={() => setShowEditProfile(false)}
+                    updateUser={setUser}
                   ></EditProfileModal>
                 </>
               )}

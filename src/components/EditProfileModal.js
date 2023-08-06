@@ -30,6 +30,7 @@ export default function EditProfileModal(props) {
   const [bannerImage, setBannerImage] = useState(null);
   const [bannerImage64, setBannerImage64] = useState("");
   const bannerImageRef = useRef(null);
+  const [deleteClicked, setDeleteClicked] = useState(false);
 
   const [profileImage, setProfileImage] = useState(null);
   const [profileImage64, setProfileImage64] = useState("");
@@ -45,6 +46,7 @@ export default function EditProfileModal(props) {
     setLocation(user.location);
     setProfileImage64(user.profile);
     setBannerImage64(user.banner);
+    setDeleteClicked(false);
   }, [user, props.openModal]);
 
   const resetPanel = () => {
@@ -64,6 +66,7 @@ export default function EditProfileModal(props) {
   };
 
   const handleBannerClick = () => {
+    setDeleteClicked(false);
     bannerImageRef.current.click();
   };
 
@@ -86,7 +89,7 @@ export default function EditProfileModal(props) {
   const saveChanges = async () => {
     setLoading(true);
     const formData = new FormData();
-    if (bannerImage == null) formData.append("deleteBanner", true);
+    if (deleteClicked) formData.append("deleteBanner", true);
     formData.append("banner", bannerImage);
     formData.append("profile", profileImage);
     formData.append("name", name);
@@ -102,16 +105,22 @@ export default function EditProfileModal(props) {
       })
       .then(async (response) => {
         localStorage.setItem("user", JSON.stringify(response.data));
-        await dispatch({
+        dispatch({
           type: "UPDATE",
           payload: { user: response.data, token: token },
         });
+        props.updateUser(response.data);
+        if (deleteClicked) {
+          setBannerImage64(null);
+          setBannerImage(null);
+        }
         setLoading(false);
       })
       .catch((error) => {
         console.error(error);
         setLoading(false);
       });
+    setDeleteClicked(false);
   };
 
   return (
@@ -170,6 +179,7 @@ export default function EditProfileModal(props) {
             onClick={() => {
               setBannerImage(null);
               setBannerImage64("");
+              setDeleteClicked(true);
             }}
           >
             <Icon>close</Icon>

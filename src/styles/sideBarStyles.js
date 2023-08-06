@@ -171,4 +171,9 @@ export const sideBarStyles = makeStyles((theme) => ({
     fontWeight: "500",
     color: theme.palette.text.secondary,
   },
+  moreButton: {
+    textTransform: "none !important",
+    marginLeft: "10px !important",
+    textDecoration: "none",
+  },
 }));

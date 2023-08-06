@@ -47,6 +47,9 @@ export default function UserRecommendation() {
         headers: {
           Authorization: "Bearer " + token,
         },
+        params: {
+          limit: 4,
+        },
       })
       .then((response) => {
         setUsers(response.data);
@@ -65,7 +68,7 @@ export default function UserRecommendation() {
       {users && (
         <Box className={classes.listContainer}>
           <h3 className={classes.h3}>Who to follow</h3>
-          <List>
+          <List sx={{ paddingBottom: "0px !important" }}>
             {users.map((recommendation, index) => (
               <ListItem
                 key={index}
@@ -128,7 +131,18 @@ export default function UserRecommendation() {
                 </Button>
               </ListItem>
             ))}
-            <Button disableRipple size="large" className={classes.moreButton}>
+            <Button
+              disableRipple
+              size="large"
+              className={classes.moreButton}
+              onMouseDown={() => {
+                navigate(`/search`, {
+                  state: {
+                    name: "",
+                  },
+                });
+              }}
+            >
               More
             </Button>
           </List>

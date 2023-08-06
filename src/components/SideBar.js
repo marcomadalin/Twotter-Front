@@ -138,6 +138,22 @@ export default function SideBar() {
                     </ListItemText>
                   </ListItem>
                 ))}
+              {users && users.length !== 0 && (
+                <Button
+                  disableRipple
+                  size="large"
+                  className={classes.moreButton}
+                  onMouseDown={() => {
+                    navigate(`/search`, {
+                      state: {
+                        name: searchText,
+                      },
+                    });
+                  }}
+                >
+                  More
+                </Button>
+              )}
               {users && users.length === 0 && searchText !== "" && (
                 <Container sx={{ width: "100% important" }}>
                   <p>There are no results for {searchText}</p>
