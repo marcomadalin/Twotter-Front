@@ -138,7 +138,7 @@ export default function Search() {
                 </ListItemAvatar>
                 <ListItemText>
                   <p
-                    className={`${classes.primaryText}`}
+                    className={`${classes.primaryText} ${classes.hover}`}
                     onClick={() => {
                       navigate(`/${u.username}`);
                     }}

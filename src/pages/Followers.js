@@ -133,7 +133,8 @@ export default function Followers() {
                 style={{ margin: "0 0 0 0" }}
                 className={`${classes.secondaryText}`}
               >
-                {1 + " tweets"}
+                {/*1 + " tweets"
+                 */}
               </p>
             </Box>
           </Box>
