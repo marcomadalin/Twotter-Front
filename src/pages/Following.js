@@ -4,11 +4,7 @@ import {
   Button,
   Chip,
   CircularProgress,
-  Icon,
-  IconButton,
   ListItemAvatar,
-  Tab,
-  Tabs,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -113,52 +109,6 @@ export default function Following() {
     <Grid item className={classes.feedGrid}>
       {user && following && (
         <>
-          <Box className={classes.tabBox}>
-            <IconButton
-              size="large"
-              className={classes.backArrow}
-              onClick={() => navigate(-1)}
-            >
-              <Icon fontSize="medium">arrow_back</Icon>
-            </IconButton>
-            <Box sx={{ marginLeft: "10px" }}>
-              <Button
-                disableRipple
-                disableFocusRipple
-                className={classes.homeButtonFeed}
-              >
-                {user.name}
-              </Button>
-              <p
-                style={{ margin: "0 0 0 0" }}
-                className={`${classes.secondaryText}`}
-              >
-                {/*1 + " tweets"
-                 */}
-              </p>
-            </Box>
-          </Box>
-          <Tabs
-            value={activeTab}
-            onChange={handleTabChange}
-            textColor="inherit"
-            indicatorColor="primary"
-            aria-label="feed tabs"
-            variant="fullWidth"
-          >
-            <Tab
-              label="Following"
-              className={classes.feedTab}
-              {...a11yProps(0)}
-              onClick={() => navigate(`/${username}/following`)}
-            />
-            <Tab
-              label="Followers"
-              className={classes.feedTab}
-              {...a11yProps(1)}
-              onClick={() => navigate(`/${username}/followers`)}
-            />
-          </Tabs>
           <List className={classes.feedBox}>
             {following.map((followed, index) => (
               <ListItem

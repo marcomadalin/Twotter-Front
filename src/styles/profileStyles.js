@@ -154,4 +154,11 @@ export const profileStyles = makeStyles((theme) => ({
   redBorder: {
     border: `2px solid ${theme.palette.error.main} !important`,
   },
+
+  feedTab: {
+    textTransform: "none !important",
+    "&:hover": {
+      backgroundColor: theme.palette.blurTabs.main,
+    },
+  },
 }));

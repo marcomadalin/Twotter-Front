@@ -11,7 +11,6 @@ export default function MainLayout() {
   const classes = mainLayoutStyles();
   const { user } = useAuthContext();
 
-  const renderGrid = useMediaQuery("(min-width:850px)");
   const renderContacts = useMediaQuery("(min-width:1300px)");
 
   return (

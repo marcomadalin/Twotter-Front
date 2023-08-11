@@ -16,9 +16,25 @@ import Following from "./pages/Following";
 import Followers from "./pages/Followers";
 import Search from "./pages/Search";
 import { useAuthContext } from "./hooks/useAuthContext";
+import SlowServiceInfoDialog from "./components/SlowServiceInfoDialog";
+import { useEffect, useState } from "react";
 
 function App() {
   const { user } = useAuthContext();
+
+  const [dialog, setDialog] = useState(false);
+
+  const handleDialogClose = async () => {
+    setDialog(false);
+    localStorage.setItem("dialogSeen", JSON.stringify(true));
+  };
+
+  useEffect(() => {
+    const dialogSeen = localStorage.getItem("dialogSeen");
+
+    if (dialogSeen != null && JSON.parse(dialogSeen)) setDialog(false);
+    else setDialog(true);
+  }, []);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -33,9 +49,11 @@ function App() {
             path="search"
             element={user ? <Search /> : <Navigate to="explore" />}
           />
-          <Route path=":username/following" element={<Following />} />
-          <Route path=":username/followers" element={<Followers />} />
-          <Route path=":username" element={<Profile />} />
+
+          <Route path=":username" element={<Profile />}>
+            <Route path="following" element={<Following />} />
+            <Route path="followers" element={<Followers />} />
+          </Route>
         </Route>
         <Route path="*" element={<Navigate to="explore" />} />
       </Route>
@@ -46,6 +64,10 @@ function App() {
     <ThemeProvider theme={themeDark}>
       <CssBaseline />
       <RouterProvider router={router} />
+      <SlowServiceInfoDialog
+        dialog={dialog}
+        closeDialog={() => handleDialogClose()}
+      ></SlowServiceInfoDialog>
     </ThemeProvider>
   );
 }

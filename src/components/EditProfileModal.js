@@ -19,7 +19,11 @@ import { API_URL } from "../utils/Constants";
 export default function EditProfileModal(props) {
   const classes = editProfileStyles();
 
+  const [error, setError] = useState("");
+
   const [loading, setLoading] = useState(false);
+
+  const [username, setUsername] = useState("");
 
   const [name, setName] = useState("");
 
@@ -41,6 +45,7 @@ export default function EditProfileModal(props) {
   const theme = useTheme();
 
   useEffect(() => {
+    setUsername(user.username);
     setName(user.name);
     setBio(user.bio);
     setLocation(user.location);
@@ -88,11 +93,13 @@ export default function EditProfileModal(props) {
 
   const saveChanges = async () => {
     setLoading(true);
+    setError("");
     const formData = new FormData();
     if (deleteClicked) formData.append("deleteBanner", true);
     formData.append("banner", bannerImage);
     formData.append("profile", profileImage);
     formData.append("name", name);
+    formData.append("username", username);
     formData.append("bio", bio);
     formData.append("location", location);
 
@@ -117,6 +124,7 @@ export default function EditProfileModal(props) {
         setLoading(false);
       })
       .catch((error) => {
+        setError(error.response.data.error);
         console.error(error);
         setLoading(false);
       });
@@ -210,7 +218,35 @@ export default function EditProfileModal(props) {
             </IconButton>
           </CardMedia>
         </Box>
+        {error !== "" && (
+          <p
+            style={{
+              color: theme.palette.error.main,
+              display: "flex",
+              alignSelf: "center",
+              position: "relative",
+              marginTop: "-35px",
+            }}
+          >
+            {error}
+          </p>
+        )}
         <Stack sx={{ padding: "20px 20px 0px 20px" }}>
+          <TextField
+            label="Username"
+            variant="outlined"
+            value={username}
+            error={username.length > 20}
+            onChange={(event) => {
+              if (event.target.value.length <= 20) {
+                setUsername(event.target.value);
+              }
+            }}
+            inputProps={{
+              maxLength: 20,
+            }}
+            className={classes.outlineInput}
+          />
           <TextField
             label="Name"
             variant="outlined"
