@@ -18,22 +18,24 @@ import Search from "./pages/Search";
 import { useAuthContext } from "./hooks/useAuthContext";
 import SlowServiceInfoDialog from "./components/SlowServiceInfoDialog";
 import { useEffect, useState } from "react";
+import TwittDialog from "./components/TwittDialog";
 
 function App() {
   const { user } = useAuthContext();
 
-  const [dialog, setDialog] = useState(false);
+  const [dialogInfo, setDialogInfo] = useState(false);
 
-  const handleDialogClose = async () => {
-    setDialog(false);
-    localStorage.setItem("dialogSeen", JSON.stringify(true));
+  const handleDialogInfoClose = async () => {
+    setDialogInfo(false);
+    localStorage.setItem("dialogInfoSeen", JSON.stringify(true));
   };
 
   useEffect(() => {
-    const dialogSeen = localStorage.getItem("dialogSeen");
+    const dialogInfoSeen = localStorage.getItem("dialogInfoSeen");
 
-    if (dialogSeen != null && JSON.parse(dialogSeen)) setDialog(false);
-    else setDialog(true);
+    if (dialogInfoSeen != null && JSON.parse(dialogInfoSeen))
+      setDialogInfo(false);
+    else setDialogInfo(true);
   }, []);
 
   const router = createBrowserRouter(
@@ -65,9 +67,10 @@ function App() {
       <CssBaseline />
       <RouterProvider router={router} />
       <SlowServiceInfoDialog
-        dialog={dialog}
-        closeDialog={() => handleDialogClose()}
+        dialog={dialogInfo}
+        closeDialog={() => handleDialogInfoClose()}
       ></SlowServiceInfoDialog>
+      <TwittDialog />
     </ThemeProvider>
   );
 }

@@ -25,6 +25,7 @@ import {
 } from "react-router-dom";
 import EditProfileModal from "../components/EditProfileModal";
 import { API_URL } from "../utils/Constants";
+import { useTwittDialogContext } from "../hooks/useTwittDialogContext";
 
 export default function Profile() {
   const classes = profileStyles();
@@ -34,6 +35,7 @@ export default function Profile() {
   const [user, setUser] = useState(null);
 
   const auth = useAuthContext();
+  const twittDialogContext = useTwittDialogContext();
 
   const theme = useTheme();
 
@@ -129,7 +131,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (user && user._id) fetchTwitts();
-  }, [user]);
+  }, [user, twittDialogContext.key]);
 
   return (
     <Grid item className={classes.feedGrid}>

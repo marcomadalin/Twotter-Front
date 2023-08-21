@@ -16,6 +16,7 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { API_URL } from "../utils/Constants";
 import { useNavigate } from "react-router-dom";
+import { useTwittDialogContext } from "../hooks/useTwittDialogContext";
 
 export default function Home() {
   const classes = homeStyles();
@@ -27,6 +28,7 @@ export default function Home() {
   const [followingPosts, setFollowingPosts] = useState([]);
 
   const { user, token } = useAuthContext();
+  const twittDialogContext = useTwittDialogContext();
 
   const navigate = useNavigate();
 
@@ -60,7 +62,7 @@ export default function Home() {
       fetchTwitts();
       fetchFollowingTwitts();
     }
-  }, [user]);
+  }, [user, twittDialogContext.key]);
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);

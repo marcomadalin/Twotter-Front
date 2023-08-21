@@ -5,9 +5,12 @@ import Grid from "@mui/material/Grid";
 import Twitt from "../components/Twitt";
 import { exploreStyles } from "../styles/exploreStyles";
 import { API_URL } from "../utils/Constants";
+import { useTwittDialogContext } from "../hooks/useTwittDialogContext";
 
 export default function Explore() {
   const classes = exploreStyles();
+
+  const twittDialogContext = useTwittDialogContext();
 
   const [posts, setPosts] = useState([]);
 
@@ -22,7 +25,7 @@ export default function Explore() {
 
   useEffect(() => {
     fetchTwitts();
-  }, []);
+  }, [twittDialogContext.key]);
 
   return (
     <Grid item className={classes.feedGrid}>

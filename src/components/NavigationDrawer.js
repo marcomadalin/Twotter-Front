@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { drawerStyles } from "../styles/drawerStyles.js";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useTwittDialogContext } from "../hooks/useTwittDialogContext";
 
 export default function NavigationDrawer() {
   const [anchorProfile, setAnchorProfile] = useState(null);
@@ -30,6 +31,19 @@ export default function NavigationDrawer() {
   const { logout } = useLogout();
 
   const { user, token } = useAuthContext();
+
+  const twittDialogContxt = useTwittDialogContext();
+  const [dialogTwitt, setDialogTwitt] = useState(twittDialogContxt.dialog);
+
+  useEffect(() => {
+    setDialogTwitt(twittDialogContxt.dialog);
+  }, [twittDialogContxt.dialog]);
+
+  const openTwittDialog = () => {
+    twittDialogContxt.dispatch({
+      type: "OPEN",
+    });
+  };
 
   useEffect(() => {
     setAnchorProfile(null);
@@ -123,6 +137,7 @@ export default function NavigationDrawer() {
             variant="contained"
             size="large"
             className={classes.twittButtonBig}
+            onClick={() => openTwittDialog()}
           >
             Twitt
           </Button>
