@@ -188,11 +188,13 @@ export default function Home() {
               </Button>
             </Box>
           </Box>
+          {/*
           <Box className={classes.moreTwitts}>
             <Button disableRipple size="large" className={classes.loadTwitts}>
               Show 56 Tweets
             </Button>
           </Box>
+          */}
           {activeTab === 0 && (
             <Box className={classes.feedBox}>
               {posts.map((post, index) => (

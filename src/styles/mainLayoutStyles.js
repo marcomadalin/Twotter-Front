@@ -48,4 +48,12 @@ export const mainLayoutStyles = makeStyles((theme) => ({
     },
     "-msOverflowStyle": "none",
   },
+  contactsGridHidden: {
+    width: "1px !important",
+    marginLeft: "-1px important",
+    height: "100%",
+    borderLeft: `1px solid ${theme.palette.blur.main}`,
+    position: "sticky !important",
+    top: 0,
+  },
 }));

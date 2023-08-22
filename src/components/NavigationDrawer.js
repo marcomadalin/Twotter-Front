@@ -5,7 +5,6 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import {
   Avatar,
-  Badge,
   Button,
   Divider,
   Icon,
@@ -87,9 +86,8 @@ export default function NavigationDrawer() {
                 }`}
               >
                 <ListItemIcon sx={{ mr: 0 }}>
-                  <Badge color="primary" variant="dot">
-                    <Icon sx={{ color: theme.palette.icon.main }}>home</Icon>
-                  </Badge>
+                  {/*<Badge color="primary" variant="dot"/>*/}
+                  <Icon sx={{ color: theme.palette.icon.main }}>home</Icon>
                 </ListItemIcon>
                 {matches && <ListItemText primary="Home" sx={{ ml: 0 }} />}
               </NavLink>

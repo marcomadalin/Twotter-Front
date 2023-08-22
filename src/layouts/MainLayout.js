@@ -13,6 +13,8 @@ export default function MainLayout() {
 
   const renderContacts = useMediaQuery("(min-width:1300px)");
 
+  const hideSidebar = useMediaQuery("(max-width:844px)");
+
   return (
     <div>
       <ScrollRestoration />
@@ -51,9 +53,19 @@ export default function MainLayout() {
             sx={{ overflowY: "auto" }}
           >
             <Outlet />
-            <Grid item xs className={classes.contactsGrid}>
-              {renderContacts && <SideBar />}
-            </Grid>
+            {!hideSidebar && (
+              <Grid
+                item
+                xs
+                className={
+                  renderContacts
+                    ? classes.contactsGrid
+                    : classes.contactsGridHidden
+                }
+              >
+                {renderContacts && <SideBar />}
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Grid>

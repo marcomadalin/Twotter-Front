@@ -1,6 +1,15 @@
 import { twittStyles } from "../styles/twittStyles";
-import { Avatar, Box, Icon, IconButton, Menu, MenuItem } from "@mui/material";
-import { useState } from "react";
+import {
+  Avatar,
+  Box,
+  Icon,
+  IconButton,
+  Menu,
+  MenuItem,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import axios from "axios";
@@ -16,6 +25,18 @@ export default function Twitt({ data, image }) {
   const { user, token, dispatch } = useAuthContext();
 
   const navigate = useNavigate();
+
+  const theme = useTheme();
+
+  const bigScreen = useMediaQuery(theme.breakpoints.up("sm"));
+
+  const [twitt, setTwitt] = useState(data);
+
+  const [timerId, setTimerId] = useState(null);
+
+  useEffect(() => {
+    setTwitt(data);
+  }, [data]);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -34,7 +55,7 @@ export default function Twitt({ data, image }) {
     await axios
       .put(
         API_URL + `/users/follow`,
-        { actualUser: user._id, targetUser: data.user, follow: follow },
+        { actualUser: user._id, targetUser: twitt.user, follow: follow },
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -52,23 +73,60 @@ export default function Twitt({ data, image }) {
     handleMenuClose();
   };
 
+  const handleLikeClicked = () => {
+    if (timerId) clearTimeout(timerId);
+
+    const newTimerId = setTimeout(() => {
+      updateLikes();
+    }, 500);
+
+    setTimerId(newTimerId);
+  };
+
+  const updateLikes = async () => {
+    await axios
+      .put(
+        API_URL + `/twitts/updateLikes`,
+        {
+          twittId: twitt._id,
+          userLikes: twitt.likedBy,
+          like: !twitt.likedBy.includes(user._id),
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then((response) => {
+        setTwitt(response.data);
+      })
+      .catch((err) => console.log(err));
+    handleMenuClose();
+  };
+
   const redirectToProfile = () => {
-    navigate(`/${data.username}`);
+    navigate(`/${twitt.username}`);
   };
 
   return (
     <Box className={classes.twittBox}>
-      <Avatar alt={data.username} src={`data:image/png;base64,${image}`} />
+      <Avatar alt={twitt.username} src={`data:image/png;base64,${image}`} />
       <Box className={classes.twittContent}>
         <Box className={classes.twittHeader}>
           <Box className={classes.userHeader}>
             <p className={classes.user} onClick={() => redirectToProfile()}>
-              {data.name}
+              {twitt.name}
             </p>
             <p className={classes.username} onClick={() => redirectToProfile()}>
-              {"@" + data.username} ·{" "}
+              {"@" + twitt.username + " "}
             </p>
-            <p className={classes.date}>{getDate(data.createdAt)}</p>
+            {bigScreen && (
+              <>
+                <span className={classes.dot}>{" · "}</span>
+                <p className={classes.date}>{getDate(twitt.createdAt)}</p>
+              </>
+            )}
           </Box>
           <IconButton
             className={classes.iconButton}
@@ -92,7 +150,7 @@ export default function Twitt({ data, image }) {
               horizontal: "right",
             }}
           >
-            {user && !user.following.includes(data.user) && (
+            {user && !user.following.includes(twitt.user) && (
               <MenuItem onClick={() => updateFollowers(true)}>
                 <ListItemIcon>
                   <Icon className={classes.whiteIcon}>person_add</Icon>
@@ -101,7 +159,7 @@ export default function Twitt({ data, image }) {
               </MenuItem>
             )}
 
-            {user && user.following.includes(data.user) && (
+            {user && user.following.includes(twitt.user) && (
               <MenuItem onClick={() => updateFollowers(false)}>
                 <ListItemIcon>
                   <Icon className={classes.whiteIcon}>person_remove</Icon>
@@ -119,7 +177,7 @@ export default function Twitt({ data, image }) {
           </Menu>
         </Box>
         <Box>
-          {data.text.split(/\r?\n|\r|\n/g).map((text, key) => (
+          {twitt.text.split(/\r?\n|\r|\n/g).map((text, key) => (
             <p key={key} className={classes.twittText}>
               {text}
             </p>
@@ -129,19 +187,26 @@ export default function Twitt({ data, image }) {
               <IconButton id="comment" color="tertiary" size="medium">
                 <Icon fontSize="small">chat_bubble</Icon>
               </IconButton>
-              <p className={classes.buttonText}>{data.comments.length}</p>
+              <p className={classes.buttonText}>{twitt.comments.length}</p>
             </Box>
             <Box className={classes.retwitt}>
               <IconButton id="retwitt" color="tertiary" size="medium">
                 <Icon fontSize="small">autorenew</Icon>
               </IconButton>
-              <p className={classes.buttonText}>{data.retwitts}</p>
+              <p className={classes.buttonText}>{twitt.retwitts}</p>
             </Box>
-            <Box className={classes.like}>
+            <Box
+              className={
+                twitt.likedBy.includes(user._id)
+                  ? classes.liked
+                  : classes.notLiked
+              }
+              onClick={() => handleLikeClicked()}
+            >
               <IconButton id="like" color="tertiary" size="medium">
                 <Icon fontSize="small">favorite</Icon>
               </IconButton>
-              <p className={classes.buttonText}>{data.likes}</p>
+              <p className={classes.buttonText}>{twitt.likes}</p>
             </Box>
           </Box>
         </Box>

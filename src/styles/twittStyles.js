@@ -34,16 +34,21 @@ export const twittStyles = makeStyles((theme) => ({
   user: {
     margin: "0 0 0 0",
     fontWeight: "bold",
-    fontSize: "16px",
+    fontSize: "14px",
     "&:hover": {
       textDecoration: "underline",
       cursor: "pointer",
     },
   },
+  dot: {
+    color: theme.palette.text.secondary,
+    fontSize: "14px",
+    margin: "0 0 0 5px",
+  },
   username: {
     margin: "0 0 0 5px",
     color: theme.palette.text.secondary,
-    fontSize: "15px",
+    fontSize: "14px",
     "&:hover": {
       textDecoration: "underline",
       cursor: "pointer",
@@ -52,11 +57,7 @@ export const twittStyles = makeStyles((theme) => ({
   date: {
     margin: "0 0 0 5px",
     color: theme.palette.text.secondary,
-    fontSize: "15px",
-    "&:hover": {
-      textDecoration: "underline",
-      cursor: "pointer",
-    },
+    fontSize: "14px",
   },
   twittText: {
     margin: "0 0 0 0",
@@ -97,7 +98,7 @@ export const twittStyles = makeStyles((theme) => ({
       color: `${theme.palette.retwitt.main} !important`,
     },
   },
-  like: {
+  notLiked: {
     display: "flex",
     alignItems: "center",
     "&:hover": {
@@ -109,6 +110,22 @@ export const twittStyles = makeStyles((theme) => ({
     "&:hover #like": {
       backgroundColor: `${theme.palette.like.hover} !important`,
       color: `${theme.palette.like.main} !important`,
+    },
+  },
+  liked: {
+    display: "flex",
+    alignItems: "center",
+    "&:hover": {
+      cursor: "pointer",
+    },
+    "& p": {
+      color: `${theme.palette.like.main} !important`,
+    },
+    "& #like": {
+      color: `${theme.palette.like.main} !important`,
+    },
+    "&:hover #like": {
+      backgroundColor: `${theme.palette.like.hover} !important`,
     },
   },
   buttonText: {

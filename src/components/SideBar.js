@@ -210,7 +210,7 @@ export default function SideBar() {
         <a className={classes.policyText}>Accessibility</a>
         <div>
           <a className={classes.policyText}>Cookie policy</a>
-          <span className={classes.copyright}>© 2023 X Corp.</span>
+          <span className={classes.copyright}>© 2023 No one.</span>
         </div>
       </Box>
     </div>
