@@ -54,6 +54,14 @@ export const twittStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
+  retwittText: {
+    margin: "0 0 0 5px",
+    color: theme.palette.text.secondary,
+    fontSize: "14px",
+  },
+  retwittIcon: {
+    color: theme.palette.text.secondary,
+  },
   date: {
     margin: "0 0 0 5px",
     color: theme.palette.text.secondary,
@@ -85,6 +93,22 @@ export const twittStyles = makeStyles((theme) => ({
     },
   },
   retwitt: {
+    display: "flex",
+    alignItems: "center",
+    "&:hover": {
+      cursor: "pointer",
+    },
+    "& p": {
+      color: `${theme.palette.retwitt.main} !important`,
+    },
+    "& #retwitt": {
+      color: `${theme.palette.retwitt.main} !important`,
+    },
+    "&:hover #retwitt": {
+      backgroundColor: `${theme.palette.retwitt.hover} !important`,
+    },
+  },
+  notRetwitt: {
     display: "flex",
     alignItems: "center",
     "&:hover": {

@@ -15,6 +15,7 @@ import { editProfileStyles } from "../styles/editProfileStyles";
 import { useAuthContext } from "../hooks/useAuthContext";
 import axios from "axios";
 import { API_URL } from "../utils/Constants";
+import { useNavigate } from "react-router-dom";
 
 export default function EditProfileModal(props) {
   const classes = editProfileStyles();
@@ -43,6 +44,8 @@ export default function EditProfileModal(props) {
   const { user, token, dispatch } = useAuthContext();
 
   const theme = useTheme();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setUsername(user.username);
@@ -111,6 +114,7 @@ export default function EditProfileModal(props) {
         },
       })
       .then(async (response) => {
+        const orgUsername = user.username;
         localStorage.setItem("user", JSON.stringify(response.data));
         dispatch({
           type: "UPDATE",
@@ -122,10 +126,12 @@ export default function EditProfileModal(props) {
           setBannerImage(null);
         }
         setLoading(false);
+        if (orgUsername !== response.data.username)
+          props.changeRoute(response.data.username);
       })
       .catch((error) => {
-        setError(error.response.data.error);
         console.error(error);
+        setError(error.response.data.error);
         setLoading(false);
       });
     setDeleteClicked(false);

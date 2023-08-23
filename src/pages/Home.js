@@ -71,7 +71,7 @@ export default function Home() {
   const createTwitt = async () => {
     const twitt = {
       text: twittTextRef.current.value,
-      mentionId: null,
+      fatherId: null,
       comments: [],
       retwitts: 0,
       likes: 0,

@@ -73,6 +73,10 @@ export default function Profile() {
     "December",
   ];
 
+  const changeProfileRoute = (username) => {
+    navigate(`/${username}`);
+  };
+
   const updateFollowers = async (follow, target) => {
     await axios
       .put(
@@ -190,6 +194,7 @@ export default function Profile() {
                         openModal={showEditProfile}
                         closeModal={() => setShowEditProfile(false)}
                         updateUser={setUser}
+                        changeRoute={changeProfileRoute}
                       ></EditProfileModal>
                     </>
                   )}

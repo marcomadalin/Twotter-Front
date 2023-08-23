@@ -38,7 +38,7 @@ export default function TwittDialog(props) {
   const createTwitt = async () => {
     const twitt = {
       text: twittTextRef.current.value,
-      mentionId: null,
+      fatherId: null,
       comments: [],
       retwitts: 0,
       likes: 0,
