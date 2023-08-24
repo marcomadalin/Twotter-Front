@@ -44,20 +44,20 @@ function App() {
         <Route element={<MainLayout />}>
           <Route
             path="home"
-            element={user ? <Home /> : <Navigate to="explore" />}
+            element={user !== null ? <Home /> : <Navigate to="explore" />}
           />
           <Route path="explore" element={<Explore />} />
           <Route
             path="search"
-            element={user ? <Search /> : <Navigate to="explore" />}
+            element={user !== null ? <Search /> : <Navigate to="explore" />}
           />
 
           <Route path=":username" element={<Profile />}>
             <Route path="following" element={<Following />} />
             <Route path="followers" element={<Followers />} />
           </Route>
+          <Route path="*" element={<Explore />} />
         </Route>
-        <Route path="*" element={<Navigate to="explore" />} />
       </Route>
     )
   );

@@ -110,32 +110,55 @@ export default function Twitt({ data, image }) {
       )
       .then((response) => {
         setTwitt(response.data);
+        twittDialogContxt.dispatch({
+          type: "UPDATE",
+        });
       })
       .catch((err) => console.log(err));
     handleMenuClose();
   };
 
-  const retwitt = async () => {
-    const newTwitt = {
-      text: twitt.text,
-      fatherId: twitt._id,
-      retwitts: 0,
-      likes: 0,
-      user: twitt.user,
-      name: twitt.name,
-      username: twitt.username,
-      usernameRetwitt: user.username,
-      retwittedBy: [user._id],
-      isRetwitt: true,
+  const newRetwitt = async () => {
+    const data = {
+      twittId: twitt._id,
+      userId: user._id,
     };
 
     await axios
-      .post(API_URL + `/twitts/retwitt`, newTwitt, {
+      .post(
+        API_URL + `/twitts/newRetwitt`,
+        {
+          data: data,
+          retwitts: twitt.retwittedBy,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then(() => {
+        twittDialogContxt.dispatch({
+          type: "UPDATE",
+        });
+      })
+      .catch((err) => console.log(err));
+    handleMenuClose();
+  };
+
+  const deleteRetwitt = async () => {
+    await axios
+      .delete(API_URL + `/twitts/deleteRetwitt`, {
         headers: {
           Authorization: "Bearer " + token,
         },
+        params: {
+          twittId: twitt._id,
+          userId: user._id,
+          retwitts: twitt.retwittedBy,
+        },
       })
-      .then((response) => {
+      .then(() => {
         twittDialogContxt.dispatch({
           type: "UPDATE",
         });
@@ -149,7 +172,8 @@ export default function Twitt({ data, image }) {
       if (timerRetwittId) clearTimeout(timerRetwittId);
 
       const newTimerId = setTimeout(() => {
-        retwitt();
+        if (twitt.retwittedBy.includes(user._id)) deleteRetwitt();
+        else newRetwitt();
       }, 250);
 
       setTimertwittId(newTimerId);
@@ -160,16 +184,16 @@ export default function Twitt({ data, image }) {
     <Box className={classes.twittBox}>
       <Avatar alt={twitt.username} src={`data:image/png;base64,${image}`} />
       <Box className={classes.twittContent}>
-        {twitt.isRetwitt && (
+        {Object.hasOwn(twitt, "userId") && (
           <Box sx={{ display: "flex" }}>
             <Icon fontSize="small" className={classes.retwittIcon}>
               cached
             </Icon>
             <p
               className={classes.username}
-              onClick={() => redirectToProfile(twitt.usernameRetwitt)}
+              onClick={() => redirectToProfile(twitt.retwittUsername)}
             >
-              {twitt.usernameRetwitt + " "}
+              {twitt.retwittUsername + " "}
             </p>
             <span className={classes.retwittText}>retwitted</span>
           </Box>
@@ -270,7 +294,7 @@ export default function Twitt({ data, image }) {
               <IconButton id="retwitt" color="tertiary" size="medium">
                 <Icon fontSize="small">autorenew</Icon>
               </IconButton>
-              <p className={classes.buttonText}>{twitt.retwitts}</p>
+              <p className={classes.buttonText}>{twitt.retwittedBy.length}</p>
             </Box>
             <Box
               className={

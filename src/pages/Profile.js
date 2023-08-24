@@ -296,7 +296,7 @@ export default function Profile() {
               </Stack>
               <Box className={classes.feedBox}>
                 {posts.map((post, index) => (
-                  <Twitt key={index} data={post} image={user.profile} />
+                  <Twitt key={index} data={post} image={post.image} />
                 ))}
               </Box>
             </>
