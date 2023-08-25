@@ -19,6 +19,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 import SlowServiceInfoDialog from "./components/SlowServiceInfoDialog";
 import { useEffect, useState } from "react";
 import TwittDialog from "./components/TwittDialog";
+import Post from "./pages/Post";
 
 function App() {
   const { user } = useAuthContext();
@@ -51,7 +52,7 @@ function App() {
             path="search"
             element={user !== null ? <Search /> : <Navigate to="explore" />}
           />
-
+          <Route path=":username/:postId" element={<Post />} />
           <Route path=":username" element={<Profile />}>
             <Route path="following" element={<Following />} />
             <Route path="followers" element={<Followers />} />

@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { API_URL } from "../utils/Constants";
 import { useTwittDialogContext } from "../hooks/useTwittDialogContext";
 
-export default function Twitt({ data, image }) {
+export default function Twitt({ data, image, hover = true }) {
   const classes = twittStyles();
 
   const [anchorEl, setAnchorEl] = useState();
@@ -43,6 +43,7 @@ export default function Twitt({ data, image }) {
   }, [data]);
 
   const handleMenuOpen = (event) => {
+    event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
 
@@ -180,8 +181,32 @@ export default function Twitt({ data, image }) {
     }
   };
 
+  const redirectToPost = async () => {
+    if (hover) {
+      navigate(`/${twitt.username}/${twitt._id}`, {
+        state: {
+          twitt: twitt,
+        },
+      });
+    }
+  };
+
+  const handleCommentClicked = async () => {};
+
   return (
-    <Box className={classes.twittBox}>
+    <Box
+      className={classes.twittBox}
+      sx={
+        hover
+          ? {
+              "&:hover": {
+                cursor: "pointer",
+              },
+            }
+          : {}
+      }
+      onClick={() => redirectToPost()}
+    >
       <Avatar alt={twitt.username} src={`data:image/png;base64,${image}`} />
       <Box className={classes.twittContent}>
         {Object.hasOwn(twitt, "userId") && (
@@ -191,7 +216,10 @@ export default function Twitt({ data, image }) {
             </Icon>
             <p
               className={classes.username}
-              onClick={() => redirectToProfile(twitt.retwittUsername)}
+              onClick={(e) => {
+                e.stopPropagation();
+                redirectToProfile(twitt.retwittUsername);
+              }}
             >
               {twitt.retwittUsername + " "}
             </p>
@@ -202,13 +230,19 @@ export default function Twitt({ data, image }) {
           <Box className={classes.userHeader}>
             <p
               className={classes.user}
-              onClick={() => redirectToProfile(twitt.username)}
+              onClick={(e) => {
+                e.stopPropagation();
+                redirectToProfile(twitt.username);
+              }}
             >
               {twitt.name}
             </p>
             <p
               className={classes.username}
-              onClick={() => redirectToProfile(twitt.username)}
+              onClick={(e) => {
+                e.stopPropagation();
+                redirectToProfile(twitt.username);
+              }}
             >
               {"@" + twitt.username + " "}
             </p>
@@ -231,7 +265,10 @@ export default function Twitt({ data, image }) {
             className={classes.feedbackMenu}
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
-            onClose={() => handleMenuClose()}
+            onClose={(e) => {
+              e.stopPropagation();
+              handleMenuClose();
+            }}
             anchorOrigin={{
               vertical: "top",
               horizontal: "right",
@@ -242,7 +279,12 @@ export default function Twitt({ data, image }) {
             }}
           >
             {user && !user.following.includes(twitt.user) && (
-              <MenuItem onClick={() => updateFollowers(true)}>
+              <MenuItem
+                onClick={(e) => {
+                  e.stopPropagation();
+                  updateFollowers(true);
+                }}
+              >
                 <ListItemIcon>
                   <Icon className={classes.whiteIcon}>person_add</Icon>
                 </ListItemIcon>
@@ -251,7 +293,12 @@ export default function Twitt({ data, image }) {
             )}
 
             {user && user.following.includes(twitt.user) && (
-              <MenuItem onClick={() => updateFollowers(false)}>
+              <MenuItem
+                onClick={(e) => {
+                  e.stopPropagation();
+                  updateFollowers(false);
+                }}
+              >
                 <ListItemIcon>
                   <Icon className={classes.whiteIcon}>person_remove</Icon>
                 </ListItemIcon>
@@ -259,7 +306,12 @@ export default function Twitt({ data, image }) {
               </MenuItem>
             )}
 
-            <MenuItem onClick={() => handleMenuClose()}>
+            <MenuItem
+              onClick={(e) => {
+                e.stopPropagation();
+                handleMenuClose();
+              }}
+            >
               <ListItemIcon>
                 <Icon className={classes.whiteIcon}>block</Icon>
               </ListItemIcon>
@@ -269,19 +321,36 @@ export default function Twitt({ data, image }) {
         </Box>
         <Box>
           {twitt.text.split(/\r?\n|\r|\n/g).map((text, key) => (
-            <p key={key} className={classes.twittText}>
+            <p
+              key={key}
+              className={classes.twittText}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
               {text}
             </p>
           ))}
           <Box className={classes.twittButtons}>
-            <Box className={classes.comment}>
+            <Box
+              className={
+                token !== null
+                  ? twitt.commentedBy.includes(user._id)
+                    ? classes.comment
+                    : classes.notComment
+                  : classes.notComment
+              }
+              onClick={(e) => {
+                e.stopPropagation();
+                handleCommentClicked();
+              }}
+            >
               <IconButton id="comment" color="tertiary" size="medium">
                 <Icon fontSize="small">chat_bubble</Icon>
               </IconButton>
-              <p className={classes.buttonText}>{twitt.comments.length}</p>
+              <p className={classes.buttonText}>{twitt.commentedBy.length}</p>
             </Box>
             <Box
-              className={classes.retwitt}
               className={
                 token !== null
                   ? twitt.retwittedBy.includes(user._id)
@@ -289,7 +358,10 @@ export default function Twitt({ data, image }) {
                     : classes.notRetwitt
                   : classes.notRetwitt
               }
-              onClick={() => handleRetwittClicked()}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleRetwittClicked();
+              }}
             >
               <IconButton id="retwitt" color="tertiary" size="medium">
                 <Icon fontSize="small">autorenew</Icon>
@@ -304,7 +376,10 @@ export default function Twitt({ data, image }) {
                     : classes.notLiked
                   : classes.notLiked
               }
-              onClick={() => handleLikeClicked()}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleLikeClicked();
+              }}
             >
               <IconButton id="like" color="tertiary" size="medium">
                 <Icon fontSize="small">favorite</Icon>

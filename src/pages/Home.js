@@ -16,7 +16,6 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { API_URL } from "../utils/Constants";
 import { useTwittDialogContext } from "../hooks/useTwittDialogContext";
-import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const classes = homeStyles();
@@ -29,8 +28,6 @@ export default function Home() {
 
   const { user, token } = useAuthContext();
   const twittDialogContext = useTwittDialogContext();
-
-  const navigate = useNavigate();
 
   const fetchTwitts = async () => {
     await axios
@@ -71,24 +68,24 @@ export default function Home() {
   const createTwitt = async () => {
     const twitt = {
       text: twittTextRef.current.value,
-      fatherId: null,
-      comments: [],
-      retwitts: 0,
-      likes: 0,
       user: user._id,
       name: user.name,
       username: user.username,
     };
 
     await axios
-      .post(API_URL + `/twitts/new`, twitt, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
+      .post(
+        API_URL + `/twitts/new`,
+        { data: twitt },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
       .then((response) => {
-        response.data.image = user.profile;
-        setPosts((oldPosts) => [response.data].concat(oldPosts));
+        response.data.twitt.image = user.profile;
+        setPosts((oldPosts) => [response.data.twitt].concat(oldPosts));
         twittTextRef.current.value = "";
       })
       .catch((err) => console.log(err));

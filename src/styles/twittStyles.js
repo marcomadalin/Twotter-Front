@@ -68,7 +68,11 @@ export const twittStyles = makeStyles((theme) => ({
     fontSize: "14px",
   },
   twittText: {
+    display: "inline !important",
     margin: "0 0 0 0",
+    "&:hover": {
+      cursor: "text !important",
+    },
   },
   twittButtons: {
     display: "flex",
@@ -78,7 +82,7 @@ export const twittStyles = makeStyles((theme) => ({
     marginTop: "15px",
     maxWidth: "350px",
   },
-  comment: {
+  noComment: {
     display: "flex",
     alignItems: "center",
     "&:hover": {
@@ -90,6 +94,22 @@ export const twittStyles = makeStyles((theme) => ({
     "&:hover #comment": {
       backgroundColor: `${theme.palette.icon.hover} !important`,
       color: `${theme.palette.icon.primary} !important`,
+    },
+  },
+  comment: {
+    display: "flex",
+    alignItems: "center",
+    "&:hover": {
+      cursor: "pointer",
+    },
+    "& p": {
+      color: `${theme.palette.icon.primary} !important`,
+    },
+    "& #comment": {
+      color: `${theme.palette.icon.primary} !important`,
+    },
+    "&:hover #comment": {
+      backgroundColor: `${theme.palette.icon.hover} !important`,
     },
   },
   retwitt: {

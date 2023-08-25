@@ -38,21 +38,21 @@ export default function TwittDialog(props) {
   const createTwitt = async () => {
     const twitt = {
       text: twittTextRef.current.value,
-      fatherId: null,
-      comments: [],
-      retwitts: 0,
-      likes: 0,
       user: user._id,
       name: user.name,
       username: user.username,
     };
 
     await axios
-      .post(API_URL + `/twitts/new`, twitt, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
+      .post(
+        API_URL + `/twitts/new`,
+        { data: twitt },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
       .then((response) => {
         twittDialogContxt.dispatch({
           type: "UPDATE",
