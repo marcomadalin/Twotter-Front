@@ -128,60 +128,62 @@ export default function Post() {
         {user !== null && twitt !== null && responses !== null && (
           <>
             <Twitt data={twitt} image={user.profile} hover={false} />
-            <Box className={classes.twittPost}>
-              <Box className={classes.twittWrapper}>
-                {user && (
-                  <Avatar
-                    alt={user.username}
-                    src={`data:image/png;base64,${auth.user.profile}`}
+            {auth.user && (
+              <Box className={classes.twittPost}>
+                <Box className={classes.twittWrapper}>
+                  {user && (
+                    <Avatar
+                      alt={user.username}
+                      src={`data:image/png;base64,${auth.user.profile}`}
+                    />
+                  )}
+                  <TextField
+                    className={classes.twittCreate}
+                    placeholder="Twitt your response!"
+                    multiline
+                    minRows={1}
+                    maxRows={7}
+                    inputRef={twittTextRef}
                   />
-                )}
-                <TextField
-                  className={classes.twittCreate}
-                  placeholder="Twitt your response!"
-                  multiline
-                  minRows={1}
-                  maxRows={7}
-                  inputRef={twittTextRef}
-                />
-              </Box>
-              <Box className={classes.twittButtonsWrapper}>
-                <Box className={classes.twittButtons}>
-                  <IconButton
-                    className={classes.iconButtonWrapper}
-                    color="primary"
-                    size="small"
-                    disableRipple
-                  >
-                    <Icon>image</Icon>
-                  </IconButton>
-                  <IconButton
-                    className={classes.iconButtonWrapper}
-                    color="primary"
-                    size="small"
-                    disableRipple
-                  >
-                    <Icon>gif_box</Icon>
-                  </IconButton>
-                  <IconButton
-                    className={classes.iconButtonWrapper}
-                    color="primary"
-                    size="small"
-                    disableRipple
-                  >
-                    <Icon>mood</Icon>
-                  </IconButton>
                 </Box>
-                <Button
-                  variant="contained"
-                  size="small"
-                  className={classes.twittButton}
-                  onClick={createTwitt}
-                >
-                  Twitt
-                </Button>
+                <Box className={classes.twittButtonsWrapper}>
+                  <Box className={classes.twittButtons}>
+                    <IconButton
+                      className={classes.iconButtonWrapper}
+                      color="primary"
+                      size="small"
+                      disableRipple
+                    >
+                      <Icon>image</Icon>
+                    </IconButton>
+                    <IconButton
+                      className={classes.iconButtonWrapper}
+                      color="primary"
+                      size="small"
+                      disableRipple
+                    >
+                      <Icon>gif_box</Icon>
+                    </IconButton>
+                    <IconButton
+                      className={classes.iconButtonWrapper}
+                      color="primary"
+                      size="small"
+                      disableRipple
+                    >
+                      <Icon>mood</Icon>
+                    </IconButton>
+                  </Box>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    className={classes.twittButton}
+                    onClick={createTwitt}
+                  >
+                    Twitt
+                  </Button>
+                </Box>
               </Box>
-            </Box>
+            )}
             <Box className={classes.feedBox}>
               {responses.map((post, index) => (
                 <Twitt key={index} data={post} image={post.image} />

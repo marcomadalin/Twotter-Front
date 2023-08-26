@@ -9,6 +9,13 @@ export const twittStyles = makeStyles((theme) => ({
     alignItems: "flex-start",
     minHeight: "100px",
   },
+  twittBox2: {
+    boxSizing: "border-box",
+    display: "flex",
+    alignItems: "flex-start",
+    minHeight: "100px",
+    width: "100%",
+  },
   twittContent: {
     boxSizing: "border-box",
     marginLeft: "15px",
@@ -19,6 +26,14 @@ export const twittStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "flex-start",
+  },
+  userComment: {
+    fontSize: "14px",
+    color: theme.palette.icon.primary,
+    "&:hover": {
+      cursor: "pointer",
+      textDecoration: "underline",
+    },
   },
   iconButton: {
     color: `${theme.palette.icon.secondary} !important`,
@@ -59,6 +74,11 @@ export const twittStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     fontSize: "14px",
   },
+  retwittText2: {
+    margin: "0 5px 0 0",
+    color: theme.palette.text.secondary,
+    fontSize: "14px",
+  },
   retwittIcon: {
     color: theme.palette.text.secondary,
   },
@@ -82,6 +102,21 @@ export const twittStyles = makeStyles((theme) => ({
     marginTop: "15px",
     maxWidth: "350px",
   },
+  twittButtons2: {
+    display: "flex",
+    alignItems: "flex-start",
+    marginTop: "20px",
+    marginBottom: "20px",
+    width: "100%",
+  },
+  twittButtons3: {
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "space-around",
+    marginTop: "5px",
+    marginBottom: "-5px",
+    width: "100%",
+  },
   noComment: {
     display: "flex",
     alignItems: "center",
@@ -97,8 +132,8 @@ export const twittStyles = makeStyles((theme) => ({
     },
   },
   comment: {
-    display: "flex",
-    alignItems: "center",
+    display: "flex !important",
+    alignItems: "center !important",
     "&:hover": {
       cursor: "pointer",
     },
@@ -113,8 +148,8 @@ export const twittStyles = makeStyles((theme) => ({
     },
   },
   retwitt: {
-    display: "flex",
-    alignItems: "center",
+    display: "flex !important",
+    alignItems: "center !important",
     "&:hover": {
       cursor: "pointer",
     },
@@ -186,5 +221,17 @@ export const twittStyles = makeStyles((theme) => ({
   },
   whiteIcon: {
     color: theme.palette.icon.main,
+  },
+  blurDivider: {
+    height: "1px",
+    backgroundColor: theme.palette.blur.main,
+    marginTop: "10px !important",
+    marginBottom: "10px !important",
+  },
+  postInfo: {
+    display: "flex",
+    alignItems: "center",
+    maxHeight: "20px",
+    marginRight: "30px",
   },
 }));
