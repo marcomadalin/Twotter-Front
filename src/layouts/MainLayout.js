@@ -6,6 +6,7 @@ import AuthenticationBanners from "../components/AuthenticationBanners";
 import { useAuthContext } from "../hooks/useAuthContext";
 import SideBar from "../components/SideBar";
 import { useMediaQuery } from "@mui/material";
+import TwittDialog from "../components/TwittDialog";
 
 export default function MainLayout() {
   const classes = mainLayoutStyles();
@@ -53,6 +54,7 @@ export default function MainLayout() {
             sx={{ overflowY: "auto" }}
           >
             <Outlet />
+            <TwittDialog />
             {!hideSidebar && (
               <Grid
                 item

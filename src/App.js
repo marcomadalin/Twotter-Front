@@ -18,7 +18,6 @@ import Search from "./pages/Search";
 import { useAuthContext } from "./hooks/useAuthContext";
 import SlowServiceInfoDialog from "./components/SlowServiceInfoDialog";
 import { useEffect, useState } from "react";
-import TwittDialog from "./components/TwittDialog";
 import Post from "./pages/Post";
 
 function App() {
@@ -43,10 +42,7 @@ function App() {
     createRoutesFromElements(
       <Route>
         <Route element={<MainLayout />}>
-          <Route
-            path="home"
-            element={user !== null ? <Home /> : <Navigate to="explore" />}
-          />
+          <Route path="home" element={<Home />} />
           <Route path="explore" element={<Explore />} />
           <Route
             path="search"
@@ -71,7 +67,6 @@ function App() {
         dialog={dialogInfo}
         closeDialog={() => handleDialogInfoClose()}
       ></SlowServiceInfoDialog>
-      <TwittDialog />
     </ThemeProvider>
   );
 }

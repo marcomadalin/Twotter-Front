@@ -16,6 +16,7 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { API_URL } from "../utils/Constants";
 import { useTwittDialogContext } from "../hooks/useTwittDialogContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const classes = homeStyles();
@@ -28,6 +29,8 @@ export default function Home() {
 
   const { user, token } = useAuthContext();
   const twittDialogContext = useTwittDialogContext();
+
+  const navigate = useNavigate();
 
   const fetchTwitts = async () => {
     await axios
@@ -55,11 +58,11 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (user !== null) {
+    if (token !== null) {
       fetchTwitts();
       fetchFollowingTwitts();
-    }
-  }, [user, twittDialogContext.key]);
+    } else navigate("/explore");
+  }, [token, twittDialogContext.key]);
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
@@ -99,9 +102,9 @@ export default function Home() {
   }
 
   return (
-    <>
+    <Grid item className={classes.feedGrid}>
       {user && (
-        <Grid item className={classes.feedGrid}>
+        <>
           <Box className={classes.tabBox}>
             <Button
               disableRipple
@@ -158,22 +161,24 @@ export default function Home() {
                 >
                   <Icon>image</Icon>
                 </IconButton>
-                <IconButton
+                {/*
+                  <IconButton
+                      className={classes.iconButtonWrapper}
+                      color="primary"
+                      size="small"
+                      disableRipple
+                  >
+                    <Icon>gif_box</Icon>
+                  </IconButton>
+                  <IconButton
                   className={classes.iconButtonWrapper}
-                  color="primary"
-                  size="small"
-                  disableRipple
-                >
-                  <Icon>gif_box</Icon>
-                </IconButton>
-                <IconButton
-                  className={classes.iconButtonWrapper}
-                  color="primary"
-                  size="small"
-                  disableRipple
-                >
-                  <Icon>mood</Icon>
-                </IconButton>
+                color="primary"
+                size="small"
+                disableRipple
+              >
+                <Icon>mood</Icon>
+              </IconButton>
+              */}
               </Box>
               <Button
                 variant="contained"
@@ -206,8 +211,8 @@ export default function Home() {
               ))}
             </Box>
           )}
-        </Grid>
+        </>
       )}
-    </>
+    </Grid>
   );
 }

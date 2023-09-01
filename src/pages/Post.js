@@ -156,22 +156,22 @@ export default function Post() {
                     >
                       <Icon>image</Icon>
                     </IconButton>
-                    <IconButton
-                      className={classes.iconButtonWrapper}
-                      color="primary"
-                      size="small"
-                      disableRipple
+                    {/*<IconButton
+                        className={classes.iconButtonWrapper}
+                        color="primary"
+                        size="small"
+                        disableRipple
                     >
                       <Icon>gif_box</Icon>
                     </IconButton>
-                    <IconButton
+                      <IconButton
                       className={classes.iconButtonWrapper}
-                      color="primary"
-                      size="small"
-                      disableRipple
-                    >
-                      <Icon>mood</Icon>
-                    </IconButton>
+                    color="primary"
+                    size="small"
+                    disableRipple
+                  >
+                    <Icon>mood</Icon>
+                  </IconButton>*/}
                   </Box>
                   <Button
                     variant="contained"

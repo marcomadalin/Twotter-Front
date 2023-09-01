@@ -38,12 +38,12 @@ export default function SlowServiceInfoDialog(props) {
             >
               Welcome to Twotter
             </h1>
-            <p>
+            <p style={{ paddingLeft: "20px" }}>
               Thanks for checking out the web. Sorry if you feel the web loads
               data kinda slow the first time, as it takes about 20-30 seconds
               due to not having much traffic in a while.
             </p>
-            <p>
+            <p style={{ paddingLeft: "20px" }}>
               The free tier from the hosting service does not allow for much
               more :/
             </p>

@@ -123,4 +123,18 @@ export const twittDialogStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.blur.main,
     marginTop: "5px !important",
   },
+  userComment: {
+    fontSize: "14px",
+    color: theme.palette.icon.primary,
+  },
+  username: {
+    margin: "0 0 0 5px",
+    color: theme.palette.text.secondary,
+    fontSize: "14px",
+  },
+  retwittText2: {
+    margin: "0 5px 0 0",
+    color: theme.palette.text.secondary,
+    fontSize: "14px",
+  },
 }));

@@ -3,7 +3,6 @@ import { makeStyles } from "@mui/styles";
 export const twittStyles = makeStyles((theme) => ({
   twittBox: {
     boxSizing: "border-box",
-    borderBottom: `1px solid ${theme.palette.blur.main}`,
     padding: "15px 15px 15px 15px",
     display: "flex",
     alignItems: "flex-start",

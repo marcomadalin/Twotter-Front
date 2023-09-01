@@ -19,20 +19,21 @@ import { useNavigate } from "react-router-dom";
 import { API_URL } from "../utils/Constants";
 import { useTwittDialogContext } from "../hooks/useTwittDialogContext";
 
-export default function Twitt({ data, image, hover = true }) {
+export default function Twitt({ data, image, hover = true, response = false }) {
   const classes = twittStyles();
 
   const [anchorEl, setAnchorEl] = useState();
 
   const { user, token, dispatch } = useAuthContext();
 
-  const navigate = useNavigate();
+  let navigate = useNavigate();
 
   const theme = useTheme();
 
   const bigScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
   const twittDialogContxt = useTwittDialogContext();
+  const [dialogTwitt, setDialogTwitt] = useState(twittDialogContxt.dialog);
 
   const [twitt, setTwitt] = useState(data);
 
@@ -42,6 +43,19 @@ export default function Twitt({ data, image, hover = true }) {
   useEffect(() => {
     setTwitt(data);
   }, [data]);
+
+  useEffect(() => {
+    setDialogTwitt(twittDialogContxt.dialog);
+  }, [twittDialogContxt.dialog]);
+
+  const openTwittDialog = () => {
+    twittDialogContxt.dispatch({
+      type: "OPEN_RESPONSE",
+      payload: {
+        response: data,
+      },
+    });
+  };
 
   const handleMenuOpen = (event) => {
     event.stopPropagation();
@@ -198,14 +212,13 @@ export default function Twitt({ data, image, hover = true }) {
     }
   };
 
-  const handleCommentClicked = async () => {};
-
   return (
     <Box
       className={classes.twittBox}
       sx={
-        hover
+        hover && !response
           ? {
+              borderBottom: `1px solid ${theme.palette.blur.main}`,
               flexDirection: "column",
               "&:hover": {
                 cursor: "pointer",
@@ -215,10 +228,21 @@ export default function Twitt({ data, image, hover = true }) {
       }
       onClick={() => redirectToPost()}
     >
-      <Box className={classes.twittBox2}>
+      <Box
+        className={classes.twittBox2}
+        sx={
+          response
+            ? {
+                border: `1px solid ${theme.palette.blur.main}`,
+                borderRadius: "10px",
+                padding: "10px",
+              }
+            : {}
+        }
+      >
         <Avatar alt={twitt.username} src={`data:image/png;base64,${image}`} />
         <Box className={classes.twittContent}>
-          {Object.hasOwn(twitt, "userId") && (
+          {Object.hasOwn(twitt, "userId") && !response && (
             <Box sx={{ display: "flex" }}>
               <Icon fontSize="small" className={classes.retwittIcon}>
                 cached
@@ -270,86 +294,93 @@ export default function Twitt({ data, image, hover = true }) {
                   </>
                 )}
               </Box>
-              {Object.hasOwn(twitt, "fatherId") && twitt.fatherId !== null && (
-                <Box sx={{ display: "flex" }}>
-                  <span className={classes.retwittText2}>Responding to</span>
-                  <span
-                    className={classes.userComment}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/${twitt.commentUsername}`);
-                    }}
-                  >
-                    {" @" + twitt.commentUsername}
-                  </span>
-                </Box>
-              )}
+              {Object.hasOwn(twitt, "fatherId") &&
+                twitt.fatherId !== null &&
+                !response && (
+                  <Box sx={{ display: "flex" }}>
+                    <span className={classes.retwittText2}>Responding to</span>
+                    <span
+                      className={classes.userComment}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/${twitt.commentUsername}`);
+                      }}
+                    >
+                      {" @" + twitt.commentUsername}
+                    </span>
+                  </Box>
+                )}
             </Box>
-            <IconButton
-              className={classes.iconButton}
-              color="primary"
-              size="medium"
-              onClick={(event) => handleMenuOpen(event)}
-            >
-              <Icon>more_horizontal</Icon>
-            </IconButton>
-            <Menu
-              className={classes.feedbackMenu}
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={(e) => {
-                e.stopPropagation();
-                handleMenuClose();
-              }}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-            >
-              {user && !user.following.includes(twitt.user) && (
-                <MenuItem
-                  onClick={(e) => {
+            {!response && (
+              <>
+                <IconButton
+                  className={classes.iconButton}
+                  color="primary"
+                  size="medium"
+                  onClick={(event) => handleMenuOpen(event)}
+                >
+                  <Icon>more_horizontal</Icon>
+                </IconButton>
+                <Menu
+                  className={classes.feedbackMenu}
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={(e) => {
                     e.stopPropagation();
-                    updateFollowers(true);
+                    handleMenuClose();
+                  }}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                 >
-                  <ListItemIcon>
-                    <Icon className={classes.whiteIcon}>person_add</Icon>
-                  </ListItemIcon>
-                  <ListItemText>Follow user</ListItemText>
-                </MenuItem>
-              )}
+                  {user && !user.following.includes(twitt.user) && (
+                    <MenuItem
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        updateFollowers(true);
+                      }}
+                    >
+                      <ListItemIcon>
+                        <Icon className={classes.whiteIcon}>person_add</Icon>
+                      </ListItemIcon>
+                      <ListItemText>Follow user</ListItemText>
+                    </MenuItem>
+                  )}
 
-              {user && user.following.includes(twitt.user) && (
-                <MenuItem
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    updateFollowers(false);
-                  }}
-                >
-                  <ListItemIcon>
-                    <Icon className={classes.whiteIcon}>person_remove</Icon>
-                  </ListItemIcon>
-                  <ListItemText>Unfollow user</ListItemText>
-                </MenuItem>
-              )}
-
-              <MenuItem
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleMenuClose();
-                }}
-              >
-                <ListItemIcon>
-                  <Icon className={classes.whiteIcon}>block</Icon>
-                </ListItemIcon>
-                <ListItemText>Block</ListItemText>
-              </MenuItem>
-            </Menu>
+                  {user && user.following.includes(twitt.user) && (
+                    <MenuItem
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        updateFollowers(false);
+                      }}
+                    >
+                      <ListItemIcon>
+                        <Icon className={classes.whiteIcon}>person_remove</Icon>
+                      </ListItemIcon>
+                      <ListItemText>Unfollow user</ListItemText>
+                    </MenuItem>
+                  )}
+                  {/*
+                    <MenuItem
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleMenuClose();
+                      }}
+                    >
+                      <ListItemIcon>
+                        <Icon className={classes.whiteIcon}>block</Icon>
+                      </ListItemIcon>
+                      <ListItemText>Block</ListItemText>
+                    </MenuItem>
+                    */}
+                </Menu>
+              </>
+            )}
           </Box>
           <Box>
             {twitt.text.split(/\r?\n|\r|\n/g).map((text, key) => (
@@ -363,7 +394,7 @@ export default function Twitt({ data, image, hover = true }) {
                 {text}
               </p>
             ))}
-            {hover && (
+            {hover && !response && (
               <Box className={classes.twittButtons}>
                 <Box
                   className={
@@ -375,7 +406,7 @@ export default function Twitt({ data, image, hover = true }) {
                   }
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleCommentClicked();
+                    openTwittDialog();
                   }}
                 >
                   <IconButton id="comment" color="tertiary" size="medium">
@@ -428,7 +459,7 @@ export default function Twitt({ data, image, hover = true }) {
           </Box>
         </Box>
       </Box>
-      {!hover && (
+      {!hover && !response && (
         <Box sx={{ width: "100%", marginTop: "-15px", marginBottom: "0px" }}>
           <span className={classes.dot}>{" · "}</span>
           <p className={classes.date}>{getTime(twitt.createdAt)}</p>
@@ -459,7 +490,7 @@ export default function Twitt({ data, image, hover = true }) {
               }
               onClick={(e) => {
                 e.stopPropagation();
-                handleCommentClicked();
+                openTwittDialog();
               }}
             >
               <IconButton id="comment" color="tertiary" size="medium">

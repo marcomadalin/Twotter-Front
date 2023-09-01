@@ -5,11 +5,21 @@ export const TwittDialogContext = createContext();
 export function twittDialogReducer(state, action) {
   switch (action.type) {
     case "OPEN":
-      return { dialog: true, key: state.key };
+      return { dialog: true, response: state.response, key: state.key };
     case "CLOSE":
-      return { dialog: false, key: state.key };
+      return { dialog: false, response: null, key: state.key };
+    case "OPEN_RESPONSE":
+      return {
+        dialog: true,
+        response: action.payload.response,
+        key: state.key,
+      };
     case "UPDATE":
-      return { dialog: state.dialog, key: state.key + 1 };
+      return {
+        dialog: state.dialog,
+        response: null,
+        key: state.key + 1,
+      };
     default:
       return state;
   }
@@ -18,6 +28,7 @@ export function twittDialogReducer(state, action) {
 export function TwittDialogProvider({ children }) {
   const [state, dispatch] = useReducer(twittDialogReducer, {
     dialog: false,
+    response: null,
     key: 0,
   });
 

@@ -15,8 +15,9 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../utils/Constants";
 import { useAuthContext } from "../hooks/useAuthContext";
+import Twitt from "./Twitt";
 
-export default function TwittDialog(props) {
+export default function TwittDialog({ twitt = null }) {
   const classes = twittDialogStyles();
 
   const { user, token } = useAuthContext();
@@ -25,9 +26,15 @@ export default function TwittDialog(props) {
   const [dialogTwitt, setDialogTwitt] = useState(false);
   const twittTextRef = useRef("");
 
+  const [responseTwitt, setResponseTwitt] = useState(null);
+
   useEffect(() => {
     setDialogTwitt(twittDialogContxt.dialog);
   }, [twittDialogContxt.dialog]);
+
+  useEffect(() => {
+    setResponseTwitt(twittDialogContxt.response);
+  }, [twittDialogContxt.response]);
 
   const closeDialog = () => {
     twittDialogContxt.dispatch({
@@ -36,9 +43,10 @@ export default function TwittDialog(props) {
   };
 
   const createTwitt = async () => {
-    const twitt = {
+    const data = {
       text: twittTextRef.current.value,
       user: user._id,
+      fatherId: responseTwitt._id,
       name: user.name,
       username: user.username,
     };
@@ -46,7 +54,7 @@ export default function TwittDialog(props) {
     await axios
       .post(
         API_URL + `/twitts/new`,
-        { data: twitt },
+        { data: data, comments: responseTwitt.commentedBy },
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -81,6 +89,13 @@ export default function TwittDialog(props) {
       </IconButton>
       <DialogContent className={classes.loginModalWrapper}>
         <Box className={classes.loginModalBody}>
+          {responseTwitt !== null && (
+            <Twitt
+              data={responseTwitt}
+              image={responseTwitt.image}
+              response={true}
+            />
+          )}
           <Box className={classes.twittPost}>
             <Box className={classes.twittWrapper}>
               {user && (
@@ -89,14 +104,39 @@ export default function TwittDialog(props) {
                   src={`data:image/png;base64,${user.profile}`}
                 />
               )}
-              <TextField
-                className={classes.twittCreate}
-                placeholder="What's going on ?"
-                multiline
-                minRows={3}
-                maxRows={7}
-                inputRef={twittTextRef}
-              />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100% !important",
+                }}
+              >
+                {responseTwitt !== null && (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      paddingLeft: "10px",
+                    }}
+                  >
+                    <span className={classes.retwittText2}>Responding to</span>
+                    <span className={classes.userComment}>
+                      {" @" + responseTwitt.username}
+                    </span>
+                  </Box>
+                )}
+                <TextField
+                  className={classes.twittCreate}
+                  placeholder={
+                    responseTwitt !== null
+                      ? "Twitt your response!"
+                      : "What's going on ?"
+                  }
+                  multiline
+                  minRows={3}
+                  maxRows={7}
+                  inputRef={twittTextRef}
+                />
+              </Box>
             </Box>
             <Divider light className={classes.blurDivider} />
             <Box className={classes.twittButtonsWrapper}>
@@ -109,22 +149,22 @@ export default function TwittDialog(props) {
                 >
                   <Icon>image</Icon>
                 </IconButton>
-                <IconButton
-                  className={classes.iconButtonWrapper}
-                  color="primary"
-                  size="small"
-                  disableRipple
+                {/*<IconButton
+                    className={classes.iconButtonWrapper}
+                    color="primary"
+                    size="small"
+                    disableRipple
                 >
                   <Icon>gif_box</Icon>
                 </IconButton>
-                <IconButton
+                  <IconButton
                   className={classes.iconButtonWrapper}
-                  color="primary"
-                  size="small"
-                  disableRipple
-                >
-                  <Icon>mood</Icon>
-                </IconButton>
+                color="primary"
+                size="small"
+                disableRipple
+              >
+                <Icon>mood</Icon>
+              </IconButton>*/}
               </Box>
               <Button
                 variant="contained"
