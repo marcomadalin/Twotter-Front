@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Button,
+  CardMedia,
   DialogContent,
   Divider,
   Icon,
@@ -26,6 +27,10 @@ export default function TwittDialog({ twitt = null }) {
   const [dialogTwitt, setDialogTwitt] = useState(false);
   const twittTextRef = useRef("");
 
+  const [image, setImage] = useState(null);
+  const [image64, setImage64] = useState("");
+  const imageRef = useRef(null);
+
   const [responseTwitt, setResponseTwitt] = useState(null);
 
   useEffect(() => {
@@ -36,6 +41,22 @@ export default function TwittDialog({ twitt = null }) {
     setResponseTwitt(twittDialogContxt.response);
   }, [twittDialogContxt.response]);
 
+  const updateTwittImage = (event) => {
+    setImage(event.target.files[0]);
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const base64String = reader.result.split(",")[1];
+      setImage64(base64String);
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
+
+  const handleImageChange = () => {
+    imageRef.current.click();
+  };
+
   const closeDialog = () => {
     twittDialogContxt.dispatch({
       type: "CLOSE",
@@ -43,29 +64,36 @@ export default function TwittDialog({ twitt = null }) {
   };
 
   const createTwitt = async () => {
-    const data = {
-      text: twittTextRef.current.value,
-      user: user._id,
-      fatherId: responseTwitt._id,
-      name: user.name,
-      username: user.username,
-    };
+    const formData = new FormData();
+    formData.append("text", twittTextRef.current.value);
+    formData.append("fatherId", responseTwitt._id);
+    formData.append("user", user._id);
+    formData.append("name", user.name);
+    formData.append("username", user.username);
+    formData.append("img", image);
+    formData.append(
+      "comments",
+      responseTwitt._id !== null
+        ? JSON.stringify(responseTwitt.commentedBy)
+        : null
+    );
+    formData.append("hasImage", image64 !== "");
 
     await axios
-      .post(
-        API_URL + `/twitts/new`,
-        { data: data, comments: responseTwitt.commentedBy },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      )
+      .post(API_URL + `/twitts/new`, formData, {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
         twittDialogContxt.dispatch({
           type: "UPDATE",
         });
         twittTextRef.current.value = "";
+        setImage(null);
+        setImage64("");
+        imageRef.current.value = "";
       })
       .catch((err) => console.log(err));
   };
@@ -124,18 +152,44 @@ export default function TwittDialog({ twitt = null }) {
                     </span>
                   </Box>
                 )}
-                <TextField
-                  className={classes.twittCreate}
-                  placeholder={
-                    responseTwitt !== null
-                      ? "Twitt your response!"
-                      : "What's going on ?"
-                  }
-                  multiline
-                  minRows={3}
-                  maxRows={7}
-                  inputRef={twittTextRef}
-                />
+                <Box
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {image64 !== "" && (
+                    <CardMedia
+                      height="150"
+                      image={`data:image/png;base64,${image64}`}
+                      className={classes.banner}
+                    >
+                      <IconButton
+                        color="icon"
+                        size="small"
+                        disableRipple
+                        className={classes.picEditButton}
+                        sx={{ marginLeft: "10px !important" }}
+                        onClick={() => {
+                          setImage(null);
+                          setImage64("");
+                          imageRef.current.value = "";
+                        }}
+                      >
+                        <Icon>close</Icon>
+                      </IconButton>
+                    </CardMedia>
+                  )}
+                  <TextField
+                    className={classes.twittCreate}
+                    placeholder="What's going on ?"
+                    multiline
+                    minRows={1}
+                    maxRows={7}
+                    inputRef={twittTextRef}
+                  />
+                </Box>
               </Box>
             </Box>
             <Divider light className={classes.blurDivider} />
@@ -146,7 +200,15 @@ export default function TwittDialog({ twitt = null }) {
                   color="primary"
                   size="small"
                   disableRipple
+                  onClick={handleImageChange}
                 >
+                  <input
+                    type="file"
+                    accept="image/*"
+                    ref={imageRef}
+                    onChange={updateTwittImage}
+                    hidden
+                  />
                   <Icon>image</Icon>
                 </IconButton>
                 {/*<IconButton

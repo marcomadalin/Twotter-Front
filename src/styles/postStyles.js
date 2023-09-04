@@ -130,4 +130,21 @@ export const postStyles = makeStyles((theme) => ({
   loadTwitts: {
     textTransform: "none !important",
   },
+  banner: {
+    backgroundColor: theme.palette.primary.main,
+    height: "200px",
+    display: "flex !important",
+    alignItems: "center !important",
+    justifyContent: "center !important",
+    marginLeft: "10px",
+  },
+  picEditButton: {
+    height: "45px !important",
+    width: "45px !important",
+    color: `${theme.palette.icon.main} !important`,
+    backgroundColor: `${theme.palette.icon.transaprent} !important`,
+    "&:hover": {
+      backgroundColor: `${theme.palette.icon.hoverMain2} !important`,
+    },
+  },
 }));

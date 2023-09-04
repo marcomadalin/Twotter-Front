@@ -2,6 +2,7 @@ import { twittStyles } from "../styles/twittStyles";
 import {
   Avatar,
   Box,
+  CardMedia,
   Divider,
   Icon,
   IconButton,
@@ -42,7 +43,7 @@ export default function Twitt({ data, image, hover = true, response = false }) {
 
   useEffect(() => {
     setTwitt(data);
-  }, [data]);
+  }, [data, twittDialogContxt.key]);
 
   useEffect(() => {
     setDialogTwitt(twittDialogContxt.dialog);
@@ -383,6 +384,13 @@ export default function Twitt({ data, image, hover = true, response = false }) {
             )}
           </Box>
           <Box>
+            {Object.hasOwn(data, "img") && data.img !== null && (
+              <CardMedia
+                height="150"
+                image={`data:image/png;base64,${data.img}`}
+                className={classes.banner}
+              />
+            )}
             {twitt.text.split(/\r?\n|\r|\n/g).map((text, key) => (
               <p
                 key={key}

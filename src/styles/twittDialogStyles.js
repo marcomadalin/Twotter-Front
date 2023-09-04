@@ -137,4 +137,21 @@ export const twittDialogStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     fontSize: "14px",
   },
+  banner: {
+    backgroundColor: theme.palette.primary.main,
+    height: "200px",
+    display: "flex !important",
+    alignItems: "center !important",
+    justifyContent: "center !important",
+    marginLeft: "10px",
+  },
+  picEditButton: {
+    height: "45px !important",
+    width: "45px !important",
+    color: `${theme.palette.icon.main} !important`,
+    backgroundColor: `${theme.palette.icon.transaprent} !important`,
+    "&:hover": {
+      backgroundColor: `${theme.palette.icon.hoverMain2} !important`,
+    },
+  },
 }));

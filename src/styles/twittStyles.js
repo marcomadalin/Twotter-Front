@@ -233,4 +233,12 @@ export const twittStyles = makeStyles((theme) => ({
     maxHeight: "20px",
     marginRight: "30px",
   },
+  banner: {
+    backgroundColor: theme.palette.primary.main,
+    height: "200px",
+    display: "flex !important",
+    alignItems: "center !important",
+    justifyContent: "center !important",
+    marginBottom: "10px",
+  },
 }));
