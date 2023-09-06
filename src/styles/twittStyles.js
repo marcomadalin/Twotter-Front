@@ -216,7 +216,15 @@ export const twittStyles = makeStyles((theme) => ({
       backgroundColor: "black",
       borderRadius: "20px",
       boxShadow: theme.palette.boxShadow.main,
+      padding: "0px 0px 0px 0px !important",
     },
+    "& ul": {
+      padding: "0px 0px 0px 0px !important",
+    },
+  },
+  margins: {
+    paddingTop: "10px !important",
+    paddingBottom: "10px !important",
   },
   whiteIcon: {
     color: theme.palette.icon.main,
@@ -240,5 +248,8 @@ export const twittStyles = makeStyles((theme) => ({
     alignItems: "center !important",
     justifyContent: "center !important",
     marginBottom: "10px",
+  },
+  redIcon: {
+    color: theme.palette.error.main,
   },
 }));

@@ -190,6 +190,23 @@ export default function Twitt({ data, image, hover = true, response = false }) {
     handleMenuClose();
   };
 
+  const deleteTwitt = async () => {
+    if (Object.hasOwn(twitt, "retwittUsername")) deleteRetwitt();
+    await axios
+      .delete(API_URL + `/twitts/${twitt._id}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then(() => {
+        twittDialogContxt.dispatch({
+          type: "UPDATE",
+        });
+      })
+      .catch((err) => console.log(err));
+    handleMenuClose();
+  };
+
   const handleRetwittClicked = () => {
     if (token !== null) {
       if (timerRetwittId) clearTimeout(timerRetwittId);
@@ -339,19 +356,22 @@ export default function Twitt({ data, image, hover = true, response = false }) {
                     horizontal: "right",
                   }}
                 >
-                  {user && !user.following.includes(twitt.user) && (
-                    <MenuItem
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        updateFollowers(true);
-                      }}
-                    >
-                      <ListItemIcon>
-                        <Icon className={classes.whiteIcon}>person_add</Icon>
-                      </ListItemIcon>
-                      <ListItemText>Follow user</ListItemText>
-                    </MenuItem>
-                  )}
+                  {user &&
+                    !user.following.includes(twitt.user) &&
+                    data.username !== user.username && (
+                      <MenuItem
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          updateFollowers(true);
+                        }}
+                        className={classes.margins}
+                      >
+                        <ListItemIcon>
+                          <Icon className={classes.whiteIcon}>person_add</Icon>
+                        </ListItemIcon>
+                        <ListItemText>Follow user</ListItemText>
+                      </MenuItem>
+                    )}
 
                   {user && user.following.includes(twitt.user) && (
                     <MenuItem
@@ -359,6 +379,7 @@ export default function Twitt({ data, image, hover = true, response = false }) {
                         e.stopPropagation();
                         updateFollowers(false);
                       }}
+                      className={classes.margins}
                     >
                       <ListItemIcon>
                         <Icon className={classes.whiteIcon}>person_remove</Icon>
@@ -366,6 +387,30 @@ export default function Twitt({ data, image, hover = true, response = false }) {
                       <ListItemText>Unfollow user</ListItemText>
                     </MenuItem>
                   )}
+                  {token &&
+                    ((Object.hasOwn(twitt, "retwittUsername") &&
+                      twitt.retwittUsername === user.username) ||
+                      twitt.username === user.username) && (
+                      <MenuItem
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteTwitt();
+                        }}
+                        className={classes.margins}
+                        sx={{
+                          backgroundColor: theme.palette.error.main,
+                          "&:hover": {
+                            backgroundColor: theme.palette.error.main,
+                          },
+                        }}
+                      >
+                        <ListItemIcon>
+                          <Icon className={classes.whiteIcon}>delete</Icon>
+                        </ListItemIcon>
+                        <ListItemText>Delete</ListItemText>
+                      </MenuItem>
+                    )}
+
                   {/*
                     <MenuItem
                       onClick={(e) => {
