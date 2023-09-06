@@ -80,7 +80,7 @@ export default function Post() {
         setResponses(response.data.responses);
       })
       .catch((err) => {
-        navigate("/explore");
+        navigate(-1);
         console.log(err);
       });
   };
@@ -93,7 +93,7 @@ export default function Post() {
         fetchPost();
       })
       .catch((err) => {
-        navigate("/explore");
+        navigate(-1);
         console.log(err);
       });
   };

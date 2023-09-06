@@ -199,9 +199,8 @@ export default function Twitt({ data, image, hover = true, response = false }) {
         },
       })
       .then(() => {
-        twittDialogContxt.dispatch({
-          type: "UPDATE",
-        });
+        console.log("DELETED");
+        window.location.reload(true);
       })
       .catch((err) => console.log(err));
     handleMenuClose();
