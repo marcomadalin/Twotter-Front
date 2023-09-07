@@ -86,7 +86,7 @@ export const editProfileStyles = makeStyles((theme) => ({
   picEditButton: {
     height: "45px !important",
     width: "45px !important",
-    color: `${theme.palette.icon.main} !important`,
+    color: `white !important`,
     backgroundColor: `${theme.palette.icon.transaprent} !important`,
     "&:hover": {
       backgroundColor: `${theme.palette.icon.hoverMain2} !important`,

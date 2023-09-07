@@ -27,11 +27,13 @@ export const bannerStyles = makeStyles((theme) => ({
     maxWidth: "700px",
     margin: "0 0 0 0",
     width: "100%",
+    color: "white !important",
   },
   p: {
     maxWidth: "700px",
     margin: "0 0 0 0",
     width: "100%",
+    color: "white !important",
   },
   login: {
     borderRadius: "60px !important",
@@ -52,7 +54,7 @@ export const bannerStyles = makeStyles((theme) => ({
   },
   coockies: {
     minHeight: "150px",
-    background: theme.palette.background.secondary,
+    background: "white",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

@@ -114,6 +114,7 @@ export const loginDialogStyles = makeStyles((theme) => ({
     textTransform: "none !important",
     fontSize: "14px !important",
     "&:hover": {
+      backgroundColor: `${theme.palette.background.default} !important`,
       "& span": {
         textDecoration: "underline !important",
       },

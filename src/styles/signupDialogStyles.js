@@ -69,9 +69,9 @@ export const signupDialogStyles = makeStyles((theme) => ({
   },
   signupButtons: {
     borderRadius: "60px !important",
-    backgroundColor: "white !important",
+    backgroundColor: `${theme.palette.background.secondary} !important`,
     textTransform: "none !important",
-    color: "black !important",
+    color: `${theme.palette.background.default} !important`,
     width: "300px !important",
     height: "44px !important",
     fontWeight: "bold !important",
@@ -99,12 +99,16 @@ export const signupDialogStyles = makeStyles((theme) => ({
     fontSize: "14px",
     color: theme.palette.text.secondary,
     marginBottom: "25px",
+    "&:hover": {
+      backgroundColor: `${theme.palette.background.default} !important`,
+    },
   },
   blueTermsText: {
     padding: "0 0 0 0 !important",
     textTransform: "none !important",
     fontSize: "13px !important",
     "&:hover": {
+      backgroundColor: `${theme.palette.background.default} !important`,
       "& span": {
         textDecoration: "underline !important",
       },
@@ -115,6 +119,7 @@ export const signupDialogStyles = makeStyles((theme) => ({
     textTransform: "none !important",
     fontSize: "14px !important",
     "&:hover": {
+      backgroundColor: `${theme.palette.background.default} !important`,
       "& span": {
         textDecoration: "underline !important",
       },

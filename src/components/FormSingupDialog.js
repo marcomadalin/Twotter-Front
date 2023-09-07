@@ -24,7 +24,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
 import { useLogin } from "../hooks/useLogin";
 import { redirect } from "react-router-dom";
-import { API_URL } from "../utils/Constants";
+import { API_URL, MONTHS } from "../utils/Constants";
 
 export default function FormSignupDialog(props) {
   const theme = useTheme();
@@ -67,21 +67,6 @@ export default function FormSignupDialog(props) {
   const [error, setError] = useState("");
 
   const { login } = useLogin();
-
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
 
   const years = [...Array(111).keys()]
     .reverse()
@@ -308,7 +293,7 @@ export default function FormSignupDialog(props) {
                     MenuProps={menuProps}
                     className={`${classes.dateSelect} ${classes.outlineInput} ${classes.icon}`}
                   >
-                    {months.map((value, key) => {
+                    {MONTHS.map((value, key) => {
                       return (
                         <MenuItem key={key} value={value}>
                           {value}
@@ -535,7 +520,7 @@ export default function FormSignupDialog(props) {
                   >
                     <span>Terms</span>
                   </Button>
-                  ,
+                  {","}
                   <Button
                     disableRipple
                     className={classes.blueCheckboxTermsText}

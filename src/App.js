@@ -11,7 +11,6 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import Explore from "./pages/Explore";
 import MainLayout from "./layouts/MainLayout";
 import Profile from "./pages/Profile";
-import themeDark from "./themes/dark";
 import Following from "./pages/Following";
 import Followers from "./pages/Followers";
 import Search from "./pages/Search";
@@ -19,16 +18,21 @@ import { useAuthContext } from "./hooks/useAuthContext";
 import SlowServiceInfoDialog from "./components/SlowServiceInfoDialog";
 import { useEffect, useState } from "react";
 import Post from "./pages/Post";
+import { useThemeContext } from "./hooks/useThemeContext";
+import themeDark from "./themes/dark";
 
 function App() {
   const { user } = useAuthContext();
 
   const [dialogInfo, setDialogInfo] = useState(false);
 
-  const handleDialogInfoClose = async () => {
-    setDialogInfo(false);
-    localStorage.setItem("dialogInfoSeen", JSON.stringify(true));
-  };
+  const { theme } = useThemeContext();
+
+  const [actTheme, setActTheme] = useState(themeDark);
+
+  useEffect(() => {
+    setActTheme(theme);
+  }, [theme]);
 
   useEffect(() => {
     const dialogInfoSeen = localStorage.getItem("dialogInfoSeen");
@@ -37,6 +41,11 @@ function App() {
       setDialogInfo(false);
     else setDialogInfo(true);
   }, []);
+
+  const handleDialogInfoClose = async () => {
+    setDialogInfo(false);
+    localStorage.setItem("dialogInfoSeen", JSON.stringify(true));
+  };
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -60,7 +69,7 @@ function App() {
   );
 
   return (
-    <ThemeProvider theme={themeDark}>
+    <ThemeProvider theme={actTheme}>
       <CssBaseline />
       <RouterProvider router={router} />
       <SlowServiceInfoDialog

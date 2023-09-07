@@ -105,6 +105,7 @@ export const formSignupDialogStyles = makeStyles((theme) => ({
     textTransform: "none !important",
     fontSize: "13px !important",
     "&:hover": {
+      backgroundColor: `${theme.palette.background.default} !important`,
       "& span": {
         textDecoration: "underline !important",
       },
@@ -149,9 +150,9 @@ export const formSignupDialogStyles = makeStyles((theme) => ({
   },
   formButton: {
     borderRadius: "60px !important",
-    backgroundColor: "white !important",
+    backgroundColor: `${theme.palette.background.secondary} !important`,
     textTransform: "none !important",
-    color: "black !important",
+    color: `${theme.palette.background.default} !important`,
     width: "400px !important",
     height: "50px !important",
     marginBottom: "25px !important",
@@ -220,6 +221,7 @@ export const formSignupDialogStyles = makeStyles((theme) => ({
     textTransform: "none !important",
     fontSize: "13px !important",
     "&:hover": {
+      backgroundColor: `${theme.palette.background.default} !important`,
       "& span": {
         textDecoration: "underline !important",
       },

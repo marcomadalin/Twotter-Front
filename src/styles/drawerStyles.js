@@ -47,8 +47,11 @@ export const drawerStyles = makeStyles((theme) => ({
     marginBottom: "5px !important",
   },
   userMenu: {
+    "& ul": {
+      padding: "0 0 0 0 !important",
+    },
     "& .MuiPaper-root": {
-      backgroundColor: "black",
+      backgroundColor: theme.palette.background.default,
       width: "250px",
       borderRadius: "20px",
       boxShadow: theme.palette.boxShadow.main,
@@ -90,5 +93,12 @@ export const drawerStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: `${theme.palette.secondary.main} !important`,
     },
+  },
+  margins: {
+    paddingTop: "0x !important",
+    paddingBottom: "15px !important",
+  },
+  themeWrapper: {
+    paddingBottom: "0px !important",
   },
 }));

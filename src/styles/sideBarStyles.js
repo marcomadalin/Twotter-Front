@@ -60,9 +60,9 @@ export const sideBarStyles = makeStyles((theme) => ({
   },
   signupButtons: {
     borderRadius: "60px !important",
-    backgroundColor: "white !important",
+    backgroundColor: `${theme.palette.background.secondary} !important`,
     textTransform: "none !important",
-    color: "black !important",
+    color: `${theme.palette.background.default} !important`,
     minWidth: "200px !important",
     height: "40px !important",
     fontWeight: "bold !important",
@@ -74,6 +74,7 @@ export const sideBarStyles = makeStyles((theme) => ({
     textTransform: "none !important",
     fontSize: "13px !important",
     "&:hover": {
+      backgroundColor: `${theme.palette.background.default} !important`,
       "& span": {
         textDecoration: "underline !important",
       },
@@ -175,5 +176,8 @@ export const sideBarStyles = makeStyles((theme) => ({
     textTransform: "none !important",
     marginLeft: "10px !important",
     textDecoration: "none",
+    "&:hover": {
+      backgroundColor: `${theme.palette.background.default} !important`,
+    },
   },
 }));

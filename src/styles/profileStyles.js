@@ -45,9 +45,9 @@ export const profileStyles = makeStyles((theme) => ({
   },
   editProfile: {
     borderRadius: "60px !important",
-    border: "1px solid white !important",
+    border: `1px solid ${theme.palette.background.secondary} !important`,
     textTransform: "none !important",
-    color: "white !important",
+    color: `${theme.palette.background.secondary} !important`,
     width: "120px !important",
     height: "35px !important",
     fontWeight: "bold !important",
