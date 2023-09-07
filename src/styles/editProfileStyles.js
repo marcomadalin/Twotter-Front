@@ -126,4 +126,17 @@ export const editProfileStyles = makeStyles((theme) => ({
       },
     },
   },
+  deleteProfile: {
+    borderRadius: "60px !important",
+    border: `1px solid ${theme.palette.error.main} !important`,
+    textTransform: "none !important",
+    color: `${theme.palette.error.main} !important`,
+    width: "120px !important",
+    height: "35px !important",
+    fontWeight: "bold !important",
+    marginBottom: "20px !important",
+    "&:hover": {
+      backgroundColor: `${theme.palette.icon.hoverMain} !important`,
+    },
+  },
 }));

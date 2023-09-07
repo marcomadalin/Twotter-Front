@@ -199,7 +199,6 @@ export default function Twitt({ data, image, hover = true, response = false }) {
         },
       })
       .then(() => {
-        console.log("DELETED");
         window.location.reload(true);
       })
       .catch((err) => console.log(err));

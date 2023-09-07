@@ -70,19 +70,21 @@ export default function Home() {
   };
 
   const fetchFollowingTwitts = async () => {
-    await axios
-      .get(API_URL + `/twitts/allFollowing`, {
-        params: {
-          following: user.following,
-        },
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((response) => {
-        setFollowingPosts(response.data);
-      })
-      .catch((err) => console.log(err));
+    if (user.following.length > 0) {
+      await axios
+        .get(API_URL + `/twitts/allFollowing`, {
+          params: {
+            following: user.following,
+          },
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((response) => {
+          setFollowingPosts(response.data);
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   const handleTabChange = (event, newValue) => {

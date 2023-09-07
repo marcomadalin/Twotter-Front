@@ -16,6 +16,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import axios from "axios";
 import { API_URL } from "../utils/Constants";
 import { useNavigate } from "react-router-dom";
+import { useLogout } from "../hooks/useLogout";
 
 export default function EditProfileModal(props) {
   const classes = editProfileStyles();
@@ -46,6 +47,8 @@ export default function EditProfileModal(props) {
   const theme = useTheme();
 
   const navigate = useNavigate();
+
+  const { logout } = useLogout();
 
   useEffect(() => {
     setUsername(user.username);
@@ -135,6 +138,23 @@ export default function EditProfileModal(props) {
         setLoading(false);
       });
     setDeleteClicked(false);
+  };
+
+  const deleteProfile = async () => {
+    await axios
+      .delete(API_URL + `/users/${user._id}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then(async (response) => {
+        await logout().then(() => {
+          window.location.reload(true);
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -299,6 +319,14 @@ export default function EditProfileModal(props) {
             }}
             className={classes.outlineInput}
           />
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              className={classes.deleteProfile}
+              onClick={() => deleteProfile()}
+            >
+              Delete profile
+            </Button>
+          </Box>
         </Stack>
       </Stack>
     </Dialog>
