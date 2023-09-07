@@ -132,6 +132,7 @@ export const postStyles = makeStyles((theme) => ({
   },
   banner: {
     backgroundColor: theme.palette.primary.main,
+    borderRadius: "10px !important",
     height: "200px",
     display: "flex !important",
     alignItems: "center !important",
